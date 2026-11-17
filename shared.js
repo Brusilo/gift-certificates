@@ -46,10 +46,10 @@ const CONFIG = {
   // Клик выбирает в форме открытку и шаблон поздравления, сумму не трогает
   // Фото сверху, фиолетовая волна снизу
   giftCards: [
-    { title: 'Подарок родителям', text: 'Съездят отдохнуть туда, куда давно хотели. Даты выберут, когда будет удобно', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
-    { title: 'Тем, кто живет далеко', text: 'Чтобы приехать в гости. Поезд, самолет или автобус на любую дату', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
-    { title: 'Тем, кто любит путешествовать', text: 'Выберут, куда и когда ехать. Подойдет и для выходных в другом городе, и для отпуска', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
-    { title: 'Тем, у кого скоро праздник', text: 'День рождения, Новый год или свадьба. Поездка вместо очередной вещи', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' }
+    { title: 'Подарок родителям', text: 'Пусть отдохнут там, где давно мечтали побывать', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
+    { title: 'Тем, кто живет далеко', text: 'Чтобы скорее приехать в гости', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
+    { title: 'Тем, кто любит путешествовать', text: 'Пусть выберут, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
+    { title: 'Тем, у кого скоро праздник', text: 'Пусть праздник продолжится в поездке', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
