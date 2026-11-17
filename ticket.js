@@ -27,7 +27,7 @@ function tkArt(d) {
       + (d.step ? `<path fill="${d.step}" d="${TK_STEP_UP}"/>` : '')
       + (d.low ? `<path fill="${d.low}" d="${TK_LOW}"/>` : '') + '</svg>';
   }
-  if (d.suit) art += `<img class="tk-art tk-suit" src="${TK}suitcase.png" alt="">`;
+  if (d.suit) art += `<img class="tk-art tk-suit" src="${TK}suitcase.webp" alt="">`;
   if (d.art3d) art += `<img class="tk-art tk-3d" src="${d.art3d}" alt="">`;
   return art;
 }
@@ -38,7 +38,7 @@ function tkWho(d) {
   return `<div class="${cls}"><div class="l"><span class="tk-lab">Кому</span><b class="tk-val" data-f="to" data-fit="9"></b></div><div class="r"><span class="tk-lab">От&nbsp;кого</span><b class="tk-val" data-f="from" data-fit="9"></b></div></div>`;
 }
 
-const tkLogo = (d) => `<img class="tk-logo" src="${TK}${[TK_BLUEBERRY, '#5F17C5'].includes(d.main.toUpperCase()) ? 'lg-on-navy.png' : 'lg-on-violet.png'}" alt="Туту">`;
+const tkLogo = (d) => `<img class="tk-logo" src="${TK}${[TK_BLUEBERRY, '#5F17C5'].includes(d.main.toUpperCase()) ? 'lg-on-navy.svg' : 'lg-on-violet.svg'}" alt="Туту">`;
 
 // Открытка для письма: та же основная часть билета, на красном стикере «Сертификат», на лаймовом сумма
 function tkCardHtml(d) {
@@ -50,7 +50,7 @@ ${tkWho(d)}
 }
 
 function tkFrontHtml(d) {
-  const icon = (f, cap, cls = '') => `<div class="tk-icon"><i><img class="${cls}" src="${TK}ic-${f}-w.png" alt=""></i><span>${cap}</span></div>`;
+  const icon = (f, cap, cls = '') => `<div class="tk-icon"><i><img class="${cls}" src="${TK}ic-${f}-w.svg" alt=""></i><span>${cap}</span></div>`;
   return `<div class="tk tk-front" style="--main:${d.main};--stub:${d.stub}">
 <div class="tk-main">${tkArt(d)}${tkLogo(d)}
 <div class="tk-stks"><span class="tk-stk tk-stk-w">Сертификат</span><span class="tk-stk tk-stk-s" data-f="amount"></span></div>
@@ -74,7 +74,7 @@ function tkBackHtml(d) {
 <div class="tk-main">
 <div class="tk-wish"><p class="tk-msg" data-f="msg"></p></div>
 <div class="tk-info">
-<div class="tk-steps"><img class="tk-arr" src="${TK}arrow-navy.png" style="left:33.5%" alt=""><img class="tk-arr" src="${TK}arrow-navy.png" style="left:66.5%" alt="">
+<div class="tk-steps"><img class="tk-arr" src="${TK}arrow-navy.svg" style="left:33.5%" alt=""><img class="tk-arr" src="${TK}arrow-navy.svg" style="left:66.5%" alt="">
 <div class="tk-step">${card}<span class="tk-n">1</span><p>Выберите билеты<br>или отель<br>на&nbsp;Туту</p></div>
 <div class="tk-step">${card}<span class="tk-n">2</span><p>При оплате<br>введите код<br>сертификата</p></div>
 <div class="tk-step">${card}<span class="tk-n">3</span><p>Заказ дороже&nbsp;–<br>доплатите картой,<br>дешевле&nbsp;–<br>отправим<br>сертификат<br>на&nbsp;остаток</p></div>

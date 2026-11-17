@@ -1,9 +1,9 @@
 /* Подарочный билет Туту, лицевая сторона и оборот.
    Размеры из «Правил сборки подарочного сертификата Туту»: билет 215 × 99 мм, основная часть 165 мм, корешок 50 мм.
    1 мм = var(--mm), билет тянется на всю ширину обёртки .tk-box. Размеры в мм записаны как calc(N * var(--mm)) */
-@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_extrabold.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
-@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black.ttf') format('truetype');font-weight:900;font-style:normal;font-display:swap}
-@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.ttf') format('truetype');font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_extrabold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.woff2') format('woff2');font-weight:900;font-style:italic;font-display:swap}
 
 .tk-box{display:block;container-type:inline-size;position:relative}
 .tk{--mm:calc(100cqw / 215);--main:#A181FF;--stub:#011F90;position:relative;display:flex;width:100%;aspect-ratio:215/99;border-radius:calc(5 * var(--mm));overflow:hidden;
@@ -22,7 +22,7 @@
 .tk-shapes{left:0;top:calc(-3 * var(--mm));width:calc(165 * var(--mm));height:calc(105 * var(--mm));overflow:visible}
 .tk-photo{left:0;top:0;width:calc(165 * var(--mm));height:calc(99 * var(--mm))}
 .tk-blob{left:calc(73 * var(--mm));top:calc(-2 * var(--mm));width:calc(102 * var(--mm));height:calc(103 * var(--mm));background:center/100% 100% no-repeat;
-  -webkit-mask:url('assets/ticket/blob-mask.png') center/100% 100% no-repeat;mask:url('assets/ticket/blob-mask.png') center/100% 100% no-repeat}
+  -webkit-mask:url('assets/ticket/blob-mask.svg') center/100% 100% no-repeat;mask:url('assets/ticket/blob-mask.svg') center/100% 100% no-repeat}
 .tk-suit{left:calc(112 * var(--mm));top:calc(19 * var(--mm));width:calc(52 * var(--mm));z-index:5;filter:drop-shadow(0 calc(1.2 * var(--mm)) calc(1.5 * var(--mm)) rgba(1,31,144,.25))}
 .tk-logo{position:absolute;z-index:4;left:calc(8 * var(--mm));top:calc(7 * var(--mm));height:calc(8.5 * var(--mm));width:auto;max-width:none}
 

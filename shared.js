@@ -42,13 +42,12 @@ const CONFIG = {
     { id: 'thanks',   label: 'Спасибо',       text: 'Спасибо за помощь! Пусть следующая поездка будет за мой счёт.' },
     { id: 'newyear',  label: 'Новый год',     text: 'С Новым годом! Пусть в нём будет больше поездок.' }
   ],
-  // Плитки «Кому подарить»: кому подойдёт подарок.
-  // Фото сверху, фиолетовая волна снизу
+  // Карточки «Кому подарить»: кому подойдёт подарок. Не кликаются. pos — какая часть фото видна над волной
   giftCards: [
-    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '55% 45%', design: 'classic', template: 'parents' },
-    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
-    { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
-    { title: 'К празднику', text: 'Подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 68%', design: 'birthday', template: 'birthday' }
+    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '55% 45%' },
+    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%' },
+    { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%' },
+    { title: 'К празднику', text: 'Подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 68%' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
@@ -79,8 +78,7 @@ function mountHero() {
   tkMount($('heroFront'), 'front', d); tkFill($('heroFront'), f);
 }
 
-// Плитка «Кому подарить» — маленький билет: сверху получатель и иконка транспорта, как на корешке сертификата,
-// ниже линии отрыва талон с коротким текстом и стрелкой
+// Карточка «Кому подарить»: фото, фиолетовая волна, заголовок и подпись
 function fillGiftCard(el, c) {
   el.className = 'gift';
   el.innerHTML = '<span class="gift-photo"></span>'

@@ -70,6 +70,8 @@ main > section:last-child{padding-bottom:56px}
 .stk-red::before{background:var(--strawberry)}
 .stk-lime{color:#000}
 .stk-lime::before{background:var(--lime)}
+/* Второй стикер сдвинут вправо и прижат к первому */
+.stk + .stk{margin:-.02em 0 0 .4em}
 
 /* Шапка */
 .top{background:var(--berry)}
@@ -86,10 +88,9 @@ main > section:last-child{padding-bottom:56px}
 .hero-title{margin:.5em 0 10px;font-size:clamp(52px,7.09vw,101px);color:inherit}
 .hero-title .stk-red{font-size:.74em}
 /* «Путешествие» длинное, поэтому лаймовый стикер того же размера, что и «Подарите» */
-.hero-title .stk-lime{font-size:.7em;margin:-.02em 0 0 .4em}
+.hero-title .stk-lime{font-size:.7em}
 .hero-sub{font-size:19px;font-weight:500;color:rgba(255,255,255,.92);max-width:560px;margin-bottom:22px}
-/* Пузыри как на индийском лендинге: скругление 10px, белая иконка, ширина по тексту */
-/* Три пузыря в одну строку */
+/* Пузыри как на индийском лендинге: скругление 10px, белая иконка, ширина по тексту, на компьютере в одну строку */
 .facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
 @media (min-width:1001px){.facts{flex-wrap:nowrap}}
 .facts li{display:inline-flex;align-items:center;gap:7px;padding:9px 15px 9px 12px;border-radius:12px;background:rgba(255,255,255,.15);color:var(--white);font-size:17px;font-weight:500;line-height:21px;white-space:nowrap}
@@ -102,65 +103,62 @@ main > section:last-child{padding-bottom:56px}
 /* Нижний билет поднят и сдвинут вправо, чтобы закрывать «Действует до» на заднем */
 .hero-front{transform:rotate(-5deg);margin:-4% -10% 0 10%}
 
-
 /* Первая секция после первого экрана заезжает на него панелью, как на индийском лендинге */
 .hero + .section{position:relative;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
 @media (min-width:768px){.hero + .section{margin-top:-40px;border-radius:40px 40px 0 0}}
 
-/* «Кому подарить»: карточки как подборки на tutu.ru. Фото сверху, фиолетовая волна снизу, ключевое слово на стикере.
-   В ряду четыре карточки, остальные листаются стрелками */
+/* «Кому подарить»: карточки как подборки на tutu.ru. Фото сверху, фиолетовая волна снизу, без клика.
+   На компьютере четыре в ряд, на телефоне ряд листается пальцем */
 .gift-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gift-row::-webkit-scrollbar{display:none}
-.gift{box-sizing:border-box;container-type:inline-size;position:relative;isolation:isolate;flex:0 0 calc((100% - 48px) / 4);aspect-ratio:360/415;border-radius:24px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;background:var(--berry);color:var(--white)}
+.gift{container-type:inline-size;position:relative;isolation:isolate;flex:0 0 calc((100% - 48px) / 4);aspect-ratio:360/415;border-radius:24px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;background:var(--berry);color:var(--white)}
 .gift-photo{position:absolute;inset:0 0 34% 0;z-index:-2;background:center/cover no-repeat}
 .gift-wave{position:absolute;left:0;right:0;bottom:0;z-index:-1;width:100%;height:63%;fill:var(--berry)}
 /* Текст на волне без стикеров, одного размера и с одной высоты во всех карточках */
 .gift-body{position:absolute;left:0;right:0;top:52%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px}
 /* Размер от ширины карточки: длинные слова помещаются в любой ширине */
 .gift-title{font-size:min(30px,9.6cqi);font-weight:900;font-style:italic;text-transform:uppercase;line-height:1.05}
-.gift-example{margin-top:12px;font-size:min(18px,7cqi);font-weight:500;line-height:1.25;opacity:.9;text-wrap:balance}
+.gift-example{margin-top:12px;font-size:min(17px,6.6cqi);font-weight:500;line-height:1.25;opacity:.9;text-wrap:balance}
 
 /* «Сколько подарить»: только суммы, на открытках для письма */
 /* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
 .sum-panel{border-radius:var(--r-panel);padding:28px 32px 32px;background:radial-gradient(60% 120% at 82% 10%,#F1B6F8 0%,rgba(241,182,248,0) 70%),linear-gradient(100deg,#C65CF2 0%,#E59BF6 50%,#CD6CF1 100%)}
 .sum-panel h2{color:var(--white);margin-bottom:24px}
-.sum-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0;scrollbar-width:none}
+.sum-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0;scrollbar-width:none;isolation:isolate}
 .sum-row::-webkit-scrollbar{display:none}
 .sum{all:unset;box-sizing:border-box;cursor:pointer;display:block;flex:0 0 calc((100% - 48px) / 4);scroll-snap-align:start;border-radius:12px}
 /* Карусель: стрелки поверх краёв ряда, как carousel-nav--overlay на индийском лендинге (tutu-system.css) */
 .has-carousel-arrows{position:relative}
-.sum-row{isolation:isolate}
 .carousel-nav--overlay{position:absolute;inset:0;z-index:10;pointer-events:none}
 .carousel-nav--overlay button{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:var(--ink);box-shadow:0 2px 12px rgba(13,11,104,.18);pointer-events:auto;display:grid;place-items:center;cursor:pointer;transition:opacity .2s ease,background .15s ease}
 .carousel-nav--overlay button:first-child{left:-20px}
 .carousel-nav--overlay button:last-child{right:-20px}
 .carousel-nav--overlay button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.carousel-nav--overlay button:hover:not(:disabled){background:#E7E0FF;color:var(--ink)}
+.carousel-nav--overlay button:hover:not(:disabled){background:#E7E0FF}
 .carousel-nav--overlay button:disabled{opacity:0;pointer-events:none}
 .sum:focus-visible{outline:3px solid var(--action);outline-offset:4px}
 
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
-/* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:9.8% 0 3%}
+/* Плитки начинаются сразу под заголовком, как в других блоках; снизу место под свисающий кошелек */
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:0 0 4%}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.2cqw;font-weight:700;line-height:1.08}
 /* Размеры и места сняты с плиток tutu.ru: текст 3,2% ширины, крупный стикер на стыке левых плиток,
    в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
 .pk-a{left:3.2%;top:7%;width:34%}
 .pk-b{left:3.2%;top:78%;width:33%}
-.pk-c{left:37.5%;top:24%;width:34.5%;text-align:center}
+.pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
 .pk-d{left:69%;top:56%;width:30%;text-align:center;text-wrap:balance}
-.pk-s{position:absolute;z-index:3;font-size:4.6cqw}
-.pk-s .stk + .stk{margin:-.02em 0 0 .4em}
+.pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
-.pk-s-c{left:43%;top:-9%;font-size:4.4cqw}
+.pk-s-c{left:43%;top:-3%;font-size:4.2cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
-.pk-3d-c{left:39%;top:57%;width:31%}
+.pk-3d-c{left:39.5%;top:61%;width:30%}
 .pk-3d-d{left:74%;top:-7%;width:22%}
 .pkm{display:none}
 
-/* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
+/* «Как оформить»: карточки-параллелограммы, как шаги на обороте билета */
 .use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 /* Синие плашки шагов, стрелки между ними фиолетовые */
 .use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 16% 50px 21%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
@@ -169,7 +167,7 @@ main > section:last-child{padding-bottom:56px}
 .use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
 .use-step h3{font-size:clamp(20px,1.75vw,23px);font-weight:600;line-height:1.25;color:var(--white)}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
-.use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.png') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.png') center/contain no-repeat}
+.use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
 .how-cta{margin-top:32px}
 
 /* Форма */
@@ -248,7 +246,7 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 .biz{padding:56px 0 0}
 .biz-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;background:var(--berry);border-radius:var(--r-panel);padding:44px 48px;color:rgba(255,255,255,.88)}
 .biz h2{color:var(--white);margin-bottom:12px}
-.biz p{max-width:600px;font-size:17px;color:var(--white)}
+.biz p{max-width:680px;font-size:22px;line-height:1.4;color:var(--white)}
 .biz .btn{margin-top:24px}
 /* Два билета небольшие и чуть выходят за верх и низ плашки, блок не растёт */
 .biz-art{width:min(250px,21vw);margin:-36px 8px -36px 0;align-self:center}
@@ -306,24 +304,24 @@ dialog .btn{width:100%}
 @media (max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:8px}
   .hero-art{max-width:560px;width:100%;margin:0 auto;padding:2% 6% 6% 0}
-  .builder{grid-template-columns:1fr}
-  .preview{order:-1;width:100%;max-width:480px}
-  /* Телефон и планшет: без стрелок, ряд листается пальцем от края до края */
+  /* Карусели без стрелок: ряды листаются пальцем от края до края */
   .carousel-nav--overlay{display:none}
+  .gift-row{gap:12px;scroll-snap-type:x proximity;scroll-padding-inline:16px;margin-inline:-16px;padding:0 16px}
+  .gift{flex-basis:calc((100% - 24px) / 3)}
   .sum-panel{padding:22px 0 24px}
   .sum-panel h2{padding-inline:20px}
   .sum-row{scroll-snap-type:x proximity;scroll-padding-inline:20px;padding:0 20px}
+  .sum{flex-basis:44%}
+  .builder{grid-template-columns:1fr}
+  .preview{order:-1;width:100%;max-width:480px}
+  .biz-inner{grid-template-columns:1fr}
+  .biz-art{order:-1;width:min(200px,55%);margin:-60px 0 0}
   .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
   .footer-app-col{grid-column:1/-1}
   .footer-col{grid-row:auto}
   .footer-legal{grid-column:1/-1;grid-row:auto}
   .footer-app-col .qr{display:none}
-  .footer-app-col .stores{flex-direction:row;height:auto}
-  .footer-app-col .stores{width:auto}
-  .sum{flex-basis:44%}
-  .biz-inner{grid-template-columns:1fr}
-  .biz-art{order:-1;width:min(200px,55%);margin:-60px 0 0}
-  /* Телефон и планшет: ряд листается вбок, как карусели на индийском лендинге */
+  .footer-app-col .stores{flex-direction:row;width:auto;height:auto}
 }
 @media (max-width:720px){
   .section{padding:40px 0 0}
@@ -334,26 +332,10 @@ dialog .btn{width:100%}
   .hero-title{margin:40px 0 20px;font-size:clamp(47px,15.7vw,69px)}
   .hero-sub{font-size:17px}
   .hero-cta{width:100%;margin-top:24px}
-  /* Открытки с суммами листаются вбок, как остальные ряды */
+  .gift{flex-basis:72%}
   .sum-row{gap:12px}
   .sum{flex-basis:72%}
-  /* Шаги на телефоне листаются вбок, как карточки «Кому подарить» */
-  .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
-  .use-steps::-webkit-scrollbar{display:none}
-  .use-step + .use-step::after{display:none}
-  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
-  .how-cta{width:100%}
-  /* Билеты выходят над плашкой на 32px, поэтому сверху 40 + 32: до соседнего блока те же 40px, что везде */
-  .biz{padding-top:72px}
-  .biz-inner{padding:28px 20px}
-  .form{padding:22px 16px}
-  .two,.radio-cards{grid-template-columns:1fr}
-  #designs > .design{flex-basis:calc((100% - 6px) / 2)}
-  #tickets > .design{flex-basis:88%}
-}
-
-/* Телефон: вместо сцены плитки стопкой, как в мобильном макете «Тутуленда» */
-@media (max-width:720px){
+  /* «Почему сертификат Туту»: вместо сцены плитки стопкой, как в мобильном макете «Тутуленда» */
   .pk{display:none}
   .pkm{display:grid;gap:12px;list-style:none;margin:0;padding:0}
   .pkm-i{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:150px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry);overflow:hidden}
@@ -365,21 +347,25 @@ dialog .btn{width:100%}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
   .pkm-i p:only-child{max-width:80%}
   .pkm-i img{width:34%;max-width:140px;margin-right:-6px}
-  .pkm-i .stk-group{font-size:32px;margin-top:18px}
-  /* Плитка со стикерами «Дарите как хотите»: стикеры над текстом, чемодан справа */
+  /* Плитки со стикером: стикер над текстом, 3D справа внизу */
   .pkm-i.is-stack{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}
   .pkm-i.is-stack p{max-width:60%;text-wrap:wrap}
   .pkm-i.is-stack img{position:absolute;right:-12px;bottom:-6px;width:42%;max-width:170px;margin:0}
   /* Кошелек с деньгами главный акцент плитки, поэтому крупнее и целиком внутри */
   .pkm-i.is-lime img{right:-2px;bottom:-14px;width:52%;max-width:220px}
-  .pkm-i.is-stack .stk-group{font-size:24px;margin:16px 0 0}
-  .pkm-i.is-stack .stk + .stk{margin:-.02em 0 0 .4em}
-}
-/* «Кому подарить» на планшете и телефоне: ряд листается пальцем от края до края */
-@media (max-width:1000px){
-  .gift-row{gap:12px;scroll-snap-type:x proximity;scroll-padding-inline:16px;margin-inline:-16px;padding:0 16px}
-  .gift{flex-basis:calc((100% - 24px) / 3)}
-}
-@media (max-width:720px){
-  .gift{flex-basis:72%}
+  .pkm-i .stk-group{font-size:24px;margin:16px 0 0}
+  /* Шаги листаются вбок, как карточки «Кому подарить» */
+  .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
+  .use-steps::-webkit-scrollbar{display:none}
+  .use-step + .use-step::after{display:none}
+  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
+  .how-cta{width:100%}
+  .form{padding:22px 16px}
+  .two,.radio-cards{grid-template-columns:1fr}
+  #designs > .design{flex-basis:calc((100% - 6px) / 2)}
+  #tickets > .design{flex-basis:88%}
+  /* Билеты выходят над плашкой на 32px, поэтому сверху 40 + 32: до соседнего блока те же 40px, что везде */
+  .biz{padding-top:72px}
+  .biz-inner{padding:28px 20px}
+  .biz p{font-size:19px}
 }
