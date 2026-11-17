@@ -70,7 +70,7 @@ function mountHero() {
   const d = findTicket(CONFIG.defaultTicket);
   const until = new Date();
   until.setMonth(until.getMonth() + CONFIG.validityMonths);
-  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'С днём рождения! Выбирай, куда поехать.', till: untilText(until) };
+  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много хороших поездок!', till: untilText(until) };
   tkMount($('heroBack'), 'back', d); tkFill($('heroBack'), f);
   tkMount($('heroFront'), 'front', d); tkFill($('heroFront'), f);
 }
