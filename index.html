@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117153908">
-<link rel="stylesheet" href="ticket.css?v=20261117153908">
+<link rel="stylesheet" href="site.css?v=20261117165839">
+<link rel="stylesheet" href="ticket.css?v=20261117165839">
 </head>
 <body>
 
@@ -36,10 +36,10 @@
       <h1 class="hero-title stk-group"><span class="stk stk-red">Подарите</span><span class="stk stk-lime">путешествие</span></h1>
       <p class="hero-sub">Подарочный сертификат на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту</p>
       <ul class="facts">
-        <li>Любые даты и&nbsp;направления</li>
-        <li>От&nbsp;500&nbsp;₽</li>
-        <li>Действует 1&nbsp;год</li>
-        <li>Отправка в&nbsp;нужный день</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2a7 7 0 0 1 7 7c0 5.2-7 13-7 13S5 14.2 5 9a7 7 0 0 1 7-7Zm0 4.4a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Z"/></svg>Любые даты и&nbsp;направления</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11A2.5 2.5 0 0 1 5.5 4ZM3 8.4v2.4h18V8.4H3Zm3 6.2v1.6h5v-1.6H6Z"/></svg>От&nbsp;500&nbsp;₽</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M7 2h2v2h6V2h2v2h1.5A2.5 2.5 0 0 1 21 6.5v12a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-12A2.5 2.5 0 0 1 5.5 4H7V2ZM5 10v8.5c0 .3.2.5.5.5h13c.3 0 .5-.2.5-.5V10H5Z"/></svg>Действует 1&nbsp;год</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M4.5 4h15A2.5 2.5 0 0 1 22 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 17.5v-11A2.5 2.5 0 0 1 4.5 4Zm-.3 2.6 7.8 5.6 7.8-5.6H4.2ZM4 8.7v8.8c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5V8.7l-8 5.7-8-5.7Z"/></svg>Отправка в&nbsp;нужный день</li>
       </ul>
       <a class="btn btn-primary hero-cta" href="#buy">Подарить сертификат</a>
     </div>
@@ -85,7 +85,7 @@
       </div>
       <div class="perk perk--c">
         <h3 class="stk-group"><span class="stk stk-red">Без привязки</span></h3>
-        <p>куда и&nbsp;когда ехать, получатель выберет сам</p>
+        <p>куда и&nbsp;когда ехать, решает получатель</p>
       </div>
       <div class="perk perk--d">
         <h3 class="stk-group"><span class="stk stk-red">Вручите</span><span class="stk stk-lime">как хотите</span></h3>
@@ -173,7 +173,7 @@
           <div class="pick sub" id="designField">
             <span class="label pick-label" id="designLabel">Открытка</span>
             <div class="designs" id="designs"></div>
-            <div class="designs" id="tickets" hidden></div>
+            <div class="designs" id="tickets"></div>
           </div>
 
           <div class="sub" id="recipientBlock">
@@ -222,7 +222,7 @@
             <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
             <p class="letter-msg" id="letterMsg"></p>
             <p class="letter-sign" id="letterSign" hidden></p>
-            <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
+            <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX</b></div>
           </div>
         </div>
         <!-- Вручу лично: PDF с билетом для печати с двух сторон -->
@@ -277,7 +277,7 @@
       </details>
       <details>
         <summary>Что, если человек не&nbsp;поедет?</summary>
-        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты он&nbsp;выбирает сам. После окончания срока сертификат перестаёт действовать.</p>
+        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты выбирает получатель. После окончания срока сертификат перестаёт действовать.</p>
       </details>
       <details>
         <summary>Можно ли потратить сертификат частично?</summary>
@@ -370,9 +370,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117153908"></script>
-<script src="shared.js?v=20261117153908"></script>
-<script src="landing.js?v=20261117153908"></script>
+<script src="ticket.js?v=20261117165839"></script>
+<script src="shared.js?v=20261117165839"></script>
+<script src="landing.js?v=20261117165839"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
@@ -477,8 +477,8 @@ function render() {
 
   // Отправка
   // Под способом отправки: открытки для письма или билеты для печати
-  $('designs').hidden = !toRecipient;
-  $('tickets').hidden = toRecipient;
+  $('designs').parentElement.hidden = !toRecipient;
+  $('tickets').parentElement.hidden = toRecipient;
   $('designLabel').textContent = toRecipient ? 'Открытка' : 'Оформление билета';
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
@@ -498,7 +498,8 @@ function render() {
   $('emailPreview').hidden = !toRecipient;
   $('ticketPreview').hidden = toRecipient;
   if (toRecipient) {
-    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
+    // В письме открытка без «Кому» и «От кого»: имена уже есть в самом письме
+    tkMount($('pvFront'), 'card', d); $('pvFront').firstElementChild.classList.add('no-who'); tkFill($('pvFront'), fields);
   } else {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);

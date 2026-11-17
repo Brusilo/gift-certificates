@@ -88,11 +88,10 @@ main > section:last-child{padding-bottom:56px}
 /* «Путешествие» длинное, поэтому лаймовый стикер того же размера, что и «Подарите» */
 .hero-title .stk-lime{font-size:.7em;margin:-.02em 0 0 .4em}
 .hero-sub{font-size:19px;font-weight:500;color:rgba(255,255,255,.92);max-width:560px;margin-bottom:22px}
-.facts{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0;font-weight:600;color:var(--white)}
-.facts li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border-radius:999px;padding:6px 14px 6px 8px}
-.facts li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237028EB' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/13px no-repeat}
-/* Четыре пузыря на широком экране ровно два на два, на телефоне переносятся по ширине */
-@media (min-width:721px){.facts{display:grid;grid-template-columns:repeat(2,max-content)}}
+/* Пузыри как на индийском лендинге: скругление 10px, белая иконка, ширина по тексту */
+.facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0;max-width:600px}
+.facts li{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 10px;border-radius:10px;background:rgba(255,255,255,.15);color:var(--white);font-size:15px;font-weight:500;line-height:21px;white-space:nowrap}
+.facts svg{width:17px;height:17px;flex:none;fill:currentColor;opacity:.9}
 .hero-cta{margin-top:30px}
 /* Билет в первом экране: лицевая сторона лежит на обороте */
 .hero-art{position:relative;padding:0 4% 3% 0}
@@ -201,13 +200,20 @@ main > section:last-child{padding-bottom:56px}
 .err{font-size:13px;color:#C62828;margin-top:6px}
 .field-hint{margin-top:6px;font-size:13px;color:var(--muted)}
 /* Варианты оформления — маленькие билеты с текущей суммой */
-.designs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+/* Ряд вариантов листается стрелками по кругу: три открытки или два билета в ряду */
+.designs{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.designs::-webkit-scrollbar{display:none}
+.designs > .design{flex:0 0 calc((100% - 12px) / 3);scroll-snap-align:start}
+#tickets > .design{flex-basis:calc((100% - 6px) / 2)}
 .pick{margin-bottom:20px}
 .pick-label{color:var(--ink);font-weight:600;font-size:16px;margin-bottom:10px}
-.design{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:5px;border-radius:12px;box-shadow:inset 0 0 0 2px transparent;transition:box-shadow .15s,background .15s}
-.design:hover{background:rgba(255,255,255,.7)}
-.design[aria-pressed="true"]{background:var(--white);box-shadow:inset 0 0 0 2.5px var(--action)}
-.design:focus-visible{box-shadow:inset 0 0 0 2.5px var(--action-hover)}
+/* Рамка выбора повторяет скругление карточки: радиус билета 5 мм плюс отступ рамки */
+.design{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:5px}
+.design .tk-box::after{content:"";position:absolute;inset:-5px;border-radius:calc(5 * 100cqw / 215 + 5px);box-shadow:inset 0 0 0 2.5px transparent;pointer-events:none;transition:box-shadow .15s}
+#designs .tk-box::after{border-radius:calc(5 * 100cqw / 165 + 5px)}
+.design:hover .tk-box::after{box-shadow:inset 0 0 0 2px var(--lavender)}
+.design[aria-pressed="true"] .tk-box::after{box-shadow:inset 0 0 0 2.5px var(--action)}
+.design:focus-visible .tk-box::after{box-shadow:inset 0 0 0 2.5px var(--action-hover)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .label{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
 textarea.input{resize:vertical;min-height:96px;line-height:1.45}
@@ -239,7 +245,11 @@ textarea.input{resize:vertical;min-height:96px;line-height:1.45}
 .letter-msg{color:var(--ink);white-space:pre-wrap;word-break:break-word;min-height:24px}
 .letter-msg.is-empty{color:var(--muted);font-style:italic}
 .letter-sign{margin-top:8px;font-weight:700;color:var(--ink)}
-.letter-valid{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+/* Код и срок в письме крупно, как на обороте билета: это главное, что нужно получателю */
+.letter-code{margin-top:14px;background:var(--white);border-radius:14px;padding:12px 16px 14px;color:#011F90}
+.letter-code-l{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px;font-weight:700}
+.letter-till{background:#011F90;color:var(--white);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.letter-code b{display:block;margin-top:4px;font-size:clamp(20px,2.2vw,26px);font-weight:900;white-space:nowrap}
 
 /* Компаниям */
 .biz{padding:56px 0 0}
@@ -357,6 +367,6 @@ dialog .btn{width:100%}
   .biz-inner{padding:28px 20px}
   .form{padding:22px 16px}
   .two,.radio-cards{grid-template-columns:1fr}
-  .designs{gap:4px}
-  .design{padding:3px;border-radius:9px}
+  #designs > .design{flex-basis:calc((100% - 6px) / 2)}
+  #tickets > .design{flex-basis:88%}
 }

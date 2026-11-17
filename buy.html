@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117153908">
-<link rel="stylesheet" href="ticket.css?v=20261117153908">
+<link rel="stylesheet" href="site.css?v=20261117165839">
+<link rel="stylesheet" href="ticket.css?v=20261117165839">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -32,7 +32,8 @@
 .faq-dialog-body{padding:0 28px 28px}
 /* Компактные вопросы, чтобы все помещались без прокрутки; открыт всегда один */
 #faqDialog .faq-list{gap:8px}
-@media (min-width:801px){#faqDialog .faq-list{grid-template-columns:1fr 1fr;align-items:start}}
+/* Две колонки как газетные столбцы: открытый вопрос не оставляет дыру в соседней колонке */
+@media (min-width:801px){#faqDialog .faq-list{display:block;columns:2;column-gap:8px}#faqDialog .faq-list details{break-inside:avoid;margin-bottom:8px}}
 #faqDialog .faq-list details{padding:0 18px}
 #faqDialog .faq-list summary{font-size:16px;padding:13px 28px 13px 0}
 #faqDialog .faq-list details p{padding-bottom:14px;font-size:15px}
@@ -130,7 +131,7 @@
           <div class="pick" id="designField">
             <span class="label pick-label" id="designLabel">Открытка</span>
             <div class="designs" id="designs"></div>
-            <div class="designs" id="tickets" hidden></div>
+            <div class="designs" id="tickets"></div>
           </div>
 
           <div id="recipientBlock">
@@ -186,7 +187,7 @@
             <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
             <p class="letter-msg" id="letterMsg"></p>
             <p class="letter-sign" id="letterSign" hidden></p>
-            <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
+            <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX</b></div>
           </div>
         </div>
         <!-- Вручу лично: PDF с билетом для печати с двух сторон -->
@@ -289,7 +290,7 @@
       </details>
       <details name="faq">
         <summary>Что, если человек не&nbsp;поедет?</summary>
-        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты он&nbsp;выбирает сам. После окончания срока сертификат перестаёт действовать.</p>
+        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты выбирает получатель. После окончания срока сертификат перестаёт действовать.</p>
       </details>
       <details name="faq">
         <summary>Можно ли потратить сертификат частично?</summary>
@@ -321,8 +322,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117153908"></script>
-<script src="shared.js?v=20261117153908"></script>
+<script src="ticket.js?v=20261117165839"></script>
+<script src="shared.js?v=20261117165839"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -407,8 +408,8 @@ function render() {
   $('amountErr').hidden = amountOk || !state.amount;
   $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма – ${fmt(CONFIG.minAmount)}` : `Максимальная сумма – ${fmt(CONFIG.maxAmount)}`;
   // Под переключателем: открытки для письма или билеты для печати
-  $('designs').hidden = !toRecipient;
-  $('tickets').hidden = toRecipient;
+  $('designs').parentElement.hidden = !toRecipient;
+  $('tickets').parentElement.hidden = toRecipient;
   $('designLabel').textContent = toRecipient ? 'Открытка' : 'Оформление билета';
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
@@ -429,7 +430,8 @@ function render() {
   $('emailPreview').hidden = !toRecipient;
   $('ticketPreview').hidden = toRecipient;
   if (toRecipient) {
-    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
+    // В письме открытка без «Кому» и «От кого»: имена уже есть в самом письме
+    tkMount($('pvFront'), 'card', d); $('pvFront').firstElementChild.classList.add('no-who'); tkFill($('pvFront'), fields);
   } else {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);

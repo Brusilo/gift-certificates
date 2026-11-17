@@ -41,10 +41,10 @@ const CONFIG = {
   // Плитки «Кому подарить»: кому подойдёт подарок.
   // Клик выбирает в форме открытку и шаблон поздравления, сумму не трогает. У «Коллегам и партнёрам» ссылка на блок «Компаниям»
   giftCards: [
-    { title: 'Тому, кто любит путешествовать', text: 'Сам выберет, куда ехать',                     icon: 'plane', design: 'sea',     template: 'friend' },
-    { title: 'Тому, кто скоро в поездку',      text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
+    { title: 'Тем, кто любит путешествовать',  text: 'Выберут, куда ехать',                         icon: 'plane', design: 'sea',     template: 'friend' },
+    { title: 'Тем, кто скоро в поездку',       text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
     { title: 'Родителям',                       text: 'Съездят отдохнуть',     icon: 'bed',   design: 'classic', template: 'parents' },
-    { title: 'Тому, кто живёт далеко',          text: 'Чтобы приехал в гости',        icon: 'bus',   design: 'family',  template: null },
+    { title: 'Тем, кто живёт далеко',           text: 'Чтобы приехать в гости',       icon: 'bus',   design: 'family',  template: null },
     { title: 'Коллегам и партнёрам',            text: 'В благодарность или к празднику',             icon: 'train', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
@@ -99,7 +99,8 @@ function fillAmountCard(el, c) {
 
 // Ряд-карусель как на индийском лендинге: на компьютере круглые стрелки лежат поверх краёв ряда по центру карточек,
 // на краю ряда стрелка пропадает, на телефоне ряд листается пальцем. Разметка и стили из static-pages/public/india (carousel-nav--overlay)
-function makeRail(row) {
+// loop: стрелки листают по кругу, с последней страницы на первую и обратно
+function makeRail(row, loop) {
   const wrap = document.createElement('div');
   wrap.className = 'has-carousel-arrows';
   row.before(wrap);
@@ -110,7 +111,12 @@ function makeRail(row) {
     b.type = 'button';
     b.setAttribute('aria-label', label);
     b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>';
-    b.addEventListener('click', () => row.scrollBy({ left: dir * row.clientWidth * 0.9, behavior: 'smooth' }));
+    b.addEventListener('click', () => {
+      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4, atStart = row.scrollLeft < 4;
+      if (loop && dir > 0 && atEnd) row.scrollTo({ left: 0, behavior: 'smooth' });
+      else if (loop && dir < 0 && atStart) row.scrollTo({ left: row.scrollWidth, behavior: 'smooth' });
+      else row.scrollBy({ left: dir * row.clientWidth * (loop ? 1 : 0.9), behavior: 'smooth' });
+    });
     return b;
   };
   const prev = arrow(-1, 'Назад', 'M15 19 8 12l7-7');
@@ -118,6 +124,7 @@ function makeRail(row) {
   nav.append(prev, next);
   wrap.append(row, nav);
   const update = () => {
+    if (loop) return; // по кругу листать можно всегда
     prev.disabled = row.scrollLeft < 4;
     next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
   };
@@ -141,14 +148,22 @@ function buildPicker(containerId, list, side, onPick) {
     b.addEventListener('click', () => onPick(d.id));
     $(containerId).append(b);
   });
+  makeRail($(containerId), true);
 }
 
 // Отмечает выбранный вариант и пишет текущую сумму на мини-копиях
 function syncPicker(containerId, selectedId, amountText) {
-  $(containerId).querySelectorAll('.design').forEach((b) => {
+  const row = $(containerId);
+  row.querySelectorAll('.design').forEach((b) => {
     b.setAttribute('aria-pressed', b.dataset.design === selectedId);
     tkFill(b.firstChild, { amount: amountText });
   });
+  // Когда ряд впервые стал видимым, прокручиваем его к выбранному варианту
+  const sel = row.querySelector('[aria-pressed="true"]');
+  if (sel && row.clientWidth && !row.dataset.placed) {
+    row.dataset.placed = '1';
+    row.scrollLeft += sel.getBoundingClientRect().left - row.getBoundingClientRect().left;
+  }
 }
 
 function showProto(title, items) {
