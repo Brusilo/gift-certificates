@@ -88,11 +88,10 @@ function fillGiftCard(el, c) {
   el.setAttribute('aria-label', c.title + '. ' + c.text);
   el.innerHTML = '<span class="gift-photo"></span>'
     + '<svg class="gift-wave" viewBox="0 0 720 513" preserveAspectRatio="none" aria-hidden="true"><path d="M0 513V310C0 150 40 75 205 52L530 6C650-10 720 60 720 215V513Z"/></svg>'
-    + '<span class="gift-body"><span class="gift-lead"></span><span class="stk stk-red gift-word"></span><span class="gift-example"></span></span>';
+    + '<span class="gift-body"><span class="gift-title"></span><span class="gift-example"></span></span>';
   el.querySelector('.gift-photo').style.backgroundImage = `url('${c.photo}')`;
   el.querySelector('.gift-photo').style.backgroundPosition = c.pos || 'center';
-  el.querySelector('.gift-lead').textContent = c.lead;
-  el.querySelector('.gift-word').textContent = c.word;
+  el.querySelector('.gift-title').textContent = c.title;
   el.querySelector('.gift-example').textContent = c.text;
 }
 
