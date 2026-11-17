@@ -112,13 +112,13 @@ main > section:last-child{padding-bottom:56px}
 .gift-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gift-row::-webkit-scrollbar{display:none}
 .gift{box-sizing:border-box;container-type:inline-size;position:relative;isolation:isolate;flex:0 0 calc((100% - 48px) / 4);aspect-ratio:360/415;border-radius:24px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;background:var(--berry);color:var(--white)}
-.gift-photo{position:absolute;inset:0 0 30% 0;z-index:-2;background:center/cover no-repeat}
-.gift-wave{position:absolute;left:0;right:0;bottom:0;z-index:-1;width:100%;height:58%;fill:var(--berry)}
+.gift-photo{position:absolute;inset:0 0 34% 0;z-index:-2;background:center/cover no-repeat}
+.gift-wave{position:absolute;left:0;right:0;bottom:0;z-index:-1;width:100%;height:63%;fill:var(--berry)}
 /* Текст на волне без стикеров, одного размера и с одной высоты во всех карточках */
-.gift-body{position:absolute;left:0;right:0;top:54%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px}
+.gift-body{position:absolute;left:0;right:0;top:52%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px}
 /* Размер от ширины карточки: длинные слова помещаются в любой ширине */
-.gift-title{font-size:min(24px,7.8cqi);font-weight:900;font-style:italic;text-transform:uppercase;line-height:1.05}
-.gift-example{margin-top:12px;font-size:16px;font-weight:500;line-height:1.25;opacity:.9;text-wrap:balance}
+.gift-title{font-size:min(30px,9.6cqi);font-weight:900;font-style:italic;text-transform:uppercase;line-height:1.05}
+.gift-example{margin-top:12px;font-size:min(18px,7cqi);font-weight:500;line-height:1.25;opacity:.9;text-wrap:balance}
 
 /* «Сколько подарить»: только суммы, на открытках для письма */
 /* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
@@ -142,7 +142,7 @@ main > section:last-child{padding-bottom:56px}
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
 /* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 7%}
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:9.8% 0 3%}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.2cqw;font-weight:700;line-height:1.08}
 /* Размеры и места сняты с плиток tutu.ru: текст 3,2% ширины, крупный стикер на стыке левых плиток,
@@ -343,7 +343,8 @@ dialog .btn{width:100%}
   .use-step + .use-step::after{display:none}
   .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
   .how-cta{width:100%}
-  .biz{padding-top:40px}
+  /* Билеты выходят над плашкой на 32px, поэтому сверху 40 + 32: до соседнего блока те же 40px, что везде */
+  .biz{padding-top:72px}
   .biz-inner{padding:28px 20px}
   .form{padding:22px 16px}
   .two,.radio-cards{grid-template-columns:1fr}
