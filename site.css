@@ -140,8 +140,8 @@ main > section:last-child{padding-bottom:56px}
 
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
-/* Плитки начинаются сразу под заголовком, как в других блоках; снизу место под свисающий кошелек */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:0 0 4%}
+/* Отступы до соседних блоков считаются от плиток, как везде; кошелек свисает в отступ снизу */
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.2cqw;font-weight:700;line-height:1.08}
 /* Размеры и места сняты с плиток tutu.ru: текст 3,2% ширины, крупный стикер на стыке левых плиток,
