@@ -107,25 +107,22 @@ main > section:last-child{padding-bottom:56px}
 .hero + .section{position:relative;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
 @media (min-width:768px){.hero + .section{margin-top:-40px;border-radius:40px 40px 0 0}}
 
-/* «Кому подарить»: плитки — маленькие билеты. Сверху цветная часть с «Кому» и получателем, линия отрыва с вырезами, снизу почему подойдёт */
-.gift-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.gift{--top:140px;--paint:var(--berry);--on:var(--white);all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--surface-neutral);color:var(--ink);
+/* «Кому подарить»: карточки как подборки на tutu.ru. Фото сверху, фиолетовая волна снизу, ключевое слово на стикере.
+   В ряду четыре карточки, остальные листаются стрелками */
+.gift-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gift-row::-webkit-scrollbar{display:none}
+.gift{all:unset;box-sizing:border-box;cursor:pointer;position:relative;isolation:isolate;flex:0 0 calc((100% - 48px) / 4);aspect-ratio:360/415;border-radius:24px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;background:var(--berry);color:var(--white)}
+.gift:focus-visible{outline:3px solid var(--action);outline-offset:-3px}
+.gift-photo{position:absolute;inset:0 0 30% 0;z-index:-2;background:center/cover no-repeat;transition:transform .3s}
+.gift:hover .gift-photo{transform:scale(1.04)}
+.gift-wave{position:absolute;left:0;right:0;bottom:0;z-index:-1;width:100%;height:58%;fill:var(--berry)}
+.gift-body{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 14px 20px}
+.gift-lead{font-size:clamp(18px,1.75vw,24px);font-weight:900;font-style:italic;text-transform:uppercase;line-height:1}
+.gift-word{margin-top:5px;font-size:clamp(18px,1.75vw,24px);text-transform:none;transform:rotate(-3deg)}
+.gift-example{margin-top:12px;font-size:15px;font-weight:500;line-height:1.25}
   -webkit-mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);-webkit-mask-composite:source-in;
   mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);mask-composite:intersect}
-.gift:nth-child(5n+2){--paint:var(--deep-blue);--on:var(--white)}
-.gift:nth-child(5n+3){--paint:var(--lime);--on:#000}
-.gift:nth-child(5n+4){--paint:var(--strawberry);--on:var(--white)}
-.gift:nth-child(5n+5){--paint:var(--aubergine);--on:var(--white)}
-.gift:focus-visible{outline:3px solid var(--action);outline-offset:-3px}
-.gift-top{position:relative;height:var(--top);flex:none;display:flex;flex-direction:column;padding:20px 18px;background:var(--paint);color:var(--on)}
 /* Иконка транспорта, как на корешке сертификата */
-.gift-ic{position:absolute;right:16px;bottom:14px;height:30px;width:auto;opacity:.9}
-.gift:nth-child(5n+3) .gift-ic{filter:brightness(0);height:24px}
-.gift-title{font-size:22px;font-weight:600;line-height:1.2;color:inherit}
-.gift-bottom{position:relative;flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 14px 14px 18px;border-top:2px dashed #DCDCE8}
-.gift-example{font-size:15px;font-weight:500;line-height:1.3;color:var(--text)}
-.gift-go{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--white);color:var(--action);font-weight:900;transition:background .15s,color .15s}
-.gift:hover .gift-go{background:var(--ink);color:var(--white)}
 
 /* «Сколько подарить»: только суммы, на открытках для письма */
 /* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
@@ -254,7 +251,8 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 .biz h2{color:var(--white);margin-bottom:12px}
 .biz p{max-width:600px;font-size:17px;color:var(--white)}
 .biz .btn{margin-top:24px}
-.biz-art{width:min(380px,32vw);margin:0;align-self:center}
+/* Два билета небольшие и чуть выходят за верх и низ плашки, блок не растёт */
+.biz-art{width:min(250px,21vw);margin:-36px 8px -36px 0;align-self:center}
 
 /* Частые вопросы */
 .faq-list{display:grid;gap:10px}
@@ -325,11 +323,8 @@ dialog .btn{width:100%}
   .footer-app-col .stores{width:auto}
   .sum{flex-basis:44%}
   .biz-inner{grid-template-columns:1fr}
-  .biz-art{order:-1;width:min(320px,70%);margin:-80px 0 0}
+  .biz-art{order:-1;width:min(200px,55%);margin:-60px 0 0}
   /* Телефон и планшет: ряд листается вбок, как карусели на индийском лендинге */
-  .gift-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding:6px 16px 14px}
-  .gift-row::-webkit-scrollbar{display:none}
-  .gift{flex:0 0 240px;scroll-snap-align:start;min-width:0}
 }
 @media (max-width:720px){
   .section{padding:40px 0 0}
@@ -340,7 +335,6 @@ dialog .btn{width:100%}
   .hero-title{margin:40px 0 20px;font-size:clamp(47px,15.7vw,69px)}
   .hero-sub{font-size:17px}
   .hero-cta{width:100%;margin-top:24px}
-  .gift{flex-basis:calc((100% + 4px) / 1.5)}
   /* Открытки с суммами листаются вбок, как остальные ряды */
   .sum-row{gap:12px}
   .sum{flex-basis:72%}
@@ -377,4 +371,13 @@ dialog .btn{width:100%}
   .pkm-i.is-stack p{max-width:85%}
   .pkm-i.is-stack .stk-group{font-size:24px;margin:16px 0 0}
   .pkm-i.is-stack .stk + .stk{margin:-.02em 0 0 .4em}
+}
+/* «Кому подарить» на планшете и телефоне: ряд листается пальцем от края до края */
+@media (max-width:1000px){
+  .gift-row{gap:12px;scroll-snap-type:x proximity;scroll-padding-inline:16px;margin-inline:-16px;padding:0 16px}
+  .gift{flex-basis:calc((100% - 24px) / 3)}
+}
+@media (max-width:720px){
+  .gift{flex-basis:72%}
+  .gift-lead,.gift-word{font-size:22px}
 }

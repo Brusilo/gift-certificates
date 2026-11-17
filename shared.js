@@ -44,12 +44,13 @@ const CONFIG = {
   ],
   // Плитки «Кому подарить»: кому подойдёт подарок.
   // Клик выбирает в форме открытку и шаблон поздравления, сумму не трогает. У «Коллегам и партнёрам» ссылка на блок «Компаниям»
+  // Плитки «Кому подарить»: фото сверху, фиолетовая волна снизу, ключевое слово на красном стикере
   giftCards: [
-    { title: 'Тем, кто любит путешествовать',  text: 'Выберут, куда ехать',                         icon: 'plane', design: 'sea',     template: 'friend' },
-    { title: 'Тем, кто собирается в поездку',  text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
-    { title: 'Родителям',                       text: 'Съездят отдохнуть',     icon: 'bed',   design: 'classic', template: 'parents' },
-    { title: 'Тем, у кого скоро праздник',     text: 'День рождения, Новый год или свадьба',        icon: 'bus',   design: 'birthday', template: 'birthday' },
-    { title: 'Коллегам и партнёрам',            text: 'В благодарность или к празднику',             icon: 'train', href: '#business' }
+    { title: 'Тем, кто любит путешествовать', lead: 'Тем, кто любит', word: 'путешествовать', text: 'Выберут, куда ехать', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
+    { title: 'Тем, кто собирается в поездку', lead: 'Тем, кто собирается в', word: 'поездку', text: 'Пригодится сразу, в отпуск или по делам', photo: 'assets/who/skate.webp', pos: '60% 20%', design: 'spb', template: 'friend' },
+    { title: 'Родителям', lead: 'Подарок', word: 'родителям', text: 'Съездят отдохнуть', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
+    { title: 'Тем, у кого скоро праздник', lead: 'Тем, у кого скоро', word: 'праздник', text: 'День рождения, Новый год или свадьба', photo: 'assets/who/towel.webp', pos: '50% 45%', design: 'birthday', template: 'birthday' },
+    { title: 'Коллегам и партнёрам', lead: 'Коллегам и', word: 'партнёрам', text: 'В благодарность или к празднику', photo: 'assets/who/balcony.png', pos: '50% 40%', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
@@ -84,8 +85,14 @@ function mountHero() {
 // ниже линии отрыва талон с коротким текстом и стрелкой
 function fillGiftCard(el, c) {
   el.className = 'gift';
-  el.innerHTML = '<span class="gift-top"><b class="gift-title"></b><img class="gift-ic" src="' + TK + 'ic-' + (c.icon || 'train') + '-w.png" alt=""></span><span class="gift-bottom"><span class="gift-example"></span><span class="gift-go" aria-hidden="true">→</span></span>';
-  el.querySelector('.gift-title').textContent = c.title;
+  el.setAttribute('aria-label', c.title + '. ' + c.text);
+  el.innerHTML = '<span class="gift-photo"></span>'
+    + '<svg class="gift-wave" viewBox="0 0 720 513" preserveAspectRatio="none" aria-hidden="true"><path d="M0 513V310C0 150 40 75 205 52L530 6C650-10 720 60 720 215V513Z"/></svg>'
+    + '<span class="gift-body"><span class="gift-lead"></span><span class="stk stk-red gift-word"></span><span class="gift-example"></span></span>';
+  el.querySelector('.gift-photo').style.backgroundImage = `url('${c.photo}')`;
+  el.querySelector('.gift-photo').style.backgroundPosition = c.pos || 'center';
+  el.querySelector('.gift-lead').textContent = c.lead;
+  el.querySelector('.gift-word').textContent = c.word;
   el.querySelector('.gift-example').textContent = c.text;
 }
 
