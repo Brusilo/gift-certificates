@@ -143,13 +143,13 @@ main > section:last-child{padding-bottom:56px}
 /* Отступы до соседних блоков считаются от плиток, как везде; кошелек свисает в отступ снизу */
 .pk{position:relative;container-type:inline-size;aspect-ratio:1336/508}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
-.pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.2cqw;font-weight:700;line-height:1.08}
-/* Размеры и места сняты с плиток tutu.ru: текст 3,2% ширины, крупный стикер на стыке левых плиток,
+.pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.95cqw;font-weight:700;line-height:1.08}
+/* Размеры и места сняты с плиток tutu.ru: текст около 3% ширины, крупный стикер на стыке левых плиток,
    в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
 .pk-a{left:3.2%;top:7%;width:34%}
 .pk-b{left:3.2%;top:78%;width:33%}
 .pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
-.pk-d{left:69%;top:56%;width:30%;text-align:center;text-wrap:balance}
+.pk-d{left:69.5%;top:60%;width:29%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
 .pk-s-c{left:43%;top:-3%;font-size:4.2cqw}
@@ -244,12 +244,12 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 
 /* Компаниям */
 .biz{padding:56px 0 0}
-.biz-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;background:var(--berry);border-radius:var(--r-panel);padding:44px 48px;color:rgba(255,255,255,.88)}
+.biz-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;background:var(--berry);border-radius:var(--r-panel);padding:32px 48px;color:rgba(255,255,255,.88)}
 .biz h2{color:var(--white);margin-bottom:12px}
-.biz p{max-width:680px;font-size:22px;line-height:1.4;color:var(--white)}
-.biz .btn{margin-top:24px}
+.biz p{max-width:640px;font-size:19px;line-height:1.45;color:var(--white)}
+.biz .btn{margin-top:20px}
 /* Два билета небольшие и чуть выходят за верх и низ плашки, блок не растёт */
-.biz-art{width:min(250px,21vw);margin:-36px 8px -36px 0;align-self:center}
+.biz-art{width:min(230px,19vw);margin:-36px 8px -36px 0;align-self:center}
 
 /* Частые вопросы */
 .faq-list{display:grid;gap:10px}
@@ -367,5 +367,5 @@ dialog .btn{width:100%}
   /* Билеты выходят над плашкой на 32px, поэтому сверху 40 + 32: до соседнего блока те же 40px, что везде */
   .biz{padding-top:72px}
   .biz-inner{padding:28px 20px}
-  .biz p{font-size:19px}
+  .biz p{font-size:17px}
 }
