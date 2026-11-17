@@ -144,21 +144,20 @@ main > section:last-child{padding-bottom:56px}
 /* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
 .pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 7%}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
-.pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.7cqw;font-weight:700;line-height:1.08}
-/* У каждой плитки один главный акцент, как на плитках tutu.ru: текст, стикер, стикер с 3D снизу, 3D сверху */
-.pk-a{left:3.2%;top:8%;width:31%}
-.pk-b{left:3.2%;top:78%;width:30%}
-.pk-c{left:40%;top:32%;width:29.5%;text-align:center}
-.pk-d{left:70.5%;top:64%;width:27%;text-align:center}
-/* Стикеры как в шапке и на билете: заметные, но не крупнее заголовков соседних блоков */
+.pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.2cqw;font-weight:700;line-height:1.08}
+/* Размеры и места сняты с плиток tutu.ru: текст 3,2% ширины, крупный стикер на стыке левых плиток,
+   в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
+.pk-a{left:3.2%;top:7%;width:34%}
+.pk-b{left:3.2%;top:78%;width:33%}
+.pk-c{left:37.5%;top:24%;width:34.5%;text-align:center}
+.pk-d{left:69%;top:56%;width:30%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3;font-size:4.6cqw}
 .pk-s .stk + .stk{margin:-.02em 0 0 .4em}
-.pk-s-b{left:2%;top:54%;font-size:5.6cqw}
-.pk-s-c{left:44.5%;top:5%;font-size:3.6cqw}
-/* 3D выходят за края фигур: кошелек свисает снизу средней плитки, открытки поднимаются над правой */
+.pk-s-b{left:1.8%;top:53%;font-size:6cqw}
+.pk-s-c{left:43%;top:-9%;font-size:4.4cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
-.pk-3d-c{left:40%;top:60%;width:29%}
-.pk-3d-d{left:73.5%;top:-19%;width:23%}
+.pk-3d-c{left:39%;top:57%;width:31%}
+.pk-3d-d{left:74%;top:-7%;width:22%}
 .pkm{display:none}
 
 /* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
@@ -358,17 +357,17 @@ dialog .btn{width:100%}
   .pkm{display:grid;gap:12px;list-style:none;margin:0;padding:0}
   .pkm-i{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:150px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry);overflow:hidden}
   .pkm-i.is-lime{background:var(--lime)}
-  .pkm-i p{margin:0;max-width:58%;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
+  .pkm-i p{margin:0;max-width:63%;text-wrap:balance;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
   .pkm-i.is-lime p{color:#000}
   /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
   .pkm-i.is-lime .stk-lime{color:var(--white)}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
   .pkm-i p:only-child{max-width:80%}
-  .pkm-i img{width:38%;max-width:150px;margin-right:-6px}
+  .pkm-i img{width:34%;max-width:140px;margin-right:-6px}
   .pkm-i .stk-group{font-size:32px;margin-top:18px}
   /* Плитка со стикерами «Дарите как хотите»: стикеры над текстом, чемодан справа */
   .pkm-i.is-stack{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}
-  .pkm-i.is-stack p{max-width:60%}
+  .pkm-i.is-stack p{max-width:60%;text-wrap:wrap}
   .pkm-i.is-stack img{position:absolute;right:-12px;bottom:-6px;width:42%;max-width:170px;margin:0}
   /* Кошелек с деньгами главный акцент плитки, поэтому крупнее и целиком внутри */
   .pkm-i.is-lime img{right:-2px;bottom:-14px;width:52%;max-width:220px}
