@@ -32,7 +32,7 @@
 .tk-stk::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:calc(3 * var(--mm)) calc(4.2 * var(--mm)) calc(3 * var(--mm)) calc(4.2 * var(--mm));transform:skewX(-8deg)}
 .tk-stk-w{color:#FFF;font-size:calc(13.8 * var(--mm))}
 .tk-stk-w::before{background:#FD5623}
-.tk-stk-s{color:#000;font-size:calc(20.9 * var(--mm));letter-spacing:calc(-.6 * var(--mm));margin:calc(-.3 * var(--mm)) 0 0 calc(10 * var(--mm))}
+.tk-stk-s{color:#000;font-size:calc(20.9 * var(--mm));letter-spacing:calc(-.6 * var(--mm));margin:calc(-.3 * var(--mm)) 0 0 calc(10 * var(--mm));text-align:center}
 .tk-stk-s::before{background:#D0FF1A}
 
 /* «Кому» и «От кого» */

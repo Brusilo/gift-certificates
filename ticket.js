@@ -133,6 +133,17 @@ function tkFit(box) {
     el.style.fontSize = `calc(${(base * k).toFixed(2)} * var(--mm))`;
   });
   tkFitWish(box, mmPx);
+  tkOverhang(box, mmPx);
+}
+
+// Стикер с суммой всегда выступает правее «Сертификата» на 6 мм. Короткая сумма не дотягивает,
+// тогда плашка удлиняется, а текст встаёт по центру
+function tkOverhang(box, mmPx) {
+  const red = box.querySelector('.tk-stk-w'), lime = box.querySelector('.tk-stk-s');
+  if (!red || !lime || !red.offsetWidth) return;
+  lime.style.minWidth = '';
+  const need = red.offsetLeft + red.offsetWidth + 6 * mmPx - lime.offsetLeft;
+  if (lime.offsetWidth < need) lime.style.minWidth = `calc(${(need / mmPx).toFixed(2)} * var(--mm))`;
 }
 
 // Поздравление на обороте: самый крупный размер до 9 мм, при котором текст помещается в верхнюю зону и не больше 4 строк
