@@ -144,32 +144,22 @@ main > section:last-child{padding-bottom:56px}
 .carousel-nav--overlay button:disabled{opacity:0;pointer-events:none}
 .sum:focus-visible{outline:3px solid var(--action);outline-offset:4px}
 
-/* «Почему сертификат Туту»: плитки разной высоты со стикерами и 3D */
-.perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,auto);gap:16px;grid-template-areas:"a c e" "a d e" "b d e"}
-.perk{position:relative;background:var(--berry);color:var(--white);border-radius:28px;padding:16px 24px 20px}
-.perk h3{position:relative;z-index:2;margin:40px 0 8px;font-size:clamp(26px,2.45vw,35px)}
-.perk h3 .stk + .stk{margin:-.04em 0 0 .5em}
-.perk p{position:relative;z-index:1;font-size:clamp(19px,1.75vw,25px);font-weight:600;line-height:1.22;color:var(--white)}
-.perk--a{grid-area:a}
-.perk--b{grid-area:b}
-.perk--c{grid-area:c}
-.perk--d{grid-area:d}
-.perk--e{grid-area:e}
-/* 3D-картинка целиком в правом нижнем углу, текст рядом с ней */
-.perk p{max-width:none}
-.perk--a p{max-width:60%}
-/* В «Любых поездках» стикеры короткие и почти не поднимаются, места сверху нужно меньше */
-.perk--a h3{margin-top:22px}
-.perk--d p{max-width:60%}
-.perk--e p{color:var(--white)}
-/* Высота рядов зафиксирована: крупнее текст не растягивает плитку */
-@media (min-width:1001px){.perks{grid-template-rows:190px 80px 236px}}
-@media (min-width:1001px) and (max-width:1250px){.perk--a .perk-art{width:28%}.perk--a p{max-width:none}}
-.perk-clip{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
-.perk-art{position:absolute;pointer-events:none;max-width:none}
-.perk--a .perk-art{width:38%;right:12px;bottom:12px}
-.perk--d .perk-art{width:36%;right:10px;bottom:6px}
-.perk--e .perk-art{width:58%;right:14px;bottom:16px}
+/* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
+   размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:9% 0 7%}
+.pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
+.pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:3.1cqw;font-weight:700;line-height:1.05}
+.pk-a{left:3.2%;top:9%;width:28%}
+.pk-b{left:3.2%;top:71%;width:30%}
+.pk-c{left:40%;top:29%;width:29%;text-align:center}
+.pk-d{left:70.5%;top:68%;width:27.5%;text-align:center}
+.pk-s{position:absolute;z-index:3;font-size:7.2cqw}
+.pk-s-b{left:1.4%;top:41%}
+.pk-s-c{left:39.5%;top:-14%;font-size:7.8cqw}
+.pk-art{position:absolute;z-index:1;pointer-events:none;max-width:none}
+.pk-art-c{left:38%;top:44%;width:31%}
+.pk-art-d{left:73%;top:-9%;width:25%}
+.pkm{display:none}
 
 /* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
 .use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -327,7 +317,6 @@ dialog .btn{width:100%}
   .footer-app-col .stores{flex-direction:row;height:auto}
   .footer-app-col .stores{width:auto}
   .sum{flex-basis:44%}
-  .perks{grid-template-columns:1fr 1fr;grid-template-areas:"a e" "c e" "b d" "b d";grid-auto-rows:minmax(110px,auto)}
   .biz-inner{grid-template-columns:1fr}
   .biz-art{order:-1;width:min(320px,70%);margin:-80px 0 0}
   /* Телефон и планшет: ряд листается вбок, как карусели на индийском лендинге */
@@ -348,15 +337,6 @@ dialog .btn{width:100%}
   /* Открытки с суммами листаются вбок, как остальные ряды */
   .sum-row{gap:12px}
   .sum{flex-basis:72%}
-  .perks{grid-template-columns:1fr;grid-template-areas:"a" "e" "c" "d" "b";gap:12px}
-  /* Телефон: плитки низкие, 3D-картинка справа от текста */
-  .perk{padding:16px 18px 18px;min-height:0}
-  .perk h3{font-size:24px;margin:34px 0 6px}
-  .perk p{font-size:17px;max-width:none}
-  .perk--a p,.perk--d p,.perk--e p{max-width:64%}
-  .perk--a .perk-art{width:34%;right:-2%;bottom:-10%}
-  .perk--d .perk-art{width:28%;right:-2%;bottom:-12%}
-  .perk--e .perk-art{width:36%;right:-4%;bottom:-10%}
   /* Шаги на телефоне листаются вбок, как карточки «Кому подарить» */
   .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
   .use-steps::-webkit-scrollbar{display:none}
@@ -369,4 +349,16 @@ dialog .btn{width:100%}
   .two,.radio-cards{grid-template-columns:1fr}
   #designs > .design{flex-basis:calc((100% - 6px) / 2)}
   #tickets > .design{flex-basis:88%}
+}
+
+/* Телефон: вместо сцены плитки стопкой, как в мобильном макете «Тутуленда» */
+@media (max-width:720px){
+  .pk{display:none}
+  .pkm{display:grid;gap:12px;list-style:none;margin:0;padding:0}
+  .pkm-i{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:150px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry);overflow:hidden}
+  .pkm-i.is-lime{background:var(--lime)}
+  .pkm-i p{margin:0;max-width:58%;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
+  .pkm-i.is-lime p{color:#000}
+  .pkm-i img{width:38%;max-width:150px;margin-right:-6px}
+  .pkm-i .stk-group{font-size:40px;margin-top:22px}
 }

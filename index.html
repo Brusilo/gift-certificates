@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117170526">
-<link rel="stylesheet" href="ticket.css?v=20261117170526">
+<link rel="stylesheet" href="site.css?v=20261117170957">
+<link rel="stylesheet" href="ticket.css?v=20261117170957">
 </head>
 <body>
 
@@ -73,31 +73,25 @@
 <section class="section" id="perks">
   <div class="container">
     <h2>Почему сертификат Туту</h2>
-    <div class="perks">
-      <div class="perk perk--a">
-        <h3 class="stk-group"><span class="stk stk-red">Любые</span><span class="stk stk-lime">поездки</span></h3>
-        <p>поезда, самолёты, автобусы и&nbsp;отели на&nbsp;Туту</p>
-        <span class="perk-clip"><img class="perk-art" src="assets/art/train-tram.webp" alt="" aria-hidden="true"></span>
-      </div>
-      <div class="perk perk--b">
-        <h3 class="stk-group"><span class="stk stk-lime">Поддержка 24/7</span></h3>
-        <p>в&nbsp;чате на&nbsp;сайте и&nbsp;в&nbsp;приложении, по&nbsp;почте и&nbsp;телефону</p>
-      </div>
-      <div class="perk perk--c">
-        <h3 class="stk-group"><span class="stk stk-red">Без привязки</span></h3>
-        <p>куда и&nbsp;когда ехать, решает получатель</p>
-      </div>
-      <div class="perk perk--d">
-        <h3 class="stk-group"><span class="stk stk-red">Вручите</span><span class="stk stk-lime">как хотите</span></h3>
-        <p>письмом в&nbsp;нужный день или лично, распечатав билет</p>
-        <span class="perk-clip"><img class="perk-art" src="assets/art/plane-swirl.webp" alt="" aria-hidden="true"></span>
-      </div>
-      <div class="perk perk--e">
-        <h3 class="stk-group"><span class="stk stk-lime">Действует</span><span class="stk stk-red">1&nbsp;год</span></h3>
-        <p>а&nbsp;остаток не&nbsp;сгорает и&nbsp;придёт новым сертификатом, он&nbsp;тоже действует год</p>
-        <span class="perk-clip"><img class="perk-art" src="assets/art/wallet-timer.png" alt="" aria-hidden="true"></span>
-      </div>
+    <!-- Компьютер: четыре сцепленные плитки как в «Тутуленде», стикеры и 3D выходят за края -->
+    <div class="pk">
+      <svg class="pk-bg" viewBox="0 0 1336 508" aria-hidden="true"><path d="M0.0,34.0Q0.0,0.0 34.0,0.0L396.0,0.0Q430.0,0.0 439.8,32.6L497.6,225.4Q507.4,258.0 473.4,258.0L34.0,258.0Q0.0,258.0 0.0,224.0Z"/><path d="M0.0,304.0Q0.0,270.0 34.0,270.0L477.0,270.0Q511.0,270.0 520.8,302.6L572.6,475.4Q582.4,508.0 548.4,508.0L34.0,508.0Q0.0,508.0 0.0,474.0Z"/><path d="M456.8,32.6Q447.0,0.0 481.0,0.0L977.0,0.0Q1011.0,0.0 1001.2,32.6L868.4,475.4Q858.6,508.0 824.6,508.0L633.4,508.0Q599.4,508.0 589.6,475.4Z"/><path d="M1018.2,32.6Q1028.0,0.0 1062.0,0.0L1302.0,0.0Q1336.0,0.0 1336.0,34.0L1336.0,474.0Q1336.0,508.0 1302.0,508.0L909.6,508.0Q875.6,508.0 885.4,475.4Z"/></svg>
+      <p class="pk-t pk-a">Вручите письмом в&nbsp;нужный день или&nbsp;лично</p>
+      <span class="stk-group pk-s pk-s-b"><span class="stk stk-lime">24/7</span></span>
+      <p class="pk-t pk-b">поддержка в&nbsp;чате, по&nbsp;почте и&nbsp;телефону</p>
+      <span class="stk-group pk-s pk-s-c"><span class="stk stk-red">Любые</span></span>
+      <p class="pk-t pk-c">поезда, самолёты, автобусы и&nbsp;отели</p>
+      <img class="pk-art pk-art-c" src="assets/art/train-tram.webp" alt="" aria-hidden="true">
+      <img class="pk-art pk-art-d" src="assets/art/wallet-timer.png" alt="" aria-hidden="true">
+      <p class="pk-t pk-d">Действует год, а&nbsp;остаток не&nbsp;сгорает</p>
     </div>
+    <!-- Телефон: плитки стопкой, текст слева, стикер или 3D справа -->
+    <ul class="pkm">
+      <li class="pkm-i is-lime"><p>Поезда, самолёты, автобусы и&nbsp;отели</p><span class="stk-group"><span class="stk stk-red">Любые</span></span></li>
+      <li class="pkm-i"><p>Действует год, а&nbsp;остаток не&nbsp;сгорает</p><img src="assets/art/wallet-timer.png" alt="" aria-hidden="true"></li>
+      <li class="pkm-i"><p>Поддержка в&nbsp;чате, по&nbsp;почте и&nbsp;телефону</p><span class="stk-group"><span class="stk stk-lime">24/7</span></span></li>
+      <li class="pkm-i"><p>Вручите письмом в&nbsp;нужный день или&nbsp;лично</p><img src="assets/art/plane-swirl.webp" alt="" aria-hidden="true"></li>
+    </ul>
   </div>
 </section>
 
@@ -370,9 +364,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117170526"></script>
-<script src="shared.js?v=20261117170526"></script>
-<script src="landing.js?v=20261117170526"></script>
+<script src="ticket.js?v=20261117170957"></script>
+<script src="shared.js?v=20261117170957"></script>
+<script src="landing.js?v=20261117170957"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
