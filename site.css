@@ -142,24 +142,23 @@ main > section:last-child{padding-bottom:56px}
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
 /* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 0}
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 7%}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.7cqw;font-weight:700;line-height:1.08}
+/* У каждой плитки один главный акцент, как на плитках tutu.ru: текст, стикер, стикер с 3D снизу, 3D сверху */
 .pk-a{left:3.2%;top:8%;width:31%}
 .pk-b{left:3.2%;top:78%;width:30%}
-.pk-c{left:41%;top:30%;width:27%;text-align:center}
-.pk-d{left:75.5%;top:66%;width:22.5%}
+.pk-c{left:40%;top:32%;width:29.5%;text-align:center}
+.pk-d{left:70.5%;top:64%;width:27%;text-align:center}
 /* Стикеры как в шапке и на билете: заметные, но не крупнее заголовков соседних блоков */
 .pk-s{position:absolute;z-index:3;font-size:4.6cqw}
 .pk-s .stk + .stk{margin:-.02em 0 0 .4em}
 .pk-s-b{left:2%;top:54%;font-size:5.6cqw}
-.pk-s-c{left:42.5%;top:-6%;font-size:4.4cqw}
-.pk-s-d{left:75.5%;top:36%;font-size:3.3cqw}
-/* 3D на плитках выходят за края, как на плитках tutu.ru: календарь у «1 год», кошелек у «Остаток не сгорит», открытки у «Дарите как хотите» */
+.pk-s-c{left:44.5%;top:5%;font-size:3.6cqw}
+/* 3D выходят за края фигур: кошелек свисает снизу средней плитки, открытки поднимаются над правой */
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
-.pk-3d-b{left:24.5%;top:38%;width:21%}
-.pk-3d-c{left:44.5%;top:60%;width:20%}
-.pk-3d-d{right:-2%;top:-14%;width:16%}
+.pk-3d-c{left:40%;top:60%;width:29%}
+.pk-3d-d{left:73.5%;top:-19%;width:23%}
 .pkm{display:none}
 
 /* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
@@ -371,6 +370,8 @@ dialog .btn{width:100%}
   .pkm-i.is-stack{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}
   .pkm-i.is-stack p{max-width:60%}
   .pkm-i.is-stack img{position:absolute;right:-12px;bottom:-6px;width:42%;max-width:170px;margin:0}
+  /* Кошелек с деньгами главный акцент плитки, поэтому крупнее и целиком внутри */
+  .pkm-i.is-lime img{right:-2px;bottom:-14px;width:52%;max-width:220px}
   .pkm-i.is-stack .stk-group{font-size:24px;margin:16px 0 0}
   .pkm-i.is-stack .stk + .stk{margin:-.02em 0 0 .4em}
 }
