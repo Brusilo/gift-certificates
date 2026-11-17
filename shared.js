@@ -47,10 +47,10 @@ const CONFIG = {
   // Плитки «Кому подарить»: фото сверху, фиолетовая волна снизу, ключевое слово на красном стикере
   giftCards: [
     { title: 'Тем, кто любит путешествовать', lead: 'Тем, кто любит', word: 'путешествовать', text: 'Выберут, куда ехать', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
-    { title: 'Тем, кто собирается в поездку', lead: 'Тем, кто собирается в', word: 'поездку', text: 'Пригодится сразу, в отпуск или по делам', photo: 'assets/who/skate.webp', pos: '60% 20%', design: 'spb', template: 'friend' },
+    { title: 'Тем, кто собирается в поездку', lead: 'Тем, кто собирается в', word: 'поездку', text: 'Пригодится сразу, в отпуск или по делам', photo: 'assets/who/trip-suitcases.webp', pos: '52% 30%', design: 'spb', template: 'friend' },
     { title: 'Родителям', lead: 'Подарок', word: 'родителям', text: 'Съездят отдохнуть', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
-    { title: 'Тем, у кого скоро праздник', lead: 'Тем, у кого скоро', word: 'праздник', text: 'День рождения, Новый год или свадьба', photo: 'assets/who/towel.webp', pos: '50% 45%', design: 'birthday', template: 'birthday' },
-    { title: 'Коллегам и партнёрам', lead: 'Коллегам и', word: 'партнёрам', text: 'В благодарность или к празднику', photo: 'assets/who/balcony.png', pos: '50% 40%', href: '#business' }
+    { title: 'Тем, у кого скоро праздник', lead: 'Тем, у кого скоро', word: 'праздник', text: 'День рождения, Новый год или свадьба', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' },
+    { title: 'Коллегам и партнёрам', lead: 'Коллегам и', word: 'партнёрам', text: 'В благодарность или к празднику', photo: 'assets/who/partners-tutu-suitcase.webp', pos: '48% 45%', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
