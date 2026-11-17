@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оформление подарочного сертификата Туту</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#A181FF">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="site.css?v=20261113162836">
+<link rel="stylesheet" href="ticket.css?v=20261113162836">
+<style>
+/* Форма-мастер: один шаг на экран */
+/* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
+.builder{align-content:start}
+/* Форма уже, предпросмотр шире: билет и открытка крупнее */
+@media (min-width:1001px){.builder{grid-template-columns:540px minmax(0,1fr);gap:48px}}
+.wiz{position:relative;padding:32px 0 72px;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
+.top .top-inner{padding-bottom:44px}
+@media (min-width:768px){.wiz{margin-top:-40px;border-radius:40px 40px 0 0}.top .top-inner{padding-bottom:56px}}
+.faq-open{all:unset;cursor:pointer;margin-left:auto;color:var(--white);font-weight:500;font-size:15px}
+.faq-open:hover{opacity:.8}
+/* Частые вопросы окном по центру экрана */
+#faqDialog{max-width:1000px;width:calc(100% - 32px);max-height:none;padding:0}
+#faqDialog[open]{display:flex;flex-direction:column}
+.faq-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 28px 16px}
+.faq-dialog-head h2{margin:0;font-size:28px}
+.faq-close{all:unset;cursor:pointer;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--bg-brand);color:var(--ink);font-size:22px;line-height:1}
+.faq-close:hover{background:var(--lavender)}
+.faq-dialog-body{padding:0 28px 28px}
+/* Компактные вопросы, чтобы все помещались без прокрутки; открыт всегда один */
+#faqDialog .faq-list{gap:8px}
+@media (min-width:801px){#faqDialog .faq-list{grid-template-columns:1fr 1fr;align-items:start}}
+#faqDialog .faq-list details{padding:0 18px}
+#faqDialog .faq-list summary{font-size:16px;padding:13px 28px 13px 0}
+#faqDialog .faq-list details p{padding-bottom:14px;font-size:15px}
+.step-title{font-size:clamp(28px,3.2vw,36px);font-weight:600;letter-spacing:-.01em;margin-bottom:24px}
+.step .field:last-child{margin-bottom:0}
+.design-note{font-size:14px;color:var(--muted);background:var(--white);border-radius:12px;padding:12px 14px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--white);border-radius:14px;padding:4px;margin-bottom:8px}
+.seg button{all:unset;box-sizing:border-box;text-align:center;padding:12px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--bg-brand);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--action)}
+.seg-hint{font-size:14px;color:var(--muted);margin-bottom:20px}
+.summary{margin:0;display:grid;gap:2px;background:var(--white);border-radius:16px;overflow:hidden}
+.summary > div{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:14px 18px;background:var(--white)}
+.summary > div + div{border-top:1px solid var(--line)}
+.summary dt{color:var(--muted);font-size:14px}
+.summary dd{margin:0;color:var(--ink);font-weight:600;word-break:break-word}
+.summary dd.is-empty{color:var(--muted);font-weight:400}
+.edit{all:unset;cursor:pointer;color:var(--action);font-size:14px;font-weight:600}
+.edit:hover{color:var(--action-hover)}
+.step{margin-bottom:32px}
+.wiz-nav{display:flex;gap:12px;padding-top:24px;border-top:1px solid var(--line)}
+.wiz-nav .btn{flex:1;min-height:56px;font-size:18px}
+.btn-secondary{background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);flex:0 0 auto!important;padding:0 24px}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1.5px var(--action)}
+.wiz-note{font-size:14px;color:var(--muted);text-align:center;margin-top:12px}
+@media (max-width:720px){
+  .wiz{padding:20px 0 0}
+  .preview{width:100%;max-width:420px;margin:0 auto}
+  .summary > div{grid-template-columns:1fr auto;padding:12px 14px}
+  .summary dt{grid-column:1/-1;margin-bottom:-8px}
+  .wiz-nav{position:sticky;bottom:0;margin:0 -16px -22px;padding:12px 16px 16px;background:var(--bg-brand);border-radius:0 0 var(--r-panel) var(--r-panel)}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="container top-inner">
+    <a href="index-b.html" aria-label="Туту — подарочные сертификаты"><img class="logo" src="assets/ticket/lg-on-violet.png" alt="Туту"></a>
+    <button type="button" class="faq-open" id="faqOpen">Частые вопросы</button>
+  </div>
+</header>
+
+<main class="wiz">
+  <div class="container">
+    <div class="builder">
+      <form class="form" id="form" novalidate>
+        <!-- Шаг 1 -->
+        <div class="step" data-step="1">
+          <h1 class="step-title">Сумма</h1>
+          <fieldset class="field">
+            <legend class="field-title">Сумма</legend>
+            <div class="chips" id="amountChips">
+              <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
+            </div>
+            <div class="amount-row">
+              <label class="label" for="amount" style="margin:0">Другая сумма</label>
+              <input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off">
+            </div>
+            <p class="field-hint">От&nbsp;500 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p>
+          </fieldset>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="step" data-step="2" hidden>
+          <h1 class="step-title">Поздравление</h1>
+          <div class="two">
+            <div>
+              <label class="label" for="toName">Кому</label>
+              <input class="input" id="toName" maxlength="40" placeholder="Имя получателя">
+            </div>
+            <div>
+              <label class="label" for="fromName">От кого</label>
+              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит">
+            </div>
+          </div>
+          <textarea class="input" id="message" maxlength="120" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
+          <div class="chips templates" id="templates"></div>
+          <div class="counter"><span id="msgCount">0</span> / 120</div>
+        </div>
+
+        <!-- Шаг 3 -->
+        <div class="step" data-step="3" hidden>
+          <h1 class="step-title">Как подарить</h1>
+          <div class="seg" role="group" aria-label="Способ вручения">
+            <button type="button" data-delivery="recipient">На&nbsp;почту получателю</button>
+            <button type="button" data-delivery="self">Вручу сам</button>
+          </div>
+          <p class="seg-hint" id="segHint"></p>
+
+          <!-- Оформление: для письма открытка, для вручения лично билет -->
+          <div class="pick" id="designField">
+            <span class="label pick-label" id="designLabel">Открытка</span>
+            <div class="designs" id="designs"></div>
+            <div class="designs" id="tickets" hidden></div>
+          </div>
+
+          <div id="recipientBlock">
+            <span class="label">Когда отправить</span>
+            <div class="chips" id="whenChips">
+              <button type="button" class="chip" data-when="now">Сразу после оплаты</button>
+              <button type="button" class="chip" data-when="date">Выбрать день и&nbsp;время</button>
+            </div>
+            <div class="when-row" id="dateRow" hidden>
+              <input class="input" type="date" id="sendDate" aria-label="Дата отправки">
+              <input class="input" type="time" id="sendTime" value="09:00" aria-label="Время отправки">
+            </div>
+            <div class="two sub">
+              <div>
+                <label class="label" for="toEmail">Почта получателя</label>
+                <input class="input" id="toEmail" type="email" autocomplete="off" placeholder="name@mail.ru">
+                <p class="err" id="toEmailErr" hidden></p>
+              </div>
+              <div>
+                <label class="label" for="fromEmail">Ваша почта</label>
+                <input class="input" id="fromEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
+                <p class="field-hint">Пришлём чек и&nbsp;копию сертификата</p><p class="err" id="fromEmailErr" hidden></p>
+              </div>
+            </div>
+          </div>
+
+          <div id="selfBlock" hidden>
+            <label class="label" for="selfEmail">Ваша почта</label>
+            <input class="input" id="selfEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
+            <p class="field-hint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
+          </div>
+        </div>
+
+        <!-- Шаг 4 -->
+        <div class="step" data-step="4" hidden>
+          <h1 class="step-title">Проверьте и&nbsp;оплатите</h1>
+          <dl class="summary" id="summary"></dl>
+        </div>
+
+        <div class="wiz-nav">
+          <button type="button" class="btn btn-secondary" id="backBtn">Назад</button>
+          <button type="submit" class="btn btn-primary" id="nextBtn">Продолжить</button>
+        </div>
+        <p class="wiz-note" id="wizNote" hidden>Сертификат действует 12&nbsp;месяцев с&nbsp;момента отправки. Остаток не&nbsp;сгорает. <a href="https://www.tutu.ru/2read/legal_information/sertificat/">Правила</a></p>
+      </form>
+
+      <aside class="preview" aria-label="Предпросмотр сертификата">
+        <p class="preview-title">Так увидит получатель</p>
+        <!-- На почту: открытка и письмо -->
+        <div id="emailPreview">
+          <div class="tk-box pv-tk" id="pvFront"></div>
+          <div class="letter">
+            <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
+            <p class="letter-msg" id="letterMsg"></p>
+            <p class="letter-sign" id="letterSign" hidden></p>
+            <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
+          </div>
+        </div>
+        <!-- Вручу сам: PDF с билетом для печати с двух сторон -->
+        <div id="ticketPreview" hidden>
+          <span class="pv-side">Лицевая сторона</span>
+          <div class="tk-box pv-tk" id="pvPrintFront"></div>
+          <span class="pv-side">Оборот</span>
+          <div class="tk-box pv-tk" id="pvPrintBack"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <img class="footer-logo" src="assets/footer/logo-tutu-white.svg" alt="Туту">
+    <!-- Подвал как на tutu.ru: разделы и ссылки с главной tutu.ru, вёрстка и картинки с индийского лендинга -->
+    <div class="footer-grid">
+      <div class="footer-app-col">
+        <h4 class="footer-app-title">Приложение Туту</h4>
+        <div class="footer-app-body">
+          <div class="qr"><img src="assets/footer/qr-new.png" alt="QR-код для скачивания приложения Туту"></div>
+          <div class="stores">
+            <a href="https://apps.apple.com/ru/app/жд-билеты-отели-авиабилеты/id1296791829" rel="noreferrer nofollow noopener" aria-label="App Store"><img src="assets/footer/store-apple.svg?v=2" alt="App Store"></a>
+            <a href="https://play.google.com/store/apps/details?id=ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="Google Play"><img src="assets/footer/store-google.svg?v=2" alt="Google Play"></a>
+            <a href="https://appgallery.huawei.com/#/app/C100925545" rel="noreferrer nofollow noopener" aria-label="Huawei AppGallery"><img src="assets/footer/store-huawei.svg?v=2" alt="Huawei AppGallery"></a>
+            <a href="https://www.rustore.ru/catalog/app/ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="RuStore"><img src="assets/footer/store-rustore.svg?v=2" alt="RuStore"></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="https://c.tutu.ru/">О&nbsp;нас</a>
+        <a href="https://company.tutu.ru/vacancy/">Вакансии</a>
+        <a href="https://c.tutu.ru/#company-contacts">Контакты</a>
+        <a href="https://www.tutu.ru/news_own/">Новости</a>
+        <a href="https://www.tutu.ru/2read/legal_information/">Правовая информация</a>
+      </div>
+      <div class="footer-col">
+        <h4>Путешественникам</h4>
+        <a href="https://bonus.tutu.ru/">Программа лояльности</a>
+        <a href="https://www.tutu.ru/geo/">Путеводитель по&nbsp;странам</a>
+        <h4 class="footer-h4-extra">Партнёрам</h4>
+        <a href="https://c.tutu.ru/partners/">Стать партнёром</a>
+        <a href="https://partner.tutu.ru/hotels">Подключить объект размещения</a>
+        <a href="https://www.tutu.ru/2read/advert/advert/">Реклама на&nbsp;Туту</a>
+        <a href="https://advcake.ru/lp/tutu/">Партнёрская программа</a>
+      </div>
+      <div class="footer-col">
+        <h4>Помощь</h4>
+        <a href="https://www.tutu.ru/2read/">Справочная</a>
+        <a href="https://www.tutu.ru/feedback.php">Обратная связь</a>
+        <h4 class="footer-h4-extra">Мы в&nbsp;социальных сетях</h4>
+        <div class="socials">
+          <a href="https://t.me/tutu_travel" rel="noreferrer nofollow noopener" aria-label="Туту в Telegram"><img class="social" src="assets/footer/social-telegram.svg" alt="Telegram"></a>
+          <a href="https://vk.com/tu_tu_ru" rel="noreferrer nofollow noopener" aria-label="Туту во ВКонтакте"><img class="social" src="assets/footer/social-vk.svg" alt="ВКонтакте"></a>
+          <a href="https://youtube.com/@tutu_ru" rel="noreferrer nofollow noopener" aria-label="Туту в YouTube"><img class="social" src="assets/footer/social-youtube.svg" alt="YouTube"></a>
+        </div>
+      </div>
+
+      <!-- Строки под QR как на tutu.ru: одного размера, каждая с новой строки -->
+      <div class="footer-legal">
+        <p>Используется программный комплекс <a href="https://tutu.tech/">ООО «Глобус Медиа»</a></p>
+        <p>При использовании материалов ссылка на&nbsp;<a href="https://www.tutu.ru/">www.tutu.ru</a> обязательна</p>
+        <p><a href="https://www.tutu.ru/2read/legal_information/legal_personal/">Политика обработки персональных данных</a></p>
+        <p>На&nbsp;информационном ресурсе <a href="https://www.tutu.ru/2read/legal_information/legal_recsys_tutu/">применяются рекомендательные технологии</a></p>
+        <p>Прототип: <a href="index.html">версия A</a> · <a href="index-b.html">версия B</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<dialog id="faqDialog" aria-labelledby="faqTitle">
+  <div class="faq-dialog-head">
+    <h2 id="faqTitle">Частые вопросы</h2>
+    <button type="button" class="faq-close" id="faqClose" aria-label="Закрыть">×</button>
+  </div>
+  <div class="faq-dialog-body">
+    <div class="faq-list">
+      <details name="faq">
+        <summary>Что входит в&nbsp;сертификат?</summary>
+        <p>Это не&nbsp;тур и&nbsp;не&nbsp;билет на&nbsp;конкретные даты, а&nbsp;сумма. Ею&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту.</p>
+      </details>
+      <details name="faq">
+        <summary>Чем сертификат отличается от&nbsp;денег?</summary>
+        <p>Им&nbsp;можно оплатить только поездки на&nbsp;Туту. Зато это выглядит как настоящий подарок: с&nbsp;открыткой, поздравлением и&nbsp;вручением в&nbsp;нужный день.</p>
+      </details>
+      <details name="faq">
+        <summary>Как воспользоваться сертификатом?</summary>
+        <p>Выберите билеты или отель на&nbsp;Туту. На&nbsp;странице оплаты укажите, что у&nbsp;вас есть сертификат, и&nbsp;введите его номер. Если заказ дороже, доплатите картой.</p>
+      </details>
+      <details name="faq">
+        <summary>Что нельзя оплатить сертификатом?</summary>
+        <p>Страховку, аэроэкспресс, услуги «100%-ный возврат» и&nbsp;«Оплатить позже», предзаказ ж/д билетов, а&nbsp;также отели с&nbsp;оплатой на&nbsp;месте и&nbsp;с&nbsp;пометкой «От&nbsp;партнёра».</p>
+      </details>
+      <details name="faq">
+        <summary>Сколько действует сертификат?</summary>
+        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок начнётся с&nbsp;него. Дату окончания мы&nbsp;укажем в&nbsp;письме.</p>
+      </details>
+      <details name="faq">
+        <summary>Что, если человек не&nbsp;поедет?</summary>
+        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты он&nbsp;выбирает сам. После окончания срока сертификат перестаёт действовать.</p>
+      </details>
+      <details name="faq">
+        <summary>Можно ли потратить сертификат частично?</summary>
+        <p>Да. Если поездка стоит меньше сертификата, мы&nbsp;пришлём остаток новым сертификатом на&nbsp;почту, указанную при оплате заказа. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
+      </details>
+      <details name="faq">
+        <summary>Как оплатить поездку туда и&nbsp;обратно на&nbsp;поезде или автобусе?</summary>
+        <p>Билеты в&nbsp;каждую сторону оформляются отдельным заказом, и&nbsp;на&nbsp;каждый нужен свой сертификат. Чтобы подарить поездку туда и&nbsp;обратно, купите два сертификата.</p>
+      </details>
+      <details name="faq">
+        <summary>Можно ли оплатить заказ несколькими сертификатами?</summary>
+        <p>Нет, один заказ оплачивается одним сертификатом. Разницу можно доплатить картой.</p>
+      </details>
+      <details name="faq">
+        <summary>Что будет, если вернуть билеты, оплаченные сертификатом?</summary>
+        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов.</p>
+      </details>
+      <details name="faq">
+        <summary>Где прочитать полные правила?</summary>
+        <p>В&nbsp;<a href="https://www.tutu.ru/2read/legal_information/sertificat/">правилах приобретения и&nbsp;использования сертификатов</a>.</p>
+      </details>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="protoDialog">
+  <h3 id="protoTitle">Это прототип</h3>
+  <div id="protoBody"></div>
+  <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
+</dialog>
+
+<script src="ticket.js?v=20261113162836"></script>
+<script src="shared.js?v=20261113162836"></script>
+<script>
+// Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
+const params = new URLSearchParams(location.search);
+const fromLanding = parseInt(params.get('amount'), 10);
+const state = {
+  step: 1,
+  amount: fromLanding || CONFIG.defaultAmount,
+  design: findDesign(params.get('design')).id,
+  ticket: CONFIG.defaultTicket,
+  delivery: 'recipient',
+  when: 'now'
+};
+const STEPS = 4;
+
+// Открытка для письма, оформление билета для печати и шаблоны
+buildPicker('designs', CONFIG.designs, 'card', (id) => { state.design = id; render(); });
+buildPicker('tickets', CONFIG.tickets, 'front', (id) => { state.ticket = id; render(); });
+CONFIG.templates.forEach((t) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chip';
+  b.textContent = t.label;
+  b.addEventListener('click', () => { $('message').value = t.text; render(); });
+  $('templates').append(b);
+});
+
+// Сумма
+const parseAmount = (v) => parseInt(String(v).replace(/\D/g, ''), 10) || 0;
+const amountValid = () => state.amount >= CONFIG.minAmount && state.amount <= CONFIG.maxAmount;
+function setAmount(n, fromInput) {
+  state.amount = n;
+  if (!fromInput) $('amount').value = n ? n.toLocaleString('ru-RU') : '';
+  render();
+}
+document.querySelectorAll('#amountChips .chip').forEach((c) => c.addEventListener('click', () => setAmount(+c.dataset.amount)));
+$('amount').addEventListener('input', (e) => {
+  const n = parseAmount(e.target.value);
+  e.target.value = n ? n.toLocaleString('ru-RU') : '';
+  setAmount(n, true);
+});
+$('amount').value = state.amount.toLocaleString('ru-RU');
+// Шаблон поздравления с карточки лендинга
+const fromTemplate = CONFIG.templates.find((x) => x.id === params.get('template'));
+if (fromTemplate) $('message').value = fromTemplate.text;
+
+// Отправка
+document.querySelectorAll('[data-delivery]').forEach((b) => b.addEventListener('click', () => { state.delivery = b.dataset.delivery; render(); }));
+document.querySelectorAll('#whenChips .chip').forEach((c) => c.addEventListener('click', () => { state.when = c.dataset.when; render(); }));
+const today = new Date();
+const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+$('sendDate').min = iso(today);
+$('sendDate').value = iso(today);
+['toName', 'fromName', 'message', 'sendDate', 'sendTime', 'toEmail', 'fromEmail', 'selfEmail'].forEach((id) => $(id).addEventListener('input', render));
+
+function whenText() {
+  if (state.delivery !== 'recipient') return 'вам на почту';
+  if (state.when === 'now') return 'сразу после оплаты';
+  return new Date($('sendDate').value + 'T00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ' в ' + ($('sendTime').value || '09:00');
+}
+
+function render() {
+  const d = findDesign(state.design);
+  const t = findTicket(state.ticket);
+  const amountOk = amountValid();
+  const toRecipient = state.delivery === 'recipient';
+  const toName = $('toName').value.trim();
+  const fromName = $('fromName').value.trim();
+  const msg = $('message').value.trim();
+
+  // Шаги
+  document.querySelectorAll('.step').forEach((s) => { s.hidden = +s.dataset.step !== state.step; });
+  $('backBtn').hidden = state.step === 1;
+  $('nextBtn').textContent = state.step === STEPS ? (amountOk ? `Оплатить ${fmt(state.amount)}` : 'Оплатить') : 'Продолжить';
+  $('wizNote').hidden = state.step !== STEPS;
+
+  // Выбор
+  document.querySelectorAll('#amountChips .chip').forEach((c) => c.setAttribute('aria-pressed', +c.dataset.amount === state.amount));
+  document.querySelectorAll('#whenChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.when === state.when));
+  document.querySelectorAll('[data-delivery]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.delivery === state.delivery));
+  $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
+  $('amountErr').hidden = amountOk || !state.amount;
+  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма – ${fmt(CONFIG.minAmount)}` : `Максимальная сумма – ${fmt(CONFIG.maxAmount)}`;
+  // Под переключателем: открытки для письма или билеты для печати
+  $('designs').hidden = !toRecipient;
+  $('tickets').hidden = toRecipient;
+  $('designLabel').textContent = toRecipient ? 'Открытка' : 'Оформление билета';
+  $('recipientBlock').hidden = !toRecipient;
+  $('selfBlock').hidden = toRecipient;
+  $('dateRow').hidden = state.when !== 'date';
+  $('segHint').textContent = toRecipient
+    ? 'Отправим письмо сразу или в выбранный день'
+    : 'Пришлём вам PDF, чтобы распечатать';
+  $('msgCount').textContent = $('message').value.length;
+
+  // Предпросмотр. Срок считаем от отправки: при отложенной отправке получатель не теряет месяцы
+  const amountText = amountOk ? fmt(state.amount) : '— ₽';
+  syncPicker('designs', d.id, amountText);
+  syncPicker('tickets', t.id, amountText);
+  const delayed = toRecipient && state.when === 'date' && $('sendDate').value;
+  const until = delayed ? new Date($('sendDate').value + 'T00:00') : new Date(today);
+  until.setMonth(until.getMonth() + CONFIG.validityMonths);
+  const fields = { amount: amountText, to: toName, from: fromName, msg, till: untilText(until) };
+  $('emailPreview').hidden = !toRecipient;
+  $('ticketPreview').hidden = toRecipient;
+  if (toRecipient) {
+    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
+  } else {
+    tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
+    tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
+  }
+  $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
+  $('letterMsg').classList.toggle('is-empty', !msg);
+  $('letterSign').hidden = !fromName;
+  $('letterSign').textContent = fromName;
+  $('letterTo').textContent = toName ? `Кому: ${toName}` : 'Письмо получателю';
+  $('letterWhen').textContent = whenText();
+  $('certValid').textContent = 'Действует до ' + untilText(until);
+
+  // Итог на последнем шаге
+  const rows = [
+    ['Сумма', amountOk ? fmt(state.amount) : '—', 1],
+    toRecipient ? ['Открытка', d.name, 3] : ['Билет', t.name, 3],
+    ['Кому', toName, 2],
+    ['От кого', fromName, 2],
+    ['Поздравление', msg, 2],
+    ['Как подарить', toRecipient ? 'На почту, ' + whenText() : 'Лично, PDF вам на почту', 3],
+    [toRecipient ? 'Почта получателя' : 'Ваша почта', toRecipient ? $('toEmail').value.trim() : $('selfEmail').value.trim(), 3]
+  ];
+  $('summary').replaceChildren(...rows.map(([label, value, step]) => {
+    const row = document.createElement('div');
+    const dt = document.createElement('dt'); dt.textContent = label;
+    const dd = document.createElement('dd'); dd.textContent = value || 'Не указано'; dd.classList.toggle('is-empty', !value);
+    const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'edit'; edit.textContent = 'Изменить';
+    edit.addEventListener('click', () => goTo(step));
+    row.append(dt, dd, edit);
+    return row;
+  }));
+}
+
+// Проверка шага перед переходом дальше
+const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+function checkEmail(id) {
+  const ok = emailOk($(id).value);
+  $(id).classList.toggle('is-invalid', !ok);
+  $(id + 'Err').hidden = ok;
+  $(id + 'Err').textContent = 'Проверьте почту';
+  return ok;
+}
+function stepValid(step) {
+  if (step === 1 && !amountValid()) { $('amount').focus(); render(); return false; }
+  if (step === 3) {
+    const ok = state.delivery === 'recipient'
+      ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)
+      : checkEmail('selfEmail');
+    if (!ok) { document.querySelector('.step[data-step="3"] .is-invalid')?.focus(); return false; }
+  }
+  return true;
+}
+function goTo(step) {
+  state.step = step;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!stepValid(state.step)) return;
+  if (state.step < STEPS) { goTo(state.step + 1); return; }
+  const d = findDesign(state.design);
+  showProto('Здесь будет оплата', [
+    'Сумма: ' + fmt(state.amount),
+    state.delivery === 'recipient' ? 'Открытка: ' + d.name : 'Билет: ' + findTicket(state.ticket).name,
+    state.delivery === 'recipient' ? 'Отправка получателю: ' + whenText() : 'PDF на почту покупателю',
+  ]);
+});
+$('backBtn').addEventListener('click', () => goTo(state.step - 1));
+
+// Частые вопросы: окно по центру, закрывается крестиком, Esc или кликом мимо окна
+$('faqOpen').addEventListener('click', () => $('faqDialog').showModal());
+$('faqClose').addEventListener('click', () => $('faqDialog').close());
+$('faqDialog').addEventListener('click', (e) => { if (e.target === $('faqDialog')) $('faqDialog').close(); });
+
+render();
+
+// Форма и предпросмотр по высоте своего содержимого, а весь блок держит высоту самого высокого варианта,
+// чтобы подвал не подъезжал при смене шага или способа отправки
+function lockFormHeight() {
+  const builder = document.querySelector('.builder');
+  const saved = { step: state.step, delivery: state.delivery, when: state.when };
+  builder.style.minHeight = '';
+  let max = 0;
+  for (const delivery of ['recipient', 'self']) {
+    for (let step = 1; step <= STEPS; step++) {
+      Object.assign(state, { step, delivery, when: 'date' });
+      render();
+      max = Math.max(max, builder.offsetHeight);
+    }
+  }
+  Object.assign(state, saved);
+  render();
+  builder.style.minHeight = max + 'px';
+}
+lockFormHeight();
+document.fonts.ready.then(lockFormHeight);
+// Если билет вырос, пока человек печатает поздравление, блок растёт вместе с ним и уже не уменьшается
+new ResizeObserver(() => {
+  const builder = document.querySelector('.builder');
+  if (builder.offsetHeight > (parseFloat(builder.style.minHeight) || 0)) builder.style.minHeight = builder.offsetHeight + 'px';
+}).observe(document.querySelector('.builder'));
+let lockTimer;
+window.addEventListener('resize', () => { clearTimeout(lockTimer); lockTimer = setTimeout(lockFormHeight, 150); });
+
+if (params.get('amount') === 'other') { $('amount').focus(); $('amount').select(); }
+</script>
+</body>
+</html>

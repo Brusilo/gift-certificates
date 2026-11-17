@@ -1,0 +1,359 @@
+/* Стили обеих версий: index.html (A), index-b.html и buy.html (B). Билет — в ticket.css */
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_demibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+  /* Палитра сертификата для печати («Правила сборки подарочного сертификата Туту») */
+  --berry:#A181FF;
+  --blueberry:#011F90;
+  --aubergine:#5F17C5;
+  --strawberry:#FD5623;
+  --lime:#D0FF1A;
+  --lavender:#D6C8FF;
+  --bg-brand:#F3F0FF;
+  /* Кнопки и выбор — как на индийском лендинге */
+  --action:#7028EB;
+  --action-hover:#5F17C5;
+
+  /* Цвета текста, стрелок и фонов вопросов — как на индийском лендинге (tutu-system.css). Синий Blueberry остаётся только в билете и открытках */
+  --ink:#181C2D;
+  --text:#555A7A;
+  --muted:#8C8CA1;
+  --deep-blue:#0D0B68;
+  --surface-neutral:#F5F5F9;
+  --surface-neutral-2:#F0F0F7;
+  --line:#E2DCFA;
+  --white:#fff;
+
+  --shadow-md:0 10px 30px rgba(1,31,144,.12);
+  --shadow-tk:0 18px 40px rgba(1,31,144,.28);
+
+  --r-card:16px;
+  --r-panel:32px;
+  --r-btn:12px;
+  --maxw:1180px;
+
+  --font:'Tutu Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px;scrollbar-gutter:stable}
+body{margin:0;font-family:var(--font);color:var(--text);background:var(--white);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{color:var(--ink);margin:0;line-height:1.15}
+/* Заголовки блоков как на tutu.ru: полужирные, с заглавной буквы, без курсива и капса */
+h2{font-size:clamp(28px,3.2vw,40px);font-weight:600;letter-spacing:-.01em;margin-bottom:28px}
+h3{font-size:20px;font-weight:600}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 16px}
+/* Отступ между блоками везде одинаковый */
+.section{padding:56px 0 0}
+main > section:last-child{padding-bottom:56px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 28px;border-radius:var(--r-btn);border:0;font-weight:600;font-size:17px;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--action);color:var(--white)}
+.btn-primary:hover{background:var(--action-hover)}
+.btn-lime{background:var(--lime);color:#000}
+.btn-lime:hover{background:#C2F000}
+
+/* Стикеры, как «СЕРТИФИКАТ» и сумма на билете: верх и низ поднимаются вправо на 8°, бока наклонены на 8° */
+.stk-group{display:flex;flex-direction:column;align-items:flex-start;transform:skewY(-8deg);transform-origin:0 0}
+.stk{position:relative;z-index:0;display:inline-block;font-weight:900;font-style:italic;text-transform:uppercase;line-height:1;white-space:nowrap;padding:.14em .26em .18em}
+.stk::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:.22em .3em .22em .3em;transform:skewX(-8deg)}
+.stk-red{color:var(--white)}
+.stk-red::before{background:var(--strawberry)}
+.stk-lime{color:#000}
+.stk-lime::before{background:var(--lime)}
+
+/* Шапка */
+.top{background:var(--berry)}
+.top-inner{display:flex;align-items:center;gap:24px;padding-block:16px}
+.logo{height:26px;width:auto;flex:none}
+.top-nav{display:flex;gap:24px;margin-left:auto}
+.top-nav a{color:var(--white);text-decoration:none;font-weight:500;font-size:15px}
+.top-nav a:hover{opacity:.8}
+
+/* Первый экран */
+.hero{background:var(--berry);color:var(--white);padding:28px 0 84px;position:relative;overflow-x:clip;overflow-y:visible}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:40px;align-items:center}
+/* Сверху место под подъём стикеров: при наклоне 8° правый край поднимается примерно на 0,9 высоты шрифта, иначе их обрезает край экрана */
+.hero-title{margin:.5em 0 10px;font-size:clamp(51px,6.95vw,99px);color:inherit}
+.hero-title .stk-red{font-size:.74em}
+/* «Путешествие» длинное, поэтому лаймовый стикер того же размера, что и «Подарите» */
+.hero-title .stk-lime{font-size:.7em;margin:-.02em 0 0 .4em}
+.hero-sub{font-size:19px;font-weight:500;color:rgba(255,255,255,.92);max-width:560px;margin-bottom:22px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0;font-weight:600;color:var(--white)}
+.facts li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border-radius:999px;padding:6px 14px 6px 8px}
+.facts li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237028EB' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/13px no-repeat}
+.hero-cta{margin-top:30px}
+/* Билет в первом экране: лицевая сторона лежит на обороте */
+.hero-art{position:relative;padding:0 4% 3% 0}
+.hero-back,.hero-front{filter:drop-shadow(0 24px 34px rgba(1,31,144,.35))}
+.hero-back{position:absolute;left:12%;right:-6%;top:34%;transform:rotate(5deg)}
+.hero-front{transform:rotate(-5deg)}
+
+
+/* Первая секция после первого экрана заезжает на него панелью, как на индийском лендинге */
+.hero + .section{position:relative;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
+@media (min-width:768px){.hero + .section{margin-top:-40px;border-radius:40px 40px 0 0}}
+
+/* «Кому подарить»: плитки — маленькие билеты. Сверху цветная часть с «Кому» и получателем, линия отрыва с вырезами, снизу почему подойдёт */
+.gift-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.gift{--top:140px;--paint:var(--berry);--on:var(--white);all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--surface-neutral);color:var(--ink);
+  -webkit-mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);-webkit-mask-composite:source-in;
+  mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);mask-composite:intersect}
+.gift:nth-child(5n+2){--paint:var(--deep-blue);--on:var(--white)}
+.gift:nth-child(5n+3){--paint:var(--lime);--on:#000}
+.gift:nth-child(5n+4){--paint:var(--strawberry);--on:var(--white)}
+.gift:nth-child(5n+5){--paint:var(--aubergine);--on:var(--white)}
+.gift:focus-visible{outline:3px solid var(--action);outline-offset:-3px}
+.gift-top{position:relative;height:var(--top);flex:none;display:flex;flex-direction:column;padding:20px 18px;background:var(--paint);color:var(--on)}
+/* Иконка транспорта, как на корешке сертификата */
+.gift-ic{position:absolute;right:16px;bottom:14px;height:30px;width:auto;opacity:.9}
+.gift:nth-child(5n+3) .gift-ic{filter:brightness(0);height:24px}
+.gift-title{font-size:22px;font-weight:600;line-height:1.2;color:inherit}
+.gift-bottom{position:relative;flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 14px 14px 18px;border-top:2px dashed #DCDCE8}
+.gift-example{font-size:15px;font-weight:500;line-height:1.3;color:var(--text)}
+.gift-go{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--white);color:var(--action);font-weight:900;transition:background .15s,color .15s}
+.gift:hover .gift-go{background:var(--ink);color:var(--white)}
+
+/* «Сколько подарить»: только суммы, на открытках для письма */
+/* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
+.sum-panel{border-radius:var(--r-panel);padding:28px 32px 32px;background:radial-gradient(60% 120% at 82% 10%,#F1B6F8 0%,rgba(241,182,248,0) 70%),linear-gradient(100deg,#C65CF2 0%,#E59BF6 50%,#CD6CF1 100%)}
+.sum-panel h2{color:var(--white);margin-bottom:24px}
+.sum-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0;scrollbar-width:none}
+.sum-row::-webkit-scrollbar{display:none}
+.sum{all:unset;box-sizing:border-box;cursor:pointer;display:block;flex:0 0 calc((100% - 48px) / 4);scroll-snap-align:start;border-radius:12px}
+/* Карусель: стрелки поверх краёв ряда, как carousel-nav--overlay на индийском лендинге (tutu-system.css) */
+.has-carousel-arrows{position:relative}
+.sum-row{isolation:isolate}
+.carousel-nav--overlay{position:absolute;inset:0;z-index:10;pointer-events:none}
+.carousel-nav--overlay button{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:var(--ink);box-shadow:0 2px 12px rgba(13,11,104,.18);pointer-events:auto;display:grid;place-items:center;cursor:pointer;transition:opacity .2s ease,background .15s ease}
+.carousel-nav--overlay button:first-child{left:-20px}
+.carousel-nav--overlay button:last-child{right:-20px}
+.carousel-nav--overlay button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carousel-nav--overlay button:hover:not(:disabled){background:#E7E0FF;color:var(--ink)}
+.carousel-nav--overlay button:disabled{opacity:0;pointer-events:none}
+.sum:focus-visible{outline:3px solid var(--action);outline-offset:4px}
+
+/* «Почему сертификат Туту»: плитки разной высоты со стикерами и 3D */
+.perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,auto);gap:16px;grid-template-areas:"a c e" "a d e" "b d e"}
+.perk{position:relative;background:var(--berry);color:var(--white);border-radius:28px;padding:16px 24px 20px}
+.perk h3{position:relative;z-index:2;margin:40px 0 8px;font-size:clamp(26px,2.45vw,35px)}
+.perk h3 .stk + .stk{margin:-.04em 0 0 .5em}
+.perk p{position:relative;z-index:1;font-size:clamp(19px,1.75vw,25px);font-weight:600;line-height:1.22;color:var(--white)}
+.perk--a{grid-area:a}
+.perk--b{grid-area:b}
+.perk--c{grid-area:c}
+.perk--d{grid-area:d}
+.perk--e{grid-area:e}
+/* 3D-картинка целиком в правом нижнем углу, текст рядом с ней */
+.perk p{max-width:none}
+.perk--a p{max-width:60%}
+/* В «Любых поездках» стикеры короткие и почти не поднимаются, места сверху нужно меньше */
+.perk--a h3{margin-top:22px}
+.perk--d p{max-width:60%}
+.perk--e p{color:var(--white)}
+/* Высота рядов зафиксирована: крупнее текст не растягивает плитку */
+@media (min-width:1001px){.perks{grid-template-rows:190px 80px 236px}}
+@media (min-width:1001px) and (max-width:1250px){.perk--a .perk-art{width:28%}.perk--a p{max-width:none}}
+.perk-clip{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+.perk-art{position:absolute;pointer-events:none;max-width:none}
+.perk--a .perk-art{width:38%;right:12px;bottom:12px}
+.perk--d .perk-art{width:36%;right:10px;bottom:6px}
+.perk--e .perk-art{width:58%;right:14px;bottom:16px}
+
+/* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
+.use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 17% 50px 21%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
+.use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23A181FF' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+/* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
+.use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
+.use-step h3{font-size:21px;font-weight:600;color:var(--white)}
+.use-step p{font-size:16px;font-weight:500;color:var(--white)}
+.use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:url('assets/ticket/arrow-navy.png') center/contain no-repeat}
+.how-cta{margin-top:32px}
+
+/* Форма */
+.buy{background:var(--white)}
+.builder{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:40px;align-items:start}
+.form{background:var(--bg-brand);border-radius:var(--r-panel);padding:32px}
+.field{border:0;margin:0 0 32px;padding:0;min-width:0}
+.field-title{display:block;font-weight:600;color:var(--ink);font-size:18px;margin-bottom:12px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:15px;color:var(--ink);transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--action)}
+.chip[aria-pressed="true"]{border-color:var(--action);background:var(--bg-brand);color:var(--ink)}
+.amount-row{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--white);font-size:16px;outline:none;transition:border-color .15s}
+.input:focus{border-color:var(--action)}
+.input.is-invalid{border-color:#E5484D}
+.amount-input{max-width:200px;font-weight:700;font-size:18px;color:var(--ink)}
+.err{font-size:13px;color:#C62828;margin-top:6px}
+.field-hint{margin-top:6px;font-size:13px;color:var(--muted)}
+/* Варианты оформления — маленькие билеты с текущей суммой */
+.designs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pick{margin-bottom:20px}
+.pick-label{color:var(--ink);font-weight:600;font-size:16px;margin-bottom:10px}
+.design{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:5px;border-radius:12px;box-shadow:inset 0 0 0 2px transparent;transition:box-shadow .15s,background .15s}
+.design:hover{background:rgba(255,255,255,.7)}
+.design[aria-pressed="true"]{background:var(--white);box-shadow:inset 0 0 0 2.5px var(--action)}
+.design:focus-visible{box-shadow:inset 0 0 0 2.5px var(--action-hover)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.label{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+textarea.input{resize:vertical;min-height:96px;line-height:1.45}
+.counter{text-align:right;font-size:13px;color:var(--muted);margin-top:4px}
+.templates{margin-top:10px}
+.templates .chip{font-size:14px;padding:7px 12px}
+.radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.radio-card{position:relative;display:block;background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px 14px 44px;cursor:pointer;transition:border-color .15s}
+.radio-card input{position:absolute;left:16px;top:17px;accent-color:var(--action);width:18px;height:18px;margin:0}
+.radio-card b{display:block;color:var(--ink);font-weight:600}
+.radio-card span{font-size:14px;color:var(--muted)}
+.radio-card:has(input:checked){border-color:var(--action)}
+.sub{margin-top:16px}
+.when-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.when-row .input{max-width:180px}
+.pay{padding-top:24px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.pay .btn{width:100%;font-size:18px;min-height:56px}
+.pay-note{font-size:14px;color:var(--muted);text-align:center}
+.pay-note a,.wiz-note a{color:var(--action)}
+
+/* Предпросмотр */
+.preview{position:relative;min-width:0}
+.preview-title{font-size:22px;color:var(--ink);margin-bottom:14px;font-weight:600;line-height:1.2}
+.pv-tk{filter:drop-shadow(0 14px 26px rgba(1,31,144,.22))}
+.pv-side{display:block;margin:18px 0 8px;font-size:14px;font-weight:500;color:var(--muted)}
+.pv-side:first-child{margin-top:0}
+.letter{margin-top:20px;background:var(--bg-brand);border-radius:18px;padding:18px 20px}
+.letter-head{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.letter-msg{color:var(--ink);white-space:pre-wrap;word-break:break-word;min-height:24px}
+.letter-msg.is-empty{color:var(--muted);font-style:italic}
+.letter-sign{margin-top:8px;font-weight:700;color:var(--ink)}
+.letter-valid{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+/* Компаниям */
+.biz{padding:56px 0 0}
+.biz-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;background:var(--deep-blue);border-radius:var(--r-panel);padding:44px 48px;color:rgba(255,255,255,.88)}
+.biz h2{color:var(--white);margin-bottom:12px}
+.biz p{max-width:600px;font-size:17px}
+.biz .btn{margin-top:24px}
+.biz-art{width:min(380px,32vw);margin:0;align-self:center}
+
+/* Частые вопросы */
+.faq-list{display:grid;gap:10px}
+.faq-list details{background:var(--surface-neutral);border-radius:16px;padding:0 24px}
+.faq-list details[open]{background:var(--surface-neutral-2)}
+.faq-list summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:600;color:var(--ink);font-size:17px;line-height:1.35;position:relative}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"";position:absolute;right:4px;top:50%;width:11px;height:11px;border-right:2.2px solid var(--action);border-bottom:2.2px solid var(--action);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq-list details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq-list details p{padding-bottom:18px;color:var(--text);font-size:15px;line-height:1.6}
+.faq-list a{color:var(--action)}
+
+/* Подвал */
+/* Подвал как на tutu.ru: разделы оттуда, вёрстка и картинки с индийского лендинга (landing.css, tutu-system.css) */
+/* Размеры сняты с подвала tutu.ru на ширине 1920 */
+.footer{border-radius:28px 28px 0 0;background:var(--berry);color:var(--white);padding:32px 0 40px}
+@media (min-width:768px){.footer{border-radius:40px 40px 0 0}}
+.footer-logo{width:128px;height:auto;margin-bottom:32px}
+.footer-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:16px 64px}
+.footer-app-title,.footer-col h4{color:var(--white);font-size:17px;font-weight:600;line-height:20px;margin:0 0 10px}
+.footer-app-title{margin-bottom:14px}
+.footer-app-body{display:flex;gap:16px;align-items:flex-start}
+.footer-app-col .qr{width:260px;height:260px;flex:none;border-radius:12px;background:var(--white);padding:8px}
+.footer-app-col .qr img{width:100%;height:100%;object-fit:contain}
+/* Кнопки магазинов как на tutu.ru: 56×56, светло-серые, значок 28 px */
+.footer-app-col .stores{display:flex;flex-direction:column;gap:12px;width:56px}
+.footer-app-col .stores a{display:grid;place-items:center;width:56px;height:56px;border-radius:12px;background:var(--surface-neutral);transition:background .15s ease}
+.footer-app-col .stores a:hover{background:#E7E0FF}
+.footer-app-col .stores img{width:28px;height:28px}
+.footer-col .footer-h4-extra{margin-top:20px}
+.footer-col a{display:block;color:rgba(255,255,255,.8);text-decoration:none;font-size:15px;line-height:20px;padding:4px 0;transition:color .15s ease}
+.footer-col a:hover{color:var(--white)}
+.socials{display:flex;gap:6px;margin-top:4px}
+.socials a{padding:0}
+.social{width:32px;height:32px;border-radius:8px;object-fit:cover}
+/* Строки стоят в сетке сразу под QR, колонки справа тянутся вниз рядом с ними */
+.footer-app-col{grid-row:1}
+.footer-col{grid-row:1 / span 2}
+.footer-legal{grid-column:1;grid-row:2}
+.footer-legal p{margin:0;font-size:15px;line-height:28px;color:rgba(255,255,255,.8)}
+.footer-legal p:first-child{color:var(--white)}
+.footer-legal a{color:inherit;text-decoration:none}
+.footer-legal a:hover{text-decoration:underline}
+
+/* Окно-заглушка прототипа */
+dialog{border:0;border-radius:24px;padding:28px;max-width:480px;width:calc(100% - 32px);box-shadow:var(--shadow-md);color:var(--text)}
+dialog::backdrop{background:rgba(1,31,144,.45)}
+dialog h3{margin-bottom:10px}
+dialog ul{padding-left:20px;margin:12px 0 20px}
+dialog .btn{width:100%}
+
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:8px}
+  .hero-art{max-width:560px;width:100%;margin:0 auto;padding:2% 6% 6% 0}
+  .builder{grid-template-columns:1fr}
+  .preview{order:-1;width:100%;max-width:480px}
+  /* Телефон и планшет: без стрелок, ряд листается пальцем от края до края */
+  .carousel-nav--overlay{display:none}
+  .sum-panel{padding:22px 0 24px}
+  .sum-panel h2{padding-inline:20px}
+  .sum-row{scroll-snap-type:x proximity;scroll-padding-inline:20px;padding:0 20px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-app-col{grid-column:1/-1}
+  .footer-col{grid-row:auto}
+  .footer-legal{grid-column:1/-1;grid-row:auto}
+  .footer-app-col .qr{display:none}
+  .footer-app-col .stores{flex-direction:row;height:auto}
+  .footer-app-col .stores{width:auto}
+  .sum{flex-basis:44%}
+  .perks{grid-template-columns:1fr 1fr;grid-template-areas:"a e" "c e" "b d" "b d";grid-auto-rows:minmax(110px,auto)}
+  .biz-inner{grid-template-columns:1fr}
+  .biz-art{order:-1;width:min(320px,70%);margin:-80px 0 0}
+  /* Телефон и планшет: ряд листается вбок, как карусели на индийском лендинге */
+  .gift-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding:6px 16px 14px}
+  .gift-row::-webkit-scrollbar{display:none}
+  .gift{flex:0 0 240px;scroll-snap-align:start;min-width:0}
+}
+@media (max-width:720px){
+  .section{padding:40px 0 0}
+  main > section:last-child{padding-bottom:40px}
+  h2{margin-bottom:24px}
+  .top-nav{display:none}
+  .hero{padding:0 0 48px}
+  .hero-title{margin:40px 0 20px;font-size:clamp(46px,15.4vw,68px)}
+  .hero-sub{font-size:17px}
+  .hero-cta{width:100%;margin-top:24px}
+  .gift{flex-basis:calc((100% + 4px) / 1.5)}
+  /* Открытки с суммами листаются вбок, как остальные ряды */
+  .sum-row{gap:12px}
+  .sum{flex-basis:72%}
+  .perks{grid-template-columns:1fr;grid-template-areas:"a" "e" "c" "d" "b";gap:12px}
+  /* Телефон: плитки низкие, 3D-картинка справа от текста */
+  .perk{padding:16px 18px 18px;min-height:0}
+  .perk h3{font-size:24px;margin:34px 0 6px}
+  .perk p{font-size:17px;max-width:none}
+  .perk--a p,.perk--d p,.perk--e p{max-width:64%}
+  .perk--a .perk-art{width:34%;right:-2%;bottom:-10%}
+  .perk--d .perk-art{width:28%;right:-2%;bottom:-12%}
+  .perk--e .perk-art{width:36%;right:-4%;bottom:-10%}
+  /* Шаги на телефоне листаются вбок, как карточки «Кому подарить» */
+  .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
+  .use-steps::-webkit-scrollbar{display:none}
+  .use-step + .use-step::after{display:none}
+  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
+  .how-cta{width:100%}
+  .biz{padding-top:40px}
+  .biz-inner{padding:28px 20px}
+  .form{padding:22px 16px}
+  .two,.radio-cards{grid-template-columns:1fr}
+  .designs{gap:4px}
+  .design{padding:3px;border-radius:9px}
+}

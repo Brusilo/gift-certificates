@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подарочный сертификат Туту на поездку</title>
+<meta name="description" content="Сертификат на ж/д и авиабилеты, автобусы и отели. Действует год, остаток не сгорает.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#A181FF">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="site.css?v=20261113162836">
+<link rel="stylesheet" href="ticket.css?v=20261113162836">
+</head>
+<body>
+
+<header class="top">
+  <div class="container top-inner">
+    <a href="https://www.tutu.ru/" aria-label="Туту — главная страница"><img class="logo" src="assets/ticket/lg-on-violet.png" alt="Туту"></a>
+    <nav class="top-nav" aria-label="Разделы страницы">
+      <a href="#use">Как воспользоваться</a>
+      <a href="#buy">Подарить</a>
+      <a href="#business">Компаниям</a>
+      <a href="#faq">Частые вопросы</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- Первый экран: что это и как работает. Справа сам билет, как его получит человек -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1 class="hero-title stk-group"><span class="stk stk-red">Подарите</span><span class="stk stk-lime">путешествие</span></h1>
+      <p class="hero-sub">Подарочный сертификат на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Куда и&nbsp;когда ехать, человек выберет сам.</p>
+      <ul class="facts">
+        <li>От&nbsp;500&nbsp;₽</li>
+        <li>Год на&nbsp;поездку</li>
+        <li>Остаток не&nbsp;сгорает</li>
+      </ul>
+      <a class="btn btn-primary hero-cta" href="#buy">Подарить сертификат</a>
+    </div>
+    <div class="hero-art" aria-label="Подарочный сертификат Туту">
+      <div class="hero-back tk-box" id="heroBack"></div>
+      <div class="hero-front tk-box" id="heroFront"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Кому подарить: плитки из CONFIG.giftCards, кому подойдёт такой подарок -->
+<section class="section" id="who">
+  <div class="container">
+    <h2>Кому подарить</h2>
+    <div class="gift-row" id="giftRow"></div>
+  </div>
+</section>
+
+<!-- Сколько подарить: только суммы, каждая на своей открытке для письма -->
+<section class="section" id="amounts">
+  <div class="container">
+    <!-- Панель с розовым градиентом, как подборки на tutu.ru -->
+    <div class="sum-panel">
+      <h2>Сколько подарить</h2>
+      <div class="sum-row" id="sumRow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Почему сертификат Туту: плитки разной высоты со стикерами и 3D, текст продолжает стикер, без точек -->
+<section class="section" id="perks">
+  <div class="container">
+    <h2>Почему сертификат Туту</h2>
+    <div class="perks">
+      <div class="perk perk--a">
+        <h3 class="stk-group"><span class="stk stk-red">Любые</span><span class="stk stk-lime">поездки</span></h3>
+        <p>поезда, самолёты, автобусы и&nbsp;отели на&nbsp;Туту</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/train-tram.webp" alt="" aria-hidden="true"></span>
+      </div>
+      <div class="perk perk--b">
+        <h3 class="stk-group"><span class="stk stk-lime">Поддержка 24/7</span></h3>
+        <p>в&nbsp;чате на&nbsp;сайте и&nbsp;в&nbsp;приложении, по&nbsp;почте и&nbsp;телефону</p>
+      </div>
+      <div class="perk perk--c">
+        <h3 class="stk-group"><span class="stk stk-red">Без привязки</span></h3>
+        <p>куда и&nbsp;когда ехать, получатель выберет сам</p>
+      </div>
+      <div class="perk perk--d">
+        <h3 class="stk-group"><span class="stk stk-red">Вручите</span><span class="stk stk-lime">как хотите</span></h3>
+        <p>письмом в&nbsp;нужный день или лично, распечатав билет</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/plane-swirl.webp" alt="" aria-hidden="true"></span>
+      </div>
+      <div class="perk perk--e">
+        <h3 class="stk-group"><span class="stk stk-lime">Действует</span><span class="stk stk-red">1&nbsp;год</span></h3>
+        <p>а&nbsp;остаток не&nbsp;сгорает и&nbsp;придёт новым сертификатом, он&nbsp;тоже действует год</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/wallet-timer.png" alt="" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Как воспользоваться: три шага с оборота билета -->
+<section class="section" id="use">
+  <div class="container">
+    <h2>Как воспользоваться</h2>
+    <ol class="use-steps">
+      <li class="use-step"><span class="use-num">1</span><h3>Выберите билеты или отель на&nbsp;Туту</h3></li>
+      <li class="use-step"><span class="use-num">2</span><h3>При оплате введите код сертификата</h3></li>
+      <li class="use-step"><span class="use-num">3</span><h3>Билет дороже&nbsp;– доплатите картой. Дешевле&nbsp;– отправим сертификат на&nbsp;остаток</h3></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Форма оформления подарка -->
+<section class="section buy" id="buy">
+  <div class="container">
+    <h2>Оформите подарок</h2>
+
+    <div class="builder">
+      <form class="form" id="form" novalidate>
+
+        <fieldset class="field">
+          <legend class="field-title">Сумма</legend>
+          <div class="chips" id="amountChips">
+            <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
+            <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
+            <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
+            <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
+            <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
+          </div>
+          <div class="amount-row">
+            <label class="label" for="amount" style="margin:0">Другая сумма</label>
+            <input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="5 000">
+          </div>
+          <p class="field-hint">От&nbsp;500 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="field-title">Поздравление</legend>
+          <div class="two">
+            <div>
+              <label class="label" for="toName">Кому</label>
+              <input class="input" id="toName" maxlength="40" placeholder="Имя получателя">
+            </div>
+            <div>
+              <label class="label" for="fromName">От кого</label>
+              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит">
+            </div>
+          </div>
+          <textarea class="input" id="message" maxlength="120" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
+          <div class="chips templates" id="templates"></div>
+          <div class="counter"><span id="msgCount">0</span> / 120</div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="field-title">Как подарить</legend>
+          <div class="radio-cards">
+            <label class="radio-card">
+              <input type="radio" name="delivery" value="recipient" checked>
+              <b>На&nbsp;почту получателю</b>
+              <span>Отправим письмо сразу или в&nbsp;выбранный день</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="delivery" value="self">
+              <b>Вручу сам</b>
+              <span>Пришлём вам PDF, чтобы распечатать</span>
+            </label>
+          </div>
+
+          <!-- Оформление: для письма открытка, для вручения лично билет -->
+          <div class="pick sub" id="designField">
+            <span class="label pick-label" id="designLabel">Открытка</span>
+            <div class="designs" id="designs"></div>
+            <div class="designs" id="tickets" hidden></div>
+          </div>
+
+          <div class="sub" id="recipientBlock">
+            <span class="label">Когда отправить</span>
+            <div class="chips" id="whenChips">
+              <button type="button" class="chip" data-when="now" aria-pressed="true">Сразу после оплаты</button>
+              <button type="button" class="chip" data-when="date" aria-pressed="false">Выбрать день и&nbsp;время</button>
+            </div>
+            <div class="when-row" id="dateRow" hidden>
+              <input class="input" type="date" id="sendDate" aria-label="Дата отправки">
+              <input class="input" type="time" id="sendTime" value="09:00" aria-label="Время отправки">
+            </div>
+            <div class="two sub">
+              <div>
+                <label class="label" for="toEmail">Почта получателя</label>
+                <input class="input" id="toEmail" type="email" autocomplete="off" placeholder="name@mail.ru">
+                <p class="err" id="toEmailErr" hidden></p>
+              </div>
+              <div>
+                <label class="label" for="fromEmail">Ваша почта</label>
+                <input class="input" id="fromEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
+                <p class="field-hint">Пришлём чек и&nbsp;копию сертификата</p><p class="err" id="fromEmailErr" hidden></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub" id="selfBlock" hidden>
+            <label class="label" for="selfEmail">Ваша почта</label>
+            <input class="input" id="selfEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
+            <p class="field-hint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
+          </div>
+        </fieldset>
+
+        <div class="pay">
+          <button type="submit" class="btn btn-primary" id="payBtn">Оплатить 5&nbsp;000&nbsp;₽</button>
+          <p class="pay-note">Сертификат действует 12&nbsp;месяцев с&nbsp;момента отправки. Остаток не&nbsp;сгорает. <a href="https://www.tutu.ru/2read/legal_information/sertificat/">Правила</a></p>
+        </div>
+      </form>
+
+      <aside class="preview" aria-label="Предпросмотр сертификата">
+        <p class="preview-title">Так увидит получатель</p>
+        <!-- На почту: открытка и письмо -->
+        <div id="emailPreview">
+          <div class="tk-box pv-tk" id="pvFront"></div>
+          <div class="letter">
+            <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
+            <p class="letter-msg" id="letterMsg"></p>
+            <p class="letter-sign" id="letterSign" hidden></p>
+            <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
+          </div>
+        </div>
+        <!-- Вручу сам: PDF с билетом для печати с двух сторон -->
+        <div id="ticketPreview" hidden>
+          <span class="pv-side">Лицевая сторона</span>
+          <div class="tk-box pv-tk" id="pvPrintFront"></div>
+          <span class="pv-side">Оборот</span>
+          <div class="tk-box pv-tk" id="pvPrintBack"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Компаниям -->
+<section class="biz" id="business">
+  <div class="container">
+    <div class="biz-inner">
+      <div>
+        <h2>Компаниям</h2>
+        <p>Подарки сотрудникам и&nbsp;партнёрам по&nbsp;договору и&nbsp;счёту, с&nbsp;закрывающими документами. Разошлём сертификаты по&nbsp;списку в&nbsp;нужный день.</p>
+        <button type="button" class="btn btn-lime" data-proto="business">Оставить заявку</button>
+      </div>
+      <img class="biz-art" src="assets/ticket/tickets-3.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <details>
+        <summary>Что входит в&nbsp;сертификат?</summary>
+        <p>Это не&nbsp;тур и&nbsp;не&nbsp;билет на&nbsp;конкретные даты, а&nbsp;сумма. Ею&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту.</p>
+      </details>
+      <details>
+        <summary>Чем сертификат отличается от&nbsp;денег?</summary>
+        <p>Им&nbsp;можно оплатить только поездки на&nbsp;Туту. Зато это выглядит как настоящий подарок: с&nbsp;открыткой, поздравлением и&nbsp;вручением в&nbsp;нужный день.</p>
+      </details>
+      <details>
+        <summary>Как воспользоваться сертификатом?</summary>
+        <p>Выберите билеты или отель на&nbsp;Туту. На&nbsp;странице оплаты укажите, что у&nbsp;вас есть сертификат, и&nbsp;введите его номер. Если заказ дороже, доплатите картой.</p>
+      </details>
+      <details>
+        <summary>Что нельзя оплатить сертификатом?</summary>
+        <p>Страховку, аэроэкспресс, услуги «100%-ный возврат» и&nbsp;«Оплатить позже», предзаказ ж/д билетов, а&nbsp;также отели с&nbsp;оплатой на&nbsp;месте и&nbsp;с&nbsp;пометкой «От&nbsp;партнёра».</p>
+      </details>
+      <details>
+        <summary>Сколько действует сертификат?</summary>
+        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок начнётся с&nbsp;него. Дату окончания мы&nbsp;укажем в&nbsp;письме.</p>
+      </details>
+      <details>
+        <summary>Что, если человек не&nbsp;поедет?</summary>
+        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты он&nbsp;выбирает сам. После окончания срока сертификат перестаёт действовать.</p>
+      </details>
+      <details>
+        <summary>Можно ли потратить сертификат частично?</summary>
+        <p>Да. Если поездка стоит меньше сертификата, мы&nbsp;пришлём остаток новым сертификатом на&nbsp;почту, указанную при оплате заказа. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
+      </details>
+      <details>
+        <summary>Как оплатить поездку туда и&nbsp;обратно на&nbsp;поезде или автобусе?</summary>
+        <p>Билеты в&nbsp;каждую сторону оформляются отдельным заказом, и&nbsp;на&nbsp;каждый нужен свой сертификат. Чтобы подарить поездку туда и&nbsp;обратно, купите два сертификата.</p>
+      </details>
+      <details>
+        <summary>Можно ли оплатить заказ несколькими сертификатами?</summary>
+        <p>Нет, один заказ оплачивается одним сертификатом. Разницу можно доплатить картой.</p>
+      </details>
+      <details>
+        <summary>Что будет, если вернуть билеты, оплаченные сертификатом?</summary>
+        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов.</p>
+      </details>
+      <details>
+        <summary>Где прочитать полные правила?</summary>
+        <p>В&nbsp;<a href="https://www.tutu.ru/2read/legal_information/sertificat/">правилах приобретения и&nbsp;использования сертификатов</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <img class="footer-logo" src="assets/footer/logo-tutu-white.svg" alt="Туту">
+    <!-- Подвал как на tutu.ru: разделы и ссылки с главной tutu.ru, вёрстка и картинки с индийского лендинга -->
+    <div class="footer-grid">
+      <div class="footer-app-col">
+        <h4 class="footer-app-title">Приложение Туту</h4>
+        <div class="footer-app-body">
+          <div class="qr"><img src="assets/footer/qr-new.png" alt="QR-код для скачивания приложения Туту"></div>
+          <div class="stores">
+            <a href="https://apps.apple.com/ru/app/жд-билеты-отели-авиабилеты/id1296791829" rel="noreferrer nofollow noopener" aria-label="App Store"><img src="assets/footer/store-apple.svg?v=2" alt="App Store"></a>
+            <a href="https://play.google.com/store/apps/details?id=ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="Google Play"><img src="assets/footer/store-google.svg?v=2" alt="Google Play"></a>
+            <a href="https://appgallery.huawei.com/#/app/C100925545" rel="noreferrer nofollow noopener" aria-label="Huawei AppGallery"><img src="assets/footer/store-huawei.svg?v=2" alt="Huawei AppGallery"></a>
+            <a href="https://www.rustore.ru/catalog/app/ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="RuStore"><img src="assets/footer/store-rustore.svg?v=2" alt="RuStore"></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="https://c.tutu.ru/">О&nbsp;нас</a>
+        <a href="https://company.tutu.ru/vacancy/">Вакансии</a>
+        <a href="https://c.tutu.ru/#company-contacts">Контакты</a>
+        <a href="https://www.tutu.ru/news_own/">Новости</a>
+        <a href="https://www.tutu.ru/2read/legal_information/">Правовая информация</a>
+      </div>
+      <div class="footer-col">
+        <h4>Путешественникам</h4>
+        <a href="https://bonus.tutu.ru/">Программа лояльности</a>
+        <a href="https://www.tutu.ru/geo/">Путеводитель по&nbsp;странам</a>
+        <h4 class="footer-h4-extra">Партнёрам</h4>
+        <a href="https://c.tutu.ru/partners/">Стать партнёром</a>
+        <a href="https://partner.tutu.ru/hotels">Подключить объект размещения</a>
+        <a href="https://www.tutu.ru/2read/advert/advert/">Реклама на&nbsp;Туту</a>
+        <a href="https://advcake.ru/lp/tutu/">Партнёрская программа</a>
+      </div>
+      <div class="footer-col">
+        <h4>Помощь</h4>
+        <a href="https://www.tutu.ru/2read/">Справочная</a>
+        <a href="https://www.tutu.ru/feedback.php">Обратная связь</a>
+        <h4 class="footer-h4-extra">Мы в&nbsp;социальных сетях</h4>
+        <div class="socials">
+          <a href="https://t.me/tutu_travel" rel="noreferrer nofollow noopener" aria-label="Туту в Telegram"><img class="social" src="assets/footer/social-telegram.svg" alt="Telegram"></a>
+          <a href="https://vk.com/tu_tu_ru" rel="noreferrer nofollow noopener" aria-label="Туту во ВКонтакте"><img class="social" src="assets/footer/social-vk.svg" alt="ВКонтакте"></a>
+          <a href="https://youtube.com/@tutu_ru" rel="noreferrer nofollow noopener" aria-label="Туту в YouTube"><img class="social" src="assets/footer/social-youtube.svg" alt="YouTube"></a>
+        </div>
+      </div>
+
+      <!-- Строки под QR как на tutu.ru: одного размера, каждая с новой строки -->
+      <div class="footer-legal">
+        <p>Используется программный комплекс <a href="https://tutu.tech/">ООО «Глобус Медиа»</a></p>
+        <p>При использовании материалов ссылка на&nbsp;<a href="https://www.tutu.ru/">www.tutu.ru</a> обязательна</p>
+        <p><a href="https://www.tutu.ru/2read/legal_information/legal_personal/">Политика обработки персональных данных</a></p>
+        <p>На&nbsp;информационном ресурсе <a href="https://www.tutu.ru/2read/legal_information/legal_recsys_tutu/">применяются рекомендательные технологии</a></p>
+        <p>Прототип: <a href="index.html">версия A</a> · <a href="index-b.html">версия B</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<dialog id="protoDialog">
+  <h3 id="protoTitle">Это прототип</h3>
+  <div id="protoBody"></div>
+  <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
+</dialog>
+
+<script src="ticket.js?v=20261113162836"></script>
+<script src="shared.js?v=20261113162836"></script>
+<script src="landing.js?v=20261113162836"></script>
+<script>
+// Версия A: форма на этой же странице
+const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
+
+// Открытка для письма и оформление билета для печати
+buildPicker('designs', CONFIG.designs, 'card', (id) => { state.design = id; render(); });
+buildPicker('tickets', CONFIG.tickets, 'front', (id) => { state.ticket = id; render(); });
+
+// Шаблоны поздравлений
+CONFIG.templates.forEach((t) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chip';
+  b.textContent = t.label;
+  b.addEventListener('click', () => { $('message').value = t.text; render(); });
+  $('templates').append(b);
+});
+
+// Сумма
+const parseAmount = (v) => parseInt(String(v).replace(/\D/g, ''), 10) || 0;
+function setAmount(n, fromInput) {
+  state.amount = n;
+  if (!fromInput) $('amount').value = n ? n.toLocaleString('ru-RU') : '';
+  render();
+}
+document.querySelectorAll('#amountChips .chip').forEach((c) =>
+  c.addEventListener('click', () => setAmount(+c.dataset.amount))
+);
+$('amount').addEventListener('input', (e) => {
+  const n = parseAmount(e.target.value);
+  e.target.value = n ? n.toLocaleString('ru-RU') : '';
+  setAmount(n, true);
+});
+
+// «Кому подарить»: клик выбирает в форме открытку и шаблон и ведёт к форме
+const goToForm = () => $('buy').scrollIntoView({ behavior: 'smooth' });
+CONFIG.giftCards.forEach((c) => {
+  // «Коллегам и партнёрам» ведёт к блоку «Компаниям»
+  if (c.href) { const a = document.createElement('a'); a.href = c.href; fillGiftCard(a, c); $('giftRow').append(a); return; }
+  const b = document.createElement('button');
+  b.type = 'button';
+  fillGiftCard(b, c);
+  b.addEventListener('click', () => {
+    state.design = c.design;
+    const tpl = CONFIG.templates.find((x) => x.id === c.template);
+    if (tpl) $('message').value = tpl.text;
+    render();
+    goToForm();
+  });
+  $('giftRow').append(b);
+});
+
+// «Сколько подарить»: клик выбирает сумму и открытку и ведёт к форме
+CONFIG.amountCards.forEach((c) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  fillAmountCard(b, c);
+  b.addEventListener('click', () => {
+    state.design = c.design;
+    if (c.amount) setAmount(c.amount); else render();
+    goToForm();
+    // «Любая сумма»: сразу в поле суммы
+    if (!c.amount) { $('amount').focus({ preventScroll: true }); $('amount').select(); }
+  });
+  $('sumRow').append(b);
+});
+makeRail($('sumRow'));
+
+// Отправка
+document.querySelectorAll('input[name="delivery"]').forEach((r) =>
+  r.addEventListener('change', () => { state.delivery = r.value; render(); })
+);
+document.querySelectorAll('#whenChips .chip').forEach((c) =>
+  c.addEventListener('click', () => { state.when = c.dataset.when; render(); })
+);
+const today = new Date();
+const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+$('sendDate').min = iso(today);
+$('sendDate').value = iso(today);
+
+['toName', 'fromName', 'message', 'sendDate', 'sendTime'].forEach((id) => $(id).addEventListener('input', render));
+
+const amountValid = () => state.amount >= CONFIG.minAmount && state.amount <= CONFIG.maxAmount;
+
+function render() {
+  const d = findDesign(state.design);
+  const t = findTicket(state.ticket);
+  const amountOk = amountValid();
+  const toRecipient = state.delivery === 'recipient';
+
+  document.querySelectorAll('#amountChips .chip').forEach((c) => c.setAttribute('aria-pressed', +c.dataset.amount === state.amount));
+  document.querySelectorAll('#whenChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.when === state.when));
+
+  // Сумма
+  $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
+  $('amountErr').hidden = amountOk || !state.amount;
+  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма – ${fmt(CONFIG.minAmount)}` : `Максимальная сумма – ${fmt(CONFIG.maxAmount)}`;
+  $('payBtn').textContent = amountOk ? `Оплатить ${fmt(state.amount)}` : 'Оплатить';
+  const amountText = amountOk ? fmt(state.amount) : '— ₽';
+  syncPicker('designs', d.id, amountText);
+  syncPicker('tickets', t.id, amountText);
+
+  // Отправка
+  // Под способом отправки: открытки для письма или билеты для печати
+  $('designs').hidden = !toRecipient;
+  $('tickets').hidden = toRecipient;
+  $('designLabel').textContent = toRecipient ? 'Открытка' : 'Оформление билета';
+  $('recipientBlock').hidden = !toRecipient;
+  $('selfBlock').hidden = toRecipient;
+  $('dateRow').hidden = state.when !== 'date';
+
+  // Срок считаем от отправки: при отложенной отправке получатель не теряет месяцы
+  const toName = $('toName').value.trim();
+  const fromName = $('fromName').value.trim();
+  const msg = $('message').value.trim();
+  const delayed = toRecipient && state.when === 'date' && $('sendDate').value;
+  const until = delayed ? new Date($('sendDate').value + 'T00:00') : new Date(today);
+  until.setMonth(until.getMonth() + CONFIG.validityMonths);
+  // Имя не склоняем: «для Ани» автоматически не собрать, поэтому пишем как ввели
+  const fields = { amount: amountText, to: toName, from: fromName, msg, till: untilText(until) };
+
+  // Предпросмотр: на почту — открытка и письмо, лично — обе стороны билета для печати
+  $('emailPreview').hidden = !toRecipient;
+  $('ticketPreview').hidden = toRecipient;
+  if (toRecipient) {
+    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
+  } else {
+    tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
+    tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
+  }
+
+  // Письмо
+  $('msgCount').textContent = $('message').value.length;
+  $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
+  $('letterMsg').classList.toggle('is-empty', !msg);
+  $('letterSign').hidden = !fromName;
+  $('letterSign').textContent = fromName;
+  $('letterTo').textContent = toName ? `Кому: ${toName}` : 'Письмо получателю';
+  $('letterWhen').textContent = state.when === 'now' ? 'сразу после оплаты'
+    : new Date($('sendDate').value + 'T00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ' в ' + ($('sendTime').value || '09:00');
+  $('certValid').textContent = 'Действует до ' + untilText(until);
+}
+
+// Оплата: в прототипе только показываем, что ушло бы в заказ
+const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+function checkEmail(id) {
+  const ok = emailOk($(id).value);
+  $(id).classList.toggle('is-invalid', !ok);
+  $(id + 'Err').hidden = ok;
+  $(id + 'Err').textContent = 'Проверьте почту';
+  return ok;
+}
+
+$('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!amountValid()) { $('amount').focus(); render(); return; }
+  const emails = state.delivery === 'recipient'
+    ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)
+    : checkEmail('selfEmail');
+  if (!emails) { document.querySelector('.is-invalid')?.focus(); return; }
+
+  showProto('Здесь будет оплата', [
+    'Сумма: ' + fmt(state.amount),
+    state.delivery === 'recipient' ? 'Открытка: ' + findDesign(state.design).name : 'Билет: ' + findTicket(state.ticket).name,
+    state.delivery === 'recipient' ? 'Отправка получателю: ' + $('letterWhen').textContent : 'PDF на почту покупателю',
+  ]);
+});
+
+render();
+</script>
+</body>
+</html>

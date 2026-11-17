@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подарочный сертификат Туту на поездку</title>
+<meta name="description" content="Сертификат на ж/д и авиабилеты, автобусы и отели. Действует год, остаток не сгорает.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#A181FF">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="site.css?v=20261113162836">
+<link rel="stylesheet" href="ticket.css?v=20261113162836">
+</head>
+<body>
+
+<header class="top">
+  <div class="container top-inner">
+    <a href="https://www.tutu.ru/" aria-label="Туту — главная страница"><img class="logo" src="assets/ticket/lg-on-violet.png" alt="Туту"></a>
+    <nav class="top-nav" aria-label="Разделы страницы">
+      <a href="#use">Как воспользоваться</a>
+      <a href="buy.html">Подарить</a>
+      <a href="#business">Компаниям</a>
+      <a href="#faq">Частые вопросы</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- Первый экран: что это и как работает. Справа сам билет, как его получит человек -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1 class="hero-title stk-group"><span class="stk stk-red">Подарите</span><span class="stk stk-lime">путешествие</span></h1>
+      <p class="hero-sub">Подарочный сертификат на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Куда и&nbsp;когда ехать, человек выберет сам.</p>
+      <ul class="facts">
+        <li>От&nbsp;500&nbsp;₽</li>
+        <li>Год на&nbsp;поездку</li>
+        <li>Остаток не&nbsp;сгорает</li>
+      </ul>
+      <a class="btn btn-primary hero-cta" href="buy.html">Подарить сертификат</a>
+    </div>
+    <div class="hero-art" aria-label="Подарочный сертификат Туту">
+      <div class="hero-back tk-box" id="heroBack"></div>
+      <div class="hero-front tk-box" id="heroFront"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Кому подарить: плитки из CONFIG.giftCards, кому подойдёт такой подарок -->
+<section class="section" id="who">
+  <div class="container">
+    <h2>Кому подарить</h2>
+    <div class="gift-row" id="giftRow"></div>
+  </div>
+</section>
+
+<!-- Сколько подарить: только суммы, каждая на своей открытке для письма -->
+<section class="section" id="amounts">
+  <div class="container">
+    <!-- Панель с розовым градиентом, как подборки на tutu.ru -->
+    <div class="sum-panel">
+      <h2>Сколько подарить</h2>
+      <div class="sum-row" id="sumRow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Почему сертификат Туту: плитки разной высоты со стикерами и 3D, текст продолжает стикер, без точек -->
+<section class="section" id="perks">
+  <div class="container">
+    <h2>Почему сертификат Туту</h2>
+    <div class="perks">
+      <div class="perk perk--a">
+        <h3 class="stk-group"><span class="stk stk-red">Любые</span><span class="stk stk-lime">поездки</span></h3>
+        <p>поезда, самолёты, автобусы и&nbsp;отели на&nbsp;Туту</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/train-tram.webp" alt="" aria-hidden="true"></span>
+      </div>
+      <div class="perk perk--b">
+        <h3 class="stk-group"><span class="stk stk-lime">Поддержка 24/7</span></h3>
+        <p>в&nbsp;чате на&nbsp;сайте и&nbsp;в&nbsp;приложении, по&nbsp;почте и&nbsp;телефону</p>
+      </div>
+      <div class="perk perk--c">
+        <h3 class="stk-group"><span class="stk stk-red">Без привязки</span></h3>
+        <p>куда и&nbsp;когда ехать, получатель выберет сам</p>
+      </div>
+      <div class="perk perk--d">
+        <h3 class="stk-group"><span class="stk stk-red">Вручите</span><span class="stk stk-lime">как хотите</span></h3>
+        <p>письмом в&nbsp;нужный день или лично, распечатав билет</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/plane-swirl.webp" alt="" aria-hidden="true"></span>
+      </div>
+      <div class="perk perk--e">
+        <h3 class="stk-group"><span class="stk stk-lime">Действует</span><span class="stk stk-red">1&nbsp;год</span></h3>
+        <p>а&nbsp;остаток не&nbsp;сгорает и&nbsp;придёт новым сертификатом, он&nbsp;тоже действует год</p>
+        <span class="perk-clip"><img class="perk-art" src="assets/art/wallet-timer.png" alt="" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Как воспользоваться: три шага с оборота билета -->
+<section class="section" id="use">
+  <div class="container">
+    <h2>Как воспользоваться</h2>
+    <ol class="use-steps">
+      <li class="use-step"><span class="use-num">1</span><h3>Выберите билеты или отель на&nbsp;Туту</h3></li>
+      <li class="use-step"><span class="use-num">2</span><h3>При оплате введите код сертификата</h3></li>
+      <li class="use-step"><span class="use-num">3</span><h3>Билет дороже&nbsp;– доплатите картой. Дешевле&nbsp;– отправим сертификат на&nbsp;остаток</h3></li>
+    </ol>
+    <a class="btn btn-primary how-cta" href="buy.html">Подарить сертификат</a>
+  </div>
+</section>
+
+<!-- Компаниям -->
+<section class="biz" id="business">
+  <div class="container">
+    <div class="biz-inner">
+      <div>
+        <h2>Компаниям</h2>
+        <p>Подарки сотрудникам и&nbsp;партнёрам по&nbsp;договору и&nbsp;счёту, с&nbsp;закрывающими документами. Разошлём сертификаты по&nbsp;списку в&nbsp;нужный день.</p>
+        <button type="button" class="btn btn-lime" data-proto="business">Оставить заявку</button>
+      </div>
+      <img class="biz-art" src="assets/ticket/tickets-3.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <details>
+        <summary>Что входит в&nbsp;сертификат?</summary>
+        <p>Это не&nbsp;тур и&nbsp;не&nbsp;билет на&nbsp;конкретные даты, а&nbsp;сумма. Ею&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту.</p>
+      </details>
+      <details>
+        <summary>Чем сертификат отличается от&nbsp;денег?</summary>
+        <p>Им&nbsp;можно оплатить только поездки на&nbsp;Туту. Зато это выглядит как настоящий подарок: с&nbsp;открыткой, поздравлением и&nbsp;вручением в&nbsp;нужный день.</p>
+      </details>
+      <details>
+        <summary>Как воспользоваться сертификатом?</summary>
+        <p>Выберите билеты или отель на&nbsp;Туту. На&nbsp;странице оплаты укажите, что у&nbsp;вас есть сертификат, и&nbsp;введите его номер. Если заказ дороже, доплатите картой.</p>
+      </details>
+      <details>
+        <summary>Что нельзя оплатить сертификатом?</summary>
+        <p>Страховку, аэроэкспресс, услуги «100%-ный возврат» и&nbsp;«Оплатить позже», предзаказ ж/д билетов, а&nbsp;также отели с&nbsp;оплатой на&nbsp;месте и&nbsp;с&nbsp;пометкой «От&nbsp;партнёра».</p>
+      </details>
+      <details>
+        <summary>Сколько действует сертификат?</summary>
+        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок начнётся с&nbsp;него. Дату окончания мы&nbsp;укажем в&nbsp;письме.</p>
+      </details>
+      <details>
+        <summary>Что, если человек не&nbsp;поедет?</summary>
+        <p>На&nbsp;поездку есть 12&nbsp;месяцев, направление и&nbsp;даты он&nbsp;выбирает сам. После окончания срока сертификат перестаёт действовать.</p>
+      </details>
+      <details>
+        <summary>Можно ли потратить сертификат частично?</summary>
+        <p>Да. Если поездка стоит меньше сертификата, мы&nbsp;пришлём остаток новым сертификатом на&nbsp;почту, указанную при оплате заказа. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
+      </details>
+      <details>
+        <summary>Как оплатить поездку туда и&nbsp;обратно на&nbsp;поезде или автобусе?</summary>
+        <p>Билеты в&nbsp;каждую сторону оформляются отдельным заказом, и&nbsp;на&nbsp;каждый нужен свой сертификат. Чтобы подарить поездку туда и&nbsp;обратно, купите два сертификата.</p>
+      </details>
+      <details>
+        <summary>Можно ли оплатить заказ несколькими сертификатами?</summary>
+        <p>Нет, один заказ оплачивается одним сертификатом. Разницу можно доплатить картой.</p>
+      </details>
+      <details>
+        <summary>Что будет, если вернуть билеты, оплаченные сертификатом?</summary>
+        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов.</p>
+      </details>
+      <details>
+        <summary>Где прочитать полные правила?</summary>
+        <p>В&nbsp;<a href="https://www.tutu.ru/2read/legal_information/sertificat/">правилах приобретения и&nbsp;использования сертификатов</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <img class="footer-logo" src="assets/footer/logo-tutu-white.svg" alt="Туту">
+    <!-- Подвал как на tutu.ru: разделы и ссылки с главной tutu.ru, вёрстка и картинки с индийского лендинга -->
+    <div class="footer-grid">
+      <div class="footer-app-col">
+        <h4 class="footer-app-title">Приложение Туту</h4>
+        <div class="footer-app-body">
+          <div class="qr"><img src="assets/footer/qr-new.png" alt="QR-код для скачивания приложения Туту"></div>
+          <div class="stores">
+            <a href="https://apps.apple.com/ru/app/жд-билеты-отели-авиабилеты/id1296791829" rel="noreferrer nofollow noopener" aria-label="App Store"><img src="assets/footer/store-apple.svg?v=2" alt="App Store"></a>
+            <a href="https://play.google.com/store/apps/details?id=ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="Google Play"><img src="assets/footer/store-google.svg?v=2" alt="Google Play"></a>
+            <a href="https://appgallery.huawei.com/#/app/C100925545" rel="noreferrer nofollow noopener" aria-label="Huawei AppGallery"><img src="assets/footer/store-huawei.svg?v=2" alt="Huawei AppGallery"></a>
+            <a href="https://www.rustore.ru/catalog/app/ru.tutu.tutu_emp" rel="noreferrer nofollow noopener" aria-label="RuStore"><img src="assets/footer/store-rustore.svg?v=2" alt="RuStore"></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="https://c.tutu.ru/">О&nbsp;нас</a>
+        <a href="https://company.tutu.ru/vacancy/">Вакансии</a>
+        <a href="https://c.tutu.ru/#company-contacts">Контакты</a>
+        <a href="https://www.tutu.ru/news_own/">Новости</a>
+        <a href="https://www.tutu.ru/2read/legal_information/">Правовая информация</a>
+      </div>
+      <div class="footer-col">
+        <h4>Путешественникам</h4>
+        <a href="https://bonus.tutu.ru/">Программа лояльности</a>
+        <a href="https://www.tutu.ru/geo/">Путеводитель по&nbsp;странам</a>
+        <h4 class="footer-h4-extra">Партнёрам</h4>
+        <a href="https://c.tutu.ru/partners/">Стать партнёром</a>
+        <a href="https://partner.tutu.ru/hotels">Подключить объект размещения</a>
+        <a href="https://www.tutu.ru/2read/advert/advert/">Реклама на&nbsp;Туту</a>
+        <a href="https://advcake.ru/lp/tutu/">Партнёрская программа</a>
+      </div>
+      <div class="footer-col">
+        <h4>Помощь</h4>
+        <a href="https://www.tutu.ru/2read/">Справочная</a>
+        <a href="https://www.tutu.ru/feedback.php">Обратная связь</a>
+        <h4 class="footer-h4-extra">Мы в&nbsp;социальных сетях</h4>
+        <div class="socials">
+          <a href="https://t.me/tutu_travel" rel="noreferrer nofollow noopener" aria-label="Туту в Telegram"><img class="social" src="assets/footer/social-telegram.svg" alt="Telegram"></a>
+          <a href="https://vk.com/tu_tu_ru" rel="noreferrer nofollow noopener" aria-label="Туту во ВКонтакте"><img class="social" src="assets/footer/social-vk.svg" alt="ВКонтакте"></a>
+          <a href="https://youtube.com/@tutu_ru" rel="noreferrer nofollow noopener" aria-label="Туту в YouTube"><img class="social" src="assets/footer/social-youtube.svg" alt="YouTube"></a>
+        </div>
+      </div>
+
+      <!-- Строки под QR как на tutu.ru: одного размера, каждая с новой строки -->
+      <div class="footer-legal">
+        <p>Используется программный комплекс <a href="https://tutu.tech/">ООО «Глобус Медиа»</a></p>
+        <p>При использовании материалов ссылка на&nbsp;<a href="https://www.tutu.ru/">www.tutu.ru</a> обязательна</p>
+        <p><a href="https://www.tutu.ru/2read/legal_information/legal_personal/">Политика обработки персональных данных</a></p>
+        <p>На&nbsp;информационном ресурсе <a href="https://www.tutu.ru/2read/legal_information/legal_recsys_tutu/">применяются рекомендательные технологии</a></p>
+        <p>Прототип: <a href="index.html">версия A</a> · <a href="index-b.html">версия B</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<dialog id="protoDialog">
+  <h3 id="protoTitle">Это прототип</h3>
+  <div id="protoBody"></div>
+  <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
+</dialog>
+
+<script src="ticket.js?v=20261113162836"></script>
+<script src="shared.js?v=20261113162836"></script>
+<script src="landing.js?v=20261113162836"></script>
+<script>
+// «Кому подарить»: плитка открывает форму с выбранной открыткой и шаблоном
+CONFIG.giftCards.forEach((c) => {
+  const b = document.createElement('a');
+  fillGiftCard(b, c);
+  const q = new URLSearchParams({ design: c.design });
+  if (c.template) q.set('template', c.template);
+  // «Коллегам и партнёрам» ведёт к блоку «Компаниям»
+  b.href = c.href || 'buy.html?' + q.toString();
+  $('giftRow').append(b);
+});
+
+// «Сколько подарить»: открытка с суммой открывает форму с этой суммой и открыткой
+CONFIG.amountCards.forEach((c) => {
+  const b = document.createElement('a');
+  fillAmountCard(b, c);
+  b.href = 'buy.html?' + new URLSearchParams({ amount: c.amount || 'other', design: c.design }).toString();
+  $('sumRow').append(b);
+});
+makeRail($('sumRow'));
+</script>
+</body>
+</html>

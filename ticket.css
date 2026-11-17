@@ -1,0 +1,99 @@
+/* Подарочный билет Туту, лицевая сторона и оборот.
+   Размеры из «Правил сборки подарочного сертификата Туту»: билет 215 × 99 мм, основная часть 165 мм, корешок 50 мм.
+   1 мм = var(--mm), билет тянется на всю ширину обёртки .tk-box. Размеры в мм записаны как calc(N * var(--mm)) */
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_extrabold.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black.ttf') format('truetype');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.ttf') format('truetype');font-weight:900;font-style:italic;font-display:swap}
+
+.tk-box{display:block;container-type:inline-size;position:relative}
+.tk{--mm:calc(100cqw / 215);--main:#A181FF;--stub:#011F90;position:relative;display:flex;width:100%;aspect-ratio:215/99;border-radius:calc(5 * var(--mm));overflow:hidden;
+  font-family:'Tutu Sans',sans-serif;line-height:1;color:#FFF;text-align:left;user-select:none;
+  -webkit-mask:radial-gradient(circle calc(4 * var(--mm)) at var(--cut) 0,#0000 98%,#000),radial-gradient(circle calc(4 * var(--mm)) at var(--cut) 100%,#0000 98%,#000);-webkit-mask-composite:source-in;
+  mask:radial-gradient(circle calc(4 * var(--mm)) at var(--cut) 0,#0000 98%,#000),radial-gradient(circle calc(4 * var(--mm)) at var(--cut) 100%,#0000 98%,#000);mask-composite:intersect}
+.tk-front{--cut:76.744%}
+.tk-back{--cut:23.256%}
+.tk-main{position:relative;flex:none;width:calc(165 * var(--mm));height:100%;background:var(--main)}
+.tk-stub{position:relative;z-index:6;flex:1;min-width:0;height:100%;background:var(--stub)}
+.tk-perf{position:absolute;z-index:7;top:calc(4.5 * var(--mm));bottom:calc(4.5 * var(--mm));left:calc(164.7 * var(--mm));border-left:calc(.6 * var(--mm)) dashed #FFF}
+.tk-back .tk-perf{left:calc(49.7 * var(--mm))}
+
+/* Лицевая: фигуры и иллюстрации */
+.tk-art{position:absolute;z-index:0;pointer-events:none;max-width:none}
+.tk-shapes{left:0;top:calc(-3 * var(--mm));width:calc(165 * var(--mm));height:calc(105 * var(--mm));overflow:visible}
+.tk-photo{left:0;top:0;width:calc(165 * var(--mm));height:calc(99 * var(--mm))}
+.tk-blob{left:calc(73 * var(--mm));top:calc(-2 * var(--mm));width:calc(102 * var(--mm));height:calc(103 * var(--mm));background:center/100% 100% no-repeat;
+  -webkit-mask:url('assets/ticket/blob-mask.png') center/100% 100% no-repeat;mask:url('assets/ticket/blob-mask.png') center/100% 100% no-repeat}
+.tk-suit{left:calc(112 * var(--mm));top:calc(19 * var(--mm));width:calc(52 * var(--mm));z-index:5;filter:drop-shadow(0 calc(1.2 * var(--mm)) calc(1.5 * var(--mm)) rgba(1,31,144,.25))}
+.tk-logo{position:absolute;z-index:4;left:calc(8 * var(--mm));top:calc(7 * var(--mm));height:calc(8.5 * var(--mm));width:auto;max-width:none}
+
+/* Стикеры: верх и низ поднимаются вправо на 8°, бока наклонены на 8° */
+.tk-stks{position:absolute;z-index:4;left:calc(5 * var(--mm));top:calc(25 * var(--mm));display:flex;flex-direction:column;align-items:flex-start;transform:skewY(-8deg);transform-origin:0 0}
+.tk-stk{position:relative;z-index:0;display:inline-block;font-weight:900;font-style:italic;text-transform:uppercase;line-height:1;white-space:nowrap;padding:.14em .26em .18em}
+.tk-stk::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:calc(3 * var(--mm)) calc(4.2 * var(--mm)) calc(3 * var(--mm)) calc(4.2 * var(--mm));transform:skewX(-8deg)}
+.tk-stk-w{color:#FFF;font-size:calc(13.8 * var(--mm))}
+.tk-stk-w::before{background:#FD5623}
+.tk-stk-s{color:#000;font-size:calc(20.9 * var(--mm));letter-spacing:calc(-.6 * var(--mm));margin:calc(-.3 * var(--mm)) 0 0 calc(10 * var(--mm))}
+.tk-stk-s::before{background:#D0FF1A}
+
+/* «Кому» и «От кого» */
+.tk-who{position:absolute;z-index:4;left:calc(8 * var(--mm));right:calc(8 * var(--mm));bottom:calc(8.5 * var(--mm));display:flex;justify-content:space-between;align-items:flex-end;gap:calc(4 * var(--mm))}
+.tk-who > div{display:flex;flex-direction:column;min-width:0}
+.tk-who .r{text-align:right;align-items:flex-end}
+.tk-lab{font-size:calc(5 * var(--mm));font-weight:700;opacity:.8}
+.tk-val{display:block;max-width:calc(70 * var(--mm));margin-top:calc(1 * var(--mm));padding-right:.08em;font-size:calc(9 * var(--mm));font-weight:900;font-style:italic;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.tk-val.is-empty{opacity:.55}
+.tk-who.lowl .l{color:#011F90}
+.tk-who.lowl .l .tk-lab{opacity:1}
+.tk-who.solid .r .tk-lab{opacity:1}
+.tk-who.solid .r{text-shadow:0 calc(.2 * var(--mm)) calc(.6 * var(--mm)) rgba(1,31,144,.7),0 calc(.4 * var(--mm)) calc(2.2 * var(--mm)) rgba(1,31,144,.6)}
+.tk.no-who .tk-who{display:none}
+
+/* Лицевая: корешок */
+.tk-front .tk-stub{padding:calc(7.5 * var(--mm)) calc(5 * var(--mm)) calc(7 * var(--mm));display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
+.tk-tt{font-size:calc(6.4 * var(--mm));font-weight:900;font-style:italic;text-transform:uppercase}
+.tk-icons{display:grid;grid-template-columns:1fr 1fr;gap:calc(3.5 * var(--mm)) calc(3 * var(--mm));width:100%}
+.tk-icon{display:flex;flex-direction:column;align-items:center;gap:calc(1.2 * var(--mm))}
+.tk-icon i{height:calc(11.5 * var(--mm));display:flex;align-items:flex-end}
+.tk-icon img{height:calc(11.5 * var(--mm));width:auto;max-width:none}
+.tk-icon img.pl{height:calc(11 * var(--mm))}
+.tk-icon img.bd{height:calc(8.3 * var(--mm))}
+.tk-icon span{font-size:calc(3.3 * var(--mm));font-weight:700}
+.tk-any{font-size:calc(3.1 * var(--mm));font-weight:600;line-height:1.3}
+
+/* Оборот: корешок слева с QR и поддержкой */
+.tk-back .tk-stub{flex:none;width:calc(50 * var(--mm));padding:calc(7 * var(--mm)) calc(4 * var(--mm)) calc(6.5 * var(--mm));display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
+.tk-qbox{display:flex;flex-direction:column;align-items:center;gap:calc(2.2 * var(--mm))}
+.tk-qr{width:calc(36 * var(--mm));height:calc(36 * var(--mm));border-radius:calc(2.5 * var(--mm));overflow:hidden;background:#FFF}
+.tk-qr img{width:100%;height:100%;display:block}
+.tk-qcap{font-size:calc(3.4 * var(--mm));font-weight:800;line-height:1.2}
+.tk-sup{font-size:calc(3.4 * var(--mm));font-weight:500;line-height:1.25}
+.tk-sup b{display:block;margin-bottom:calc(.8 * var(--mm));font-size:calc(3.6 * var(--mm));font-weight:900;font-style:italic;text-transform:uppercase;white-space:nowrap}
+
+/* Оборот: основная часть */
+.tk-back .tk-main{background:#F3F0FF;color:#011F90;padding:calc(5.5 * var(--mm)) calc(4.6 * var(--mm)) calc(5 * var(--mm)) calc(6.2 * var(--mm));display:flex;flex-direction:column;justify-content:space-between}
+.tk-tks{position:absolute;z-index:0;right:calc(4 * var(--mm));top:calc(3 * var(--mm));width:calc(38 * var(--mm));max-width:none}
+.tk-wish{position:relative;z-index:1;max-width:calc(112 * var(--mm))}
+.tk-hello{display:block;font-size:calc(6.6 * var(--mm));font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.tk-msg{margin-top:calc(1 * var(--mm));font-size:calc(3.8 * var(--mm));font-weight:500;line-height:1.4;height:calc(10.64 * var(--mm));overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+.tk-msg.is-empty{opacity:.5}
+.tk-steps{position:relative;display:grid;grid-template-columns:repeat(3,calc(51.2 * var(--mm)));gap:calc(.3 * var(--mm))}
+.tk-step{position:relative;z-index:0;height:calc(36 * var(--mm));display:flex;align-items:center;gap:calc(1.8 * var(--mm));padding:0 calc(5 * var(--mm)) 0 calc(6.2 * var(--mm));color:#FFF}
+.tk-step svg{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.tk-n{flex:none;width:calc(6 * var(--mm));height:calc(6 * var(--mm));border-radius:50%;background:#FD5623;display:grid;place-items:center;padding-bottom:calc(.2 * var(--mm));font-size:calc(3.4 * var(--mm));font-weight:900}
+.tk-step p{margin:0;font-size:calc(3.7 * var(--mm));font-weight:600;line-height:1.16;white-space:nowrap}
+.tk-arr{position:absolute;z-index:2;top:50%;width:calc(6.2 * var(--mm));max-width:none;transform:translate(-50%,-50%)}
+.tk-code{position:relative;z-index:1;background:#FFF;border-radius:calc(3 * var(--mm));padding:calc(2.8 * var(--mm)) calc(5 * var(--mm)) calc(3.2 * var(--mm))}
+.tk-code-l{display:flex;justify-content:space-between;align-items:center;font-size:calc(2.9 * var(--mm));font-weight:700}
+.tk-till{color:#FFF;background:#011F90;border-radius:calc(10 * var(--mm));padding:calc(.9 * var(--mm)) calc(3 * var(--mm))}
+.tk-code-c{display:block;margin-top:calc(1 * var(--mm));font-size:calc(8.2 * var(--mm));font-weight:900;white-space:nowrap}
+
+/* Открытка для письма: основная часть билета 165 × 99 мм без корешка и вырезов */
+.tk-card{--mm:calc(100cqw / 165);aspect-ratio:165/99;-webkit-mask:none;mask:none}
+.tk-card .tk-main{width:100%;overflow:hidden}
+.tk-card .tk-blob{background-size:cover}
+.tk-card .tk-suit{left:calc(108 * var(--mm));top:calc(14 * var(--mm));width:calc(50 * var(--mm))}
+/* «Кому» и «От кого» в открытке поверх 3D-предметов */
+.tk-card .tk-who{z-index:6}
+.tk-3d{left:calc(108 * var(--mm));top:calc(22 * var(--mm));width:calc(50 * var(--mm));z-index:5;filter:drop-shadow(0 calc(1.2 * var(--mm)) calc(1.5 * var(--mm)) rgba(1,31,144,.25))}
+.tk-snow{left:0;top:0;width:100%;height:100%;
+  background:radial-gradient(circle at 20% 30%,#FFF 0 calc(.5 * var(--mm)),transparent calc(.7 * var(--mm))) 0 0/calc(14 * var(--mm)) calc(14 * var(--mm)),radial-gradient(circle at 70% 70%,rgba(255,255,255,.6) 0 calc(.35 * var(--mm)),transparent calc(.55 * var(--mm))) 0 0/calc(10 * var(--mm)) calc(10 * var(--mm))}
