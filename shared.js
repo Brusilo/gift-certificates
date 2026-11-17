@@ -16,7 +16,7 @@ const CONFIG = {
     { id: 'spb',      name: 'В Петербург',   main: '#A181FF', photo: 'assets/designs/saint-petersburg-bridge.jpg' },
     { id: 'sea',      name: 'Путешествие',   main: '#A181FF', photo: 'assets/designs/plane-window.webp' }
   ],
-  // Билеты для печати («Вручу сам») из макета «Сертификат Туту – варианты оформления»:
+  // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:
   // main — фон основной части, stub — цвет корешка, blob — фото в большой форме, stepPhoto — фото в ступеньке,
   // step / low — светлая или синяя ступенька сверху и снизу, suit — 3D-чемодан.
   tickets: [

@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117145339">
-<link rel="stylesheet" href="ticket.css?v=20261117145339">
+<link rel="stylesheet" href="site.css?v=20261117152931">
+<link rel="stylesheet" href="ticket.css?v=20261117152931">
 </head>
 <body>
 
@@ -163,7 +163,7 @@
             </label>
             <label class="radio-card">
               <input type="radio" name="delivery" value="self">
-              <b>Вручу сам</b>
+              <b>Вручу лично</b>
               <span>Пришлём вам PDF, чтобы распечатать</span>
             </label>
           </div>
@@ -224,7 +224,7 @@
             <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
           </div>
         </div>
-        <!-- Вручу сам: PDF с билетом для печати с двух сторон -->
+        <!-- Вручу лично: PDF с билетом для печати с двух сторон -->
         <div id="ticketPreview" hidden>
           <span class="pv-side">Лицевая сторона</span>
           <div class="tk-box pv-tk" id="pvPrintFront"></div>
@@ -369,9 +369,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117145339"></script>
-<script src="shared.js?v=20261117145339"></script>
-<script src="landing.js?v=20261117145339"></script>
+<script src="ticket.js?v=20261117152931"></script>
+<script src="shared.js?v=20261117152931"></script>
+<script src="landing.js?v=20261117152931"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
@@ -431,10 +431,10 @@ CONFIG.amountCards.forEach((c) => {
   fillAmountCard(b, c);
   b.addEventListener('click', () => {
     state.design = c.design;
-    if (c.amount) setAmount(c.amount); else render();
+    // «Любая сумма»: поле суммы пустое, курсор сразу в нём
+    setAmount(c.amount || 0);
     goToForm();
-    // «Любая сумма»: сразу в поле суммы
-    if (!c.amount) { $('amount').focus({ preventScroll: true }); $('amount').select(); }
+    if (!c.amount) $('amount').focus({ preventScroll: true });
   });
   $('sumRow').append(b);
 });

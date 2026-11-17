@@ -77,7 +77,7 @@ function tkBackHtml(d) {
 <div class="tk-steps"><img class="tk-arr" src="${TK}arrow-navy.png" style="left:33.5%" alt=""><img class="tk-arr" src="${TK}arrow-navy.png" style="left:66.5%" alt="">
 <div class="tk-step">${card}<span class="tk-n">1</span><p>Выберите билеты<br>или отель<br>на&nbsp;Туту</p></div>
 <div class="tk-step">${card}<span class="tk-n">2</span><p>При оплате<br>введите код<br>сертификата</p></div>
-<div class="tk-step">${card}<span class="tk-n">3</span><p>Доплатите картой,<br>если заказ<br>дороже</p></div>
+<div class="tk-step">${card}<span class="tk-n">3</span><p>Заказ дороже&nbsp;–<br>доплатите картой,<br>дешевле&nbsp;– отправим<br>сертификат<br>на&nbsp;остаток</p></div>
 </div>
 <div class="tk-code"><div class="tk-code-l"><span>Код сертификата</span><span class="tk-till" data-f="till"></span></div><b class="tk-code-c">XXXX-XXXX-XXXX-XXXX</b></div>
 </div>

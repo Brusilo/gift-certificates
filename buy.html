@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117145339">
-<link rel="stylesheet" href="ticket.css?v=20261117145339">
+<link rel="stylesheet" href="site.css?v=20261117152931">
+<link rel="stylesheet" href="ticket.css?v=20261117152931">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -122,7 +122,7 @@
           <h1 class="step-title">Как подарить</h1>
           <div class="seg" role="group" aria-label="Способ вручения">
             <button type="button" data-delivery="recipient">На&nbsp;почту получателю</button>
-            <button type="button" data-delivery="self">Вручу сам</button>
+            <button type="button" data-delivery="self">Вручу лично</button>
           </div>
           <p class="seg-hint" id="segHint"></p>
 
@@ -189,7 +189,7 @@
             <p class="letter-valid"><span>Код: XXXX-XXXX-XXXX-XXXX</span><span id="certValid"></span></p>
           </div>
         </div>
-        <!-- Вручу сам: PDF с билетом для печати с двух сторон -->
+        <!-- Вручу лично: PDF с билетом для печати с двух сторон -->
         <div id="ticketPreview" hidden>
           <span class="pv-side">Лицевая сторона</span>
           <div class="tk-box pv-tk" id="pvPrintFront"></div>
@@ -321,15 +321,16 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117145339"></script>
-<script src="shared.js?v=20261117145339"></script>
+<script src="ticket.js?v=20261117152931"></script>
+<script src="shared.js?v=20261117152931"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
 const fromLanding = parseInt(params.get('amount'), 10);
 const state = {
   step: 1,
-  amount: fromLanding || CONFIG.defaultAmount,
+  // «Любая сумма» открывает форму с пустым полем суммы
+  amount: fromLanding || (params.get('amount') === 'other' ? 0 : CONFIG.defaultAmount),
   design: findDesign(params.get('design')).id,
   ticket: CONFIG.defaultTicket,
   delivery: 'recipient',
@@ -363,7 +364,7 @@ $('amount').addEventListener('input', (e) => {
   e.target.value = n ? n.toLocaleString('ru-RU') : '';
   setAmount(n, true);
 });
-$('amount').value = state.amount.toLocaleString('ru-RU');
+$('amount').value = state.amount ? state.amount.toLocaleString('ru-RU') : '';
 // Шаблон поздравления с карточки лендинга
 const fromTemplate = CONFIG.templates.find((x) => x.id === params.get('template'));
 if (fromTemplate) $('message').value = fromTemplate.text;
@@ -535,7 +536,7 @@ new ResizeObserver(() => {
 let lockTimer;
 window.addEventListener('resize', () => { clearTimeout(lockTimer); lockTimer = setTimeout(lockFormHeight, 150); });
 
-if (params.get('amount') === 'other') { $('amount').focus(); $('amount').select(); }
+if (params.get('amount') === 'other') $('amount').focus();
 </script>
 </body>
 </html>
