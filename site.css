@@ -89,11 +89,11 @@ main > section:last-child{padding-bottom:56px}
 .hero-title .stk-lime{font-size:.7em;margin:-.02em 0 0 .4em}
 .hero-sub{font-size:19px;font-weight:500;color:rgba(255,255,255,.92);max-width:560px;margin-bottom:22px}
 /* Пузыри как на индийском лендинге: скругление 10px, белая иконка, ширина по тексту */
-/* На компьютере четыре пузыря в одну строку */
-.facts{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+/* Три пузыря в одну строку */
+.facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
 @media (min-width:1001px){.facts{flex-wrap:nowrap}}
-.facts li{display:inline-flex;align-items:center;gap:5px;padding:6px 10px 6px 8px;border-radius:10px;background:rgba(255,255,255,.15);color:var(--white);font-size:13.5px;font-weight:500;line-height:21px;white-space:nowrap}
-.facts svg{width:16px;height:16px;flex:none;fill:currentColor;opacity:.9}
+.facts li{display:inline-flex;align-items:center;gap:7px;padding:9px 15px 9px 12px;border-radius:12px;background:rgba(255,255,255,.15);color:var(--white);font-size:17px;font-weight:500;line-height:21px;white-space:nowrap}
+.facts svg{width:19px;height:19px;flex:none;fill:currentColor;opacity:.9}
 .hero-cta{margin-top:30px}
 /* Билет в первом экране: лицевая сторона лежит на обороте */
 .hero-art{position:relative;padding:0 4% 3% 0}
@@ -148,29 +148,34 @@ main > section:last-child{padding-bottom:56px}
 
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 6%}
+/* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:2.6% 0 2.5%}
+/* Плитки разного цвета, чтобы фиолетового на странице было меньше */
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
+.pk-f-a{fill:var(--blueberry)}
+.pk-f-d{fill:var(--lavender)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.7cqw;font-weight:700;line-height:1.08}
-.pk-a{left:3.2%;top:9%;width:32%}
-.pk-b{left:3.2%;top:68%;width:35%}
-.pk-c{left:40%;top:22%;width:29%;text-align:center}
-.pk-d{left:70.5%;top:62%;width:28%;text-align:center}
+.pk-a{left:3.2%;top:12%;width:30%}
+.pk-b{left:3.2%;top:70%;width:30%}
+.pk-c{left:39.5%;top:20%;width:30%;text-align:center}
+.pk-d{left:70.5%;top:60%;width:28%;text-align:center;color:var(--blueberry)}
 /* Стикеры как в шапке и на билете: заметные, но не крупнее заголовков соседних блоков */
 .pk-s{position:absolute;z-index:3;font-size:4.6cqw}
 .pk-s-b{left:2%;top:46%}
 .pk-s-c{left:45%;top:-6%;font-size:5cqw}
 .pk-art{position:absolute;z-index:1;pointer-events:none;max-width:none}
-.pk-art-c{left:38%;top:44%;width:31%}
+.pk-art-c{left:42%;top:56%;width:23%}
 .pk-art-d{left:75%;top:-6%;width:21%}
 .pkm{display:none}
 
 /* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
 .use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 17% 50px 21%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
-.use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23A181FF' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23D6C8FF' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
 /* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
 .use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
-.use-step h3{font-size:21px;font-weight:600;color:var(--white)}
+/* Шаги светло-лавандовые: фиолетового на странице и так много */
+.use-step h3{font-size:21px;font-weight:600;color:var(--blueberry)}
 .use-step p{font-size:16px;font-weight:500;color:var(--white)}
 .use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:url('assets/ticket/arrow-navy.png') center/contain no-repeat}
 .how-cta{margin-top:32px}
@@ -364,6 +369,9 @@ dialog .btn{width:100%}
   .pkm-i.is-lime{background:var(--lime)}
   .pkm-i p{margin:0;max-width:58%;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
   .pkm-i.is-lime p{color:#000}
+  .pkm-i.is-navy{background:var(--blueberry)}
+  .pkm-i.is-lav{background:var(--lavender)}
+  .pkm-i.is-lav p{color:var(--blueberry)}
   .pkm-i img{width:38%;max-width:150px;margin-right:-6px}
   .pkm-i .stk-group{font-size:32px;margin-top:18px}
 }

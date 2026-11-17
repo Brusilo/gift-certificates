@@ -112,14 +112,14 @@ function makeRail(row, loop) {
     b.setAttribute('aria-label', label);
     b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>';
     b.addEventListener('click', () => {
-      if (!loop) { row.scrollBy({ left: dir * row.clientWidth * 0.9, behavior: 'smooth' }); return; }
-      // По кругу: карточки, которые ушли за край, переставляем в другой конец ряда,
-      // поэтому ряд всегда едет в ту сторону, куда нажали, без отката к началу
+      // Каждое нажатие сдвигает ряд ровно на одну карточку
       const items = row.children;
       if (items.length < 2) return;
       const step = items[1].offsetLeft - items[0].offsetLeft;
-      const k = Math.max(1, Math.round((row.clientWidth + step - items[0].offsetWidth) / step));
-      const page = k * step;
+      if (!loop) { row.scrollBy({ left: dir * step, behavior: 'smooth' }); return; }
+      // По кругу: карточка, которая ушла за край, переезжает в другой конец ряда,
+      // поэтому ряд всегда едет в ту сторону, куда нажали, без отката к началу
+      const k = 1, page = step;
       if (dir > 0 && row.scrollLeft + row.clientWidth + page > row.scrollWidth + 2) {
         for (let i = 0; i < k; i++) row.append(row.firstElementChild);
         row.scrollLeft -= page;
