@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117173819">
-<link rel="stylesheet" href="ticket.css?v=20261117173819">
+<link rel="stylesheet" href="site.css?v=20261117175813">
+<link rel="stylesheet" href="ticket.css?v=20261117175813">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -113,9 +113,9 @@
               <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит">
             </div>
           </div>
-          <textarea class="input" id="message" maxlength="120" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
+          <textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
           <div class="chips templates" id="templates"></div>
-          <div class="counter"><span id="msgCount">0</span> / 120</div>
+          <div class="counter"><span id="msgCount">0</span> / 200</div>
         </div>
 
         <!-- Шаг 3 -->
@@ -322,8 +322,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117173819"></script>
-<script src="shared.js?v=20261117173819"></script>
+<script src="ticket.js?v=20261117175813"></script>
+<script src="shared.js?v=20261117175813"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);

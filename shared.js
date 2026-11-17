@@ -12,9 +12,11 @@ const CONFIG = {
     { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
     { id: 'birthday', name: 'День рождения', main: '#A181FF', step: '#D6C8FF', art3d: 'assets/art/bubbles.webp' },
     { id: 'newyear',  name: 'Новый год',     main: '#011F90', snow: true, suit: true },
-    { id: 'family',   name: 'К родным',      main: '#A181FF', photo: 'assets/designs/skate-train.jpg' },
-    { id: 'spb',      name: 'В Петербург',   main: '#A181FF', photo: 'assets/designs/saint-petersburg-bridge.jpg' },
-    { id: 'sea',      name: 'Путешествие',   main: '#A181FF', photo: 'assets/designs/plane-window.webp' }
+    { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
+    { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
+    { id: 'sea',      name: 'Бассейн',       main: '#011F90', blob: 'blob-pool.jpg' },
+    { id: 'meadow',   name: 'Чемодан в поле', main: '#A181FF', blob: 'blob-meadow.jpg' },
+    { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' }
   ],
   // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:
   // main — фон основной части, stub — цвет корешка, blob — фото в большой форме, stepPhoto — фото в ступеньке,
@@ -48,11 +50,12 @@ const CONFIG = {
     { title: 'Коллегам и партнёрам',            text: 'В благодарность или к празднику',             icon: 'train', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
+  // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
   amountCards: [
-    { amount: null,  design: 'sea' },
+    { amount: null,  design: 'pagoda' },
     { amount: 1000,  design: 'classic' },
-    { amount: 3000,  design: 'birthday' },
-    { amount: 5000,  design: 'newyear' },
+    { amount: 3000,  design: 'sea' },
+    { amount: 5000,  design: 'meadow' },
     { amount: 10000, design: 'family' },
     { amount: 25000, design: 'spb' }
   ]
