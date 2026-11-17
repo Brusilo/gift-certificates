@@ -8,15 +8,17 @@ const CONFIG = {
   validityMonths: 12,
   // Открытки к поводам для письма получателю. Нарисованы как основная часть билета: фон, логотип, стикеры, «Кому» и «От кого».
   // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька, snow — снег.
+  // Сначала те же открытки, что в «Сколько подарить», и в том же порядке
   designs: [
-    { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
-    { id: 'birthday', name: 'День рождения', main: '#A181FF', step: '#D6C8FF', art3d: 'assets/art/bubbles.webp' },
-    { id: 'newyear',  name: 'Новый год',     main: '#011F90', snow: true, suit: true },
-    { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
-    { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
+    { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' },
+    { id: 'plum',     name: 'Оранжевый чемодан', main: '#5F17C5', suit: true },
     { id: 'sea',      name: 'Бассейн',       main: '#011F90', blob: 'blob-pool.jpg' },
     { id: 'meadow',   name: 'Чемодан в поле', main: '#A181FF', blob: 'blob-meadow.jpg' },
-    { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' }
+    { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
+    { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
+    { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
+    { id: 'birthday', name: 'День рождения', main: '#A181FF', step: '#D6C8FF', art3d: 'assets/art/bubbles.webp' },
+    { id: 'newyear',  name: 'Новый год',     main: '#011F90', snow: true, suit: true }
   ],
   // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:
   // main — фон основной части, stub — цвет корешка, blob — фото в большой форме, stepPhoto — фото в ступеньке,
@@ -53,7 +55,7 @@ const CONFIG = {
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
   amountCards: [
     { amount: null,  design: 'pagoda' },
-    { amount: 1000,  design: 'classic' },
+    { amount: 1000,  design: 'plum' },
     { amount: 3000,  design: 'sea' },
     { amount: 5000,  design: 'meadow' },
     { amount: 10000, design: 'family' },

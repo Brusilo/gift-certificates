@@ -93,7 +93,7 @@
 .tk-card{--mm:calc(100cqw / 165);aspect-ratio:165/99;-webkit-mask:none;mask:none}
 .tk-card .tk-main{width:100%;overflow:hidden}
 .tk-card .tk-blob{background-size:cover}
-.tk-card .tk-suit{left:calc(108 * var(--mm));top:calc(14 * var(--mm));width:calc(50 * var(--mm))}
+.tk-card .tk-suit{left:calc(108 * var(--mm));top:calc(22 * var(--mm));width:calc(50 * var(--mm))}
 /* «Кому» и «От кого» в открытке поверх 3D-предметов */
 .tk-card .tk-who{z-index:6}
 .tk-3d{left:calc(108 * var(--mm));top:calc(22 * var(--mm));width:calc(50 * var(--mm));z-index:5;filter:drop-shadow(0 calc(1.2 * var(--mm)) calc(1.5 * var(--mm)) rgba(1,31,144,.25))}

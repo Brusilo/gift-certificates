@@ -38,7 +38,7 @@ function tkWho(d) {
   return `<div class="${cls}"><div class="l"><span class="tk-lab">Кому</span><b class="tk-val" data-f="to" data-fit="9"></b></div><div class="r"><span class="tk-lab">От&nbsp;кого</span><b class="tk-val" data-f="from" data-fit="9"></b></div></div>`;
 }
 
-const tkLogo = (d) => `<img class="tk-logo" src="${TK}${d.main.toUpperCase() === TK_BLUEBERRY ? 'lg-on-navy.png' : 'lg-on-violet.png'}" alt="Туту">`;
+const tkLogo = (d) => `<img class="tk-logo" src="${TK}${[TK_BLUEBERRY, '#5F17C5'].includes(d.main.toUpperCase()) ? 'lg-on-navy.png' : 'lg-on-violet.png'}" alt="Туту">`;
 
 // Открытка для письма: та же основная часть билета, на красном стикере «Сертификат», на лаймовом сумма
 function tkCardHtml(d) {
