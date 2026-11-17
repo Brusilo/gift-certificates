@@ -47,8 +47,8 @@ const CONFIG = {
   // Фото сверху, фиолетовая волна снизу
   giftCards: [
     { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
+    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
     { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
-    { title: 'Путешественникам', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
     { title: 'К празднику', text: 'Подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
