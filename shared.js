@@ -43,10 +43,9 @@ const CONFIG = {
     { id: 'newyear',  label: 'Новый год',     text: 'С Новым годом! Пусть в нём будет больше поездок.' }
   ],
   // Плитки «Кому подарить»: кому подойдёт подарок.
-  // Клик выбирает в форме открытку и шаблон поздравления, сумму не трогает
   // Фото сверху, фиолетовая волна снизу
   giftCards: [
-    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
+    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '55% 45%', design: 'classic', template: 'parents' },
     { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%', design: 'sea', template: 'friend' },
     { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
     { title: 'К празднику', text: 'Подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' }
@@ -84,7 +83,6 @@ function mountHero() {
 // ниже линии отрыва талон с коротким текстом и стрелкой
 function fillGiftCard(el, c) {
   el.className = 'gift';
-  el.setAttribute('aria-label', c.title + '. ' + c.text);
   el.innerHTML = '<span class="gift-photo"></span>'
     + '<svg class="gift-wave" viewBox="0 0 720 513" preserveAspectRatio="none" aria-hidden="true"><path d="M0 513V310C0 150 40 75 205 52L530 6C650-10 720 60 720 215V513Z"/></svg>'
     + '<span class="gift-body"><span class="gift-title"></span><span class="gift-example"></span></span>';

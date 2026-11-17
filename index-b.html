@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118010357">
-<link rel="stylesheet" href="ticket.css?v=20261118010357">
+<link rel="stylesheet" href="site.css?v=20261118011706">
+<link rel="stylesheet" href="ticket.css?v=20261118011706">
 </head>
 <body>
 
@@ -82,12 +82,15 @@
       <p class="pk-t pk-c">придёт новым сертификатом, если заказ дешевле</p>
       <span class="stk-group pk-s pk-s-d"><span class="stk stk-red">Дарите</span><span class="stk stk-lime">как хотите</span></span>
       <p class="pk-t pk-d">письмом в&nbsp;нужный день или лично в&nbsp;руки</p>
+      <img class="pk-3d pk-3d-b" src="assets/art/calendar.webp" alt="">
+      <img class="pk-3d pk-3d-c" src="assets/art/wallet-coins.webp" alt="">
+      <img class="pk-3d pk-3d-d" src="assets/art/cards-heart.webp" alt="">
     </div>
     <!-- Телефон: плитки стопкой, текст слева, стикер или 3D справа -->
     <ul class="pkm">
-      <li class="pkm-i is-lime is-stack"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p></li>
-      <li class="pkm-i is-stack"><span class="stk-group"><span class="stk stk-red">Дарите</span><span class="stk stk-lime">как хотите</span></span><p>Письмом в&nbsp;нужный день или лично в&nbsp;руки</p></li>
-      <li class="pkm-i"><p>Чтобы выбрать поездку без&nbsp;спешки</p><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span></li>
+      <li class="pkm-i is-lime is-stack"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p><img src="assets/art/wallet-coins.webp" alt=""></li>
+      <li class="pkm-i is-stack"><span class="stk-group"><span class="stk stk-red">Дарите</span><span class="stk stk-lime">как хотите</span></span><p>Письмом в&nbsp;нужный день или лично в&nbsp;руки</p><img src="assets/art/cards-heart.webp" alt=""></li>
+      <li class="pkm-i is-stack"><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span><p>Чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
       <li class="pkm-i"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p></li>
     </ul>
   </div>
@@ -241,19 +244,15 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118010357"></script>
-<script src="shared.js?v=20261118010357"></script>
-<script src="landing.js?v=20261118010357"></script>
+<script src="ticket.js?v=20261118011706"></script>
+<script src="shared.js?v=20261118011706"></script>
+<script src="landing.js?v=20261118011706"></script>
 <script>
-// «Кому подарить»: плитка открывает форму с выбранной открыткой и шаблоном
+// «Кому подарить»: плитки только рассказывают, кому подойдет подарок, и не кликаются
 CONFIG.giftCards.forEach((c) => {
-  const b = document.createElement('a');
-  fillGiftCard(b, c);
-  const q = new URLSearchParams({ design: c.design });
-  if (c.template) q.set('template', c.template);
-  // «Коллегам и партнёрам» ведёт к блоку «Компаниям»
-  b.href = c.href || 'buy.html?' + q.toString();
-  $('giftRow').append(b);
+  const d = document.createElement('div');
+  fillGiftCard(d, c);
+  $('giftRow').append(d);
 });
 makeRail($('giftRow'));
 
