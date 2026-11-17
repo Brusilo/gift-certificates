@@ -72,14 +72,15 @@ function tkBackHtml(d) {
 </div>
 <div class="tk-perf"></div>
 <div class="tk-main">
-<img class="tk-tks" src="${TK}tickets-2.png" alt="">
-<div class="tk-wish"><b class="tk-hello" data-f="hello" data-fit="6.6"></b><p class="tk-msg" data-f="msg"></p></div>
-<div class="tk-steps"><img class="tk-arr" src="${TK}arrow-navy.png" style="left:calc(51.35 * var(--mm))" alt=""><img class="tk-arr" src="${TK}arrow-navy.png" style="left:calc(102.85 * var(--mm))" alt="">
+<div class="tk-wish"><p class="tk-msg" data-f="msg"></p></div>
+<div class="tk-info">
+<div class="tk-steps"><img class="tk-arr" src="${TK}arrow-navy.png" style="left:33.5%" alt=""><img class="tk-arr" src="${TK}arrow-navy.png" style="left:66.5%" alt="">
 <div class="tk-step">${card}<span class="tk-n">1</span><p>Выберите билеты<br>или отель<br>на&nbsp;Туту</p></div>
 <div class="tk-step">${card}<span class="tk-n">2</span><p>При оплате<br>введите код<br>сертификата</p></div>
-<div class="tk-step">${card}<span class="tk-n">3</span><p>Билет дороже&nbsp;–<br>доплатите картой.<br>Дешевле&nbsp;–<br>отправим<br>сертификат<br>на&nbsp;остаток</p></div>
+<div class="tk-step">${card}<span class="tk-n">3</span><p>Доплатите картой,<br>если заказ<br>дороже</p></div>
 </div>
 <div class="tk-code"><div class="tk-code-l"><span>Код сертификата</span><span class="tk-till" data-f="till"></span></div><b class="tk-code-c">XXXX-XXXX-XXXX-XXXX</b></div>
+</div>
 </div>
 </div>`;
 }
@@ -106,8 +107,13 @@ function tkFill(box, f) {
   set('amount', f.amount);
   set('to', f.to, 'Получатель');
   set('from', f.from, 'Ваше имя');
-  set('hello', f.to ? `${f.to}, это тебе!` : 'Это тебе!');
-  set('msg', f.msg, 'Здесь будет ваше поздравление');
+  // На обороте только поздравление: имя получателя и дарителя уже есть на лицевой стороне.
+  // Без поздравления там крупно «Подарок на поездку»
+  const msg = box.querySelector('[data-f="msg"]');
+  if (msg) {
+    msg.textContent = (f.msg || '').trim() || 'Подарок на поездку';
+    msg.classList.toggle('is-default', !(f.msg || '').trim());
+  }
   set('till', f.till ? 'Действует до ' + f.till : '');
   tkFit(box);
 }
@@ -126,6 +132,20 @@ function tkFit(box) {
     const k = Math.max(0.45, room / need * 0.98);
     el.style.fontSize = `calc(${(base * k).toFixed(2)} * var(--mm))`;
   });
+  tkFitWish(box, mmPx);
+}
+
+// Поздравление на обороте: самый крупный размер до 9 мм, при котором текст помещается в верхнюю зону и не больше 4 строк
+function tkFitWish(box, mmPx) {
+  const zone = box.querySelector('.tk-wish'), el = box.querySelector('.tk-wish .tk-msg');
+  if (!zone || !el || !zone.clientHeight) return;
+  const room = zone.clientHeight - 2 * mmPx;
+  const lh = el.classList.contains('is-default') ? 1.1 : 1.18;
+  for (let fs = 9; fs >= 5; fs -= 0.2) {
+    el.style.fontSize = `calc(${fs.toFixed(1)} * var(--mm))`;
+    const lines = Math.round((el.offsetHeight - 1.4 * mmPx) / (fs * mmPx * lh));
+    if (el.offsetHeight <= room && lines <= 4) break;
+  }
 }
 
 // Шрифты догружаются позже разметки, после них ширина имён меняется
