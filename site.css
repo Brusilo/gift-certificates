@@ -97,7 +97,7 @@ main > section:last-child{padding-bottom:56px}
 .hero-back,.hero-front{filter:drop-shadow(0 24px 34px rgba(1,31,144,.35))}
 .hero-back{position:absolute;left:12%;right:-6%;top:34%;transform:rotate(5deg)}
 /* Нижний билет поднят и сдвинут вправо, чтобы закрывать «Действует до» на заднем */
-.hero-front{transform:rotate(-5deg);margin:-9% -9% 0 9%}
+.hero-front{transform:rotate(-5deg);margin:-4% -10% 0 10%}
 
 
 /* Первая секция после первого экрана заезжает на него панелью, как на индийском лендинге */
