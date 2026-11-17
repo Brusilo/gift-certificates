@@ -44,7 +44,7 @@ const CONFIG = {
     { title: 'Тем, кто любит путешествовать',  text: 'Выберут, куда ехать',                         icon: 'plane', design: 'sea',     template: 'friend' },
     { title: 'Тем, кто скоро в поездку',       text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
     { title: 'Родителям',                       text: 'Съездят отдохнуть',     icon: 'bed',   design: 'classic', template: 'parents' },
-    { title: 'Тем, кто живёт далеко',           text: 'Чтобы приехать в гости',       icon: 'bus',   design: 'family',  template: null },
+    { title: 'Тем, у кого скоро праздник',     text: 'День рождения, Новый год или свадьба',        icon: 'bus',   design: 'birthday', template: 'birthday' },
     { title: 'Коллегам и партнёрам',            text: 'В благодарность или к празднику',             icon: 'train', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
@@ -112,10 +112,22 @@ function makeRail(row, loop) {
     b.setAttribute('aria-label', label);
     b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>';
     b.addEventListener('click', () => {
-      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4, atStart = row.scrollLeft < 4;
-      if (loop && dir > 0 && atEnd) row.scrollTo({ left: 0, behavior: 'smooth' });
-      else if (loop && dir < 0 && atStart) row.scrollTo({ left: row.scrollWidth, behavior: 'smooth' });
-      else row.scrollBy({ left: dir * row.clientWidth * (loop ? 1 : 0.9), behavior: 'smooth' });
+      if (!loop) { row.scrollBy({ left: dir * row.clientWidth * 0.9, behavior: 'smooth' }); return; }
+      // По кругу: карточки, которые ушли за край, переставляем в другой конец ряда,
+      // поэтому ряд всегда едет в ту сторону, куда нажали, без отката к началу
+      const items = row.children;
+      if (items.length < 2) return;
+      const step = items[1].offsetLeft - items[0].offsetLeft;
+      const k = Math.max(1, Math.round((row.clientWidth + step - items[0].offsetWidth) / step));
+      const page = k * step;
+      if (dir > 0 && row.scrollLeft + row.clientWidth + page > row.scrollWidth + 2) {
+        for (let i = 0; i < k; i++) row.append(row.firstElementChild);
+        row.scrollLeft -= page;
+      } else if (dir < 0 && row.scrollLeft - page < -2) {
+        for (let i = 0; i < k; i++) row.prepend(row.lastElementChild);
+        row.scrollLeft += page;
+      }
+      row.scrollBy({ left: dir * page, behavior: 'smooth' });
     });
     return b;
   };
