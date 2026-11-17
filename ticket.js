@@ -111,7 +111,7 @@ function tkFill(box, f) {
   // Без поздравления там крупно «Подарок на поездку»
   const msg = box.querySelector('[data-f="msg"]');
   if (msg) {
-    msg.textContent = (f.msg || '').trim() || 'Подарок на путешествие';
+    msg.textContent = (f.msg || '').trim() || 'Пусть впереди будет много путешествий!';
     msg.classList.toggle('is-default', !(f.msg || '').trim());
   }
   set('till', f.till ? 'Действует до ' + f.till : '');

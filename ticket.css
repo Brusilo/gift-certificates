@@ -74,7 +74,6 @@
 .tk-back .tk-main{background:#F3F0FF;color:#011F90;padding:calc(5.5 * var(--mm)) calc(5 * var(--mm)) calc(5 * var(--mm)) calc(6.2 * var(--mm));display:flex;flex-direction:column}
 .tk-wish{flex:none;height:calc(33 * var(--mm));display:flex;align-items:center;border-bottom:calc(.35 * var(--mm)) solid #D6C8FF;padding-bottom:calc(1 * var(--mm))}
 .tk-msg{margin:0;font-size:calc(6.2 * var(--mm));font-weight:700;line-height:1.18;word-break:break-word;padding:calc(.6 * var(--mm)) 0 calc(.8 * var(--mm))}
-.tk-msg.is-default{font-weight:900;font-style:italic;text-transform:uppercase;line-height:1.1;padding-right:calc(1 * var(--mm))}
 /* Свободное место делится поровну: от линии до шагов столько же, сколько от шагов до кода */
 .tk-info{flex:1;display:flex;flex-direction:column}
 .tk-info > *{margin-top:auto}

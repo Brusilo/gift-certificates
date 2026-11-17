@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261117181831">
-<link rel="stylesheet" href="ticket.css?v=20261117181831">
+<link rel="stylesheet" href="site.css?v=20261117183706">
+<link rel="stylesheet" href="ticket.css?v=20261117183706">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -106,11 +106,13 @@
           <div class="two">
             <div>
               <label class="label" for="toName">Кому</label>
-              <input class="input" id="toName" maxlength="40" placeholder="Имя получателя">
+              <input class="input" id="toName" maxlength="40" placeholder="Имя получателя" required>
+              <p class="err" id="toNameErr" hidden></p>
             </div>
             <div>
               <label class="label" for="fromName">От кого</label>
-              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит">
+              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит" required>
+              <p class="err" id="fromNameErr" hidden></p>
             </div>
           </div>
           <textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
@@ -322,8 +324,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261117181831"></script>
-<script src="shared.js?v=20261117181831"></script>
+<script src="ticket.js?v=20261117183706"></script>
+<script src="shared.js?v=20261117183706"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -473,8 +475,17 @@ function checkEmail(id) {
   $(id + 'Err').textContent = 'Проверьте почту';
   return ok;
 }
+// «Кому» и «От кого» обязательны: без них открытка и билет выходят безымянными
+function checkName(id) {
+  const ok = $(id).value.trim().length > 0;
+  $(id).classList.toggle('is-invalid', !ok);
+  $(id + 'Err').hidden = ok;
+  $(id + 'Err').textContent = 'Укажите имя';
+  return ok;
+}
 function stepValid(step) {
   if (step === 1 && !amountValid()) { $('amount').focus(); render(); return false; }
+  if (step === 2 && ![checkName('toName'), checkName('fromName')].every(Boolean)) { document.querySelector('.step[data-step="2"] .is-invalid')?.focus(); return false; }
   if (step === 3) {
     const ok = state.delivery === 'recipient'
       ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)

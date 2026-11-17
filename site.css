@@ -149,22 +149,19 @@ main > section:last-child{padding-bottom:56px}
 /* «Почему сертификат Туту»: четыре сцепленные плитки как в «Тутуленде». Вся сцена тянется по ширине,
    размеры внутри в cqw от ширины сцены, координаты в % от фигур 1336 × 508 */
 /* Сверху и снизу место ровно под стикер и 3D, которые выходят за фигуры: отступы между блоками как везде */
-.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:2.6% 0 2.5%}
+.pk{position:relative;container-type:inline-size;aspect-ratio:1336/508;margin:5% 0 0}
 .pk-bg{position:absolute;inset:0;width:100%;height:100%;fill:var(--berry)}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.7cqw;font-weight:700;line-height:1.08}
-.pk-a{left:3.2%;top:7%;width:31%}
-.pk-b{left:3.2%;top:70%;width:30%}
-.pk-c{left:40.5%;top:22%;width:28%;text-align:center}
-.pk-d{left:73.8%;top:71%;width:24.5%}
+.pk-a{left:3.2%;top:8%;width:31%}
+.pk-b{left:3.2%;top:78%;width:30%}
+.pk-c{left:41%;top:48%;width:27%;text-align:center}
+.pk-d{left:75.5%;top:56%;width:22.5%}
 /* Стикеры как в шапке и на билете: заметные, но не крупнее заголовков соседних блоков */
 .pk-s{position:absolute;z-index:3;font-size:4.6cqw}
-.pk-s-b{left:2%;top:49%}
-.pk-s-c{left:45%;top:-6%;font-size:5cqw}
-.pk-s-d{left:73.8%;top:42%;font-size:3.4cqw}
-.pk-s-d .stk + .stk{margin:-.02em 0 0 .4em}
-.pk-art{position:absolute;z-index:1;pointer-events:none;max-width:none}
-.pk-art-c{left:42%;top:56%;width:23%}
-.pk-art-d{left:79%;top:-7%;width:17%}
+.pk-s .stk + .stk{margin:-.02em 0 0 .4em}
+.pk-s-b{left:2%;top:54%;font-size:5.6cqw}
+.pk-s-c{left:42.5%;top:-6%;font-size:4.4cqw}
+.pk-s-d{left:75.5%;top:16%;font-size:3.3cqw}
 .pkm{display:none}
 
 /* «Как воспользоваться»: карточки-параллелограммы, как шаги на обороте билета */
@@ -255,7 +252,7 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 .biz{padding:56px 0 0}
 .biz-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;background:var(--berry);border-radius:var(--r-panel);padding:44px 48px;color:rgba(255,255,255,.88)}
 .biz h2{color:var(--white);margin-bottom:12px}
-.biz p{max-width:600px;font-size:17px}
+.biz p{max-width:600px;font-size:17px;color:var(--white)}
 .biz .btn{margin-top:24px}
 .biz-art{width:min(380px,32vw);margin:0;align-self:center}
 
@@ -369,11 +366,15 @@ dialog .btn{width:100%}
   .pkm-i.is-lime{background:var(--lime)}
   .pkm-i p{margin:0;max-width:58%;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
   .pkm-i.is-lime p{color:#000}
+  /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
+  .pkm-i.is-lime .stk-lime{color:var(--white)}
+  .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
+  .pkm-i p:only-child{max-width:80%}
   .pkm-i img{width:38%;max-width:150px;margin-right:-6px}
   .pkm-i .stk-group{font-size:32px;margin-top:18px}
   /* Плитка со стикерами «Дарите как хотите»: стикеры над текстом, чемодан справа */
   .pkm-i.is-stack{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}
+  .pkm-i.is-stack p{max-width:85%}
   .pkm-i.is-stack .stk-group{font-size:24px;margin:16px 0 0}
   .pkm-i.is-stack .stk + .stk{margin:-.02em 0 0 .4em}
-  .pkm-i.is-stack img{position:absolute;right:8px;bottom:12px;width:32%}
 }

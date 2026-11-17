@@ -46,7 +46,7 @@ const CONFIG = {
   // Клик выбирает в форме открытку и шаблон поздравления, сумму не трогает. У «Коллегам и партнёрам» ссылка на блок «Компаниям»
   giftCards: [
     { title: 'Тем, кто любит путешествовать',  text: 'Выберут, куда ехать',                         icon: 'plane', design: 'sea',     template: 'friend' },
-    { title: 'Тем, кто скоро в поездку',       text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
+    { title: 'Тем, кто собирается в поездку',  text: 'Пригодится сразу, в отпуск или по делам',     icon: 'train', design: 'spb',     template: 'friend' },
     { title: 'Родителям',                       text: 'Съездят отдохнуть',     icon: 'bed',   design: 'classic', template: 'parents' },
     { title: 'Тем, у кого скоро праздник',     text: 'День рождения, Новый год или свадьба',        icon: 'bus',   design: 'birthday', template: 'birthday' },
     { title: 'Коллегам и партнёрам',            text: 'В благодарность или к празднику',             icon: 'train', href: '#business' }
