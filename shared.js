@@ -50,6 +50,7 @@ const CONFIG = {
     { title: 'Тем, кто собирается в поездку', lead: 'Тем, кто собирается в', word: 'поездку', text: 'Пригодится сразу, в отпуск или по делам', photo: 'assets/who/trip-suitcases.webp', pos: '52% 30%', design: 'spb', template: 'friend' },
     { title: 'Родителям', lead: 'Подарок', word: 'родителям', text: 'Съездят отдохнуть', photo: 'assets/who/sauna.png', pos: '50% 40%', design: 'classic', template: 'parents' },
     { title: 'Тем, у кого скоро праздник', lead: 'Тем, у кого скоро', word: 'праздник', text: 'День рождения, Новый год или свадьба', photo: 'assets/who/holiday-pizza.webp', pos: '50% 55%', design: 'birthday', template: 'birthday' },
+    { title: 'Тем, кто живет далеко', text: 'Чтобы приехать в гости', photo: 'assets/who/far-couple-train.jpg', pos: '72% 40%', design: 'family' },
     { title: 'Коллегам и партнёрам', lead: 'Коллегам и', word: 'партнёрам', text: 'В благодарность или к празднику', photo: 'assets/who/partners-tutu-suitcase.webp', pos: '48% 45%', href: '#business' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
