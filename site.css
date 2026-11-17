@@ -91,6 +91,8 @@ main > section:last-child{padding-bottom:56px}
 .facts{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0;font-weight:600;color:var(--white)}
 .facts li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border-radius:999px;padding:6px 14px 6px 8px}
 .facts li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237028EB' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/13px no-repeat}
+/* Четыре пузыря на широком экране ровно два на два, на телефоне переносятся по ширине */
+@media (min-width:721px){.facts{display:grid;grid-template-columns:repeat(2,max-content)}}
 .hero-cta{margin-top:30px}
 /* Билет в первом экране: лицевая сторона лежит на обороте */
 .hero-art{position:relative;padding:0 4% 3% 0}
