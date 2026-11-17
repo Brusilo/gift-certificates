@@ -120,9 +120,6 @@ main > section:last-child{padding-bottom:56px}
 .gift-lead{font-size:clamp(18px,1.75vw,24px);font-weight:900;font-style:italic;text-transform:uppercase;line-height:1}
 .gift-word{margin-top:5px;font-size:clamp(18px,1.75vw,24px);text-transform:none;transform:rotate(-3deg)}
 .gift-example{margin-top:12px;font-size:15px;font-weight:500;line-height:1.25}
-  -webkit-mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);-webkit-mask-composite:source-in;
-  mask:radial-gradient(circle 11px at 0 var(--top),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--top),#0000 98%,#000);mask-composite:intersect}
-/* Иконка транспорта, как на корешке сертификата */
 
 /* «Сколько подарить»: только суммы, на открытках для письма */
 /* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
