@@ -218,8 +218,8 @@ function fillLetter(f) {
   // Имена не склоняем, поэтому «Петя дарит», а не «от Пети»
   $('letterTitle').textContent = (f.to ? f.to + ', вам' : 'Вам') + ' подарок';
   $('letterSub').textContent = (f.from ? f.from + ' дарит вам сертификат' : 'Сертификат') + ' Туту на ' + f.amountText;
-  $('letterMsg').textContent = f.msg || 'Здесь будет ваше поздравление';
-  $('letterMsg').classList.toggle('is-empty', !f.msg);
+  // Без своего текста везде одно поздравление по умолчанию: в письме, на билете и на листе
+  $('letterMsg').textContent = f.msg || 'Пусть впереди будет много отличных путешествий!';
   $('certValid').textContent = 'Действует до ' + f.till;
   const q = new URLSearchParams({ design: f.design });
   if (f.amountNum) q.set('amount', f.amountNum);

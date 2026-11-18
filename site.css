@@ -232,6 +232,8 @@ main > section:last-child{padding-bottom:56px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 /* Подписи над полями чуть отступают от края, чтобы не прилипать к рамке блоков */
 .label{display:block;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px;padding-left:4px}
+/* Версия A: подписи полей чуть мельче и легче */
+.form-a .label{font-size:15px;font-weight:500}
 /* Поле поздравления не тянется: 200 знаков помещаются целиком */
 /* Счётчик знаков внутри поля, в правом нижнем углу */
 .msg-box{position:relative}

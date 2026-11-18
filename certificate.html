@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261118233043">
-<link rel="stylesheet" href="ticket.css?v=20261118233043">
+<link rel="stylesheet" href="site.css?v=20261118233218">
+<link rel="stylesheet" href="ticket.css?v=20261118233218">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -23,9 +23,9 @@ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
 /* Сиреневая часть */
 .a4-back{flex:1;min-height:0;display:flex;flex-direction:column;background:#F3F0FF;border-radius:5mm;padding:4mm 8mm 4.5mm}
-/* Поздравление до 200 знаков: размер подбирается под длину, от 7 до 4 мм */
+/* Поздравление до 200 знаков: размер подбирается под длину, от 10 до 3,4 мм. Строки идут во всю ширину, без принудительного переноса */
 .a4-wish{flex:1;display:flex;align-items:center;min-height:0;overflow:hidden;border-bottom:.45mm solid #D6C8FF;padding-bottom:2.5mm}
-.a4-wish p{margin:0;font-size:7mm;font-weight:700;line-height:1.18;text-wrap:balance;overflow-wrap:anywhere}
+.a4-wish p{margin:0;font-size:10mm;font-weight:700;line-height:1.18;overflow-wrap:anywhere}
 .a4-h{margin:2.5mm 0 2mm;font-size:4.6mm;line-height:1.1;font-weight:700;color:#011F90}
 
 /* Шаги: на обороте билета блок 50,6 × 29 мм, здесь 56,7 × 32,5 мм, всё остальное во столько же раз крупнее (×1,12) */
@@ -110,8 +110,8 @@ html.embed,html.embed body{background:transparent;overflow:hidden}
   </div>
 </div>
 
-<script src="ticket.js?v=20261118233043"></script>
-<script src="shared.js?v=20261118233043"></script>
+<script src="ticket.js?v=20261118233218"></script>
+<script src="shared.js?v=20261118233218"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);
@@ -157,12 +157,12 @@ $('steps').innerHTML = `<img class="a4-arr" src="${TK}arrow-navy.svg" style="lef
 const icon = (f, cap, cls = '') => `<div class="a4-icon"><i><img class="${cls}" src="${TK}ic-${f}-w.svg" alt=""></i><span>${cap}</span></div>`;
 $('icons').innerHTML = icon('train', 'Поезда') + icon('plane', 'Самолёты', 'pl') + icon('bus', 'Автобусы') + icon('bed', 'Отели', 'bd');
 
-// Поздравление: самый крупный размер от 7 до 3,4 мм, при котором текст помещается в свою зону
+// Поздравление: самый крупный размер от 10 до 3,4 мм, при котором текст помещается в свою зону
 function fitWish() {
   const zone = $('wish').parentElement, el = $('wish');
   const mm = $('sheet').offsetWidth / 210;
   const room = zone.clientHeight - 3 * mm;
-  for (let fs = 7; fs >= 3.4; fs -= 0.2) {
+  for (let fs = 10; fs >= 3.4; fs -= 0.2) {
     el.style.fontSize = fs.toFixed(1) + 'mm';
     if (el.offsetHeight <= room) break;
   }

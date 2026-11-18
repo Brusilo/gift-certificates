@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118233043">
-<link rel="stylesheet" href="ticket.css?v=20261118233043">
+<link rel="stylesheet" href="site.css?v=20261118233218">
+<link rel="stylesheet" href="ticket.css?v=20261118233218">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -49,6 +49,8 @@
 .edit{all:unset;cursor:pointer;color:var(--action);font-size:14px;font-weight:600}
 .edit:hover{color:var(--action-hover)}
 .step{margin-bottom:28px}
+/* Подсказка под суммой висит под полем, поэтому до кнопок на первом шаге отступ больше */
+.step[data-step="1"]{margin-bottom:52px}
 .wiz-nav{display:flex;gap:12px}
 .wiz-nav .btn{flex:1;min-height:56px;font-size:18px}
 /* «Назад» по ширине текста, «Дальше» занимает остальное */
@@ -343,8 +345,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118233043"></script>
-<script src="shared.js?v=20261118233043"></script>
+<script src="ticket.js?v=20261118233218"></script>
+<script src="shared.js?v=20261118233218"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -496,7 +498,7 @@ function render() {
     ...(many ? [['Количество', certs(state.qty), 1]] : []),
     ['Кому', toName, 2],
     ['От кого', fromName, 2],
-    ['Поздравление', msg, 2],
+    ['Поздравление', msg || 'Пусть впереди будет много отличных путешествий!', 2],
     ['Как подарить', toRecipient ? 'На почту, ' + whenText() : many ? 'Лично, все одним PDF вам на почту' : 'Лично, PDF вам на почту', 3],
     ...(toRecipient ? [] : [['Формат', a4 ? 'Лист, ' + d.name : 'Билет с двух сторон, ' + t.name, 3]]),
     [toRecipient ? 'Почта получателя' : 'Ваша почта', toRecipient ? $('toEmail').value.trim() : $('selfEmail').value.trim(), 3]
