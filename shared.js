@@ -1,6 +1,6 @@
 // Общее для версий A и B: суммы, открытки, билеты, шаблоны поздравлений, карточки «Кому подарить».
 const CONFIG = {
-  minAmount: 500,
+  minAmount: 100,
   maxAmount: 200000,
   defaultAmount: 5000,
   defaultDesign: 'classic',
@@ -92,7 +92,7 @@ function fillGiftCard(el, c) {
 
 // Карточка «Сколько подарить»: открытка для письма, на ней только сумма
 function fillAmountCard(el, c) {
-  // Без суммы: на красном стикере «Любая сумма», на лаймовом «от 500 ₽»
+  // Без суммы: на красном стикере «Любая сумма», на лаймовом «от 100 ₽»
   const text = c.amount ? fmt(c.amount) : 'от ' + fmt(CONFIG.minAmount);
   el.className = 'sum';
   el.setAttribute('aria-label', c.amount ? 'Сертификат на ' + text : 'Сертификат на любую сумму ' + text);
