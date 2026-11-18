@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118232331">
-<link rel="stylesheet" href="ticket.css?v=20261118232331">
+<link rel="stylesheet" href="site.css?v=20261118233043">
+<link rel="stylesheet" href="ticket.css?v=20261118233043">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -193,8 +193,22 @@
         <div id="emailPreview">
           <div class="tk-box pv-tk" id="pvFront"></div>
           <div class="letter">
+            <p class="letter-title" id="letterTitle"></p>
+            <p class="letter-sub" id="letterSub"></p>
             <p class="letter-msg" id="letterMsg"></p>
             <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX-XXXX</b></div>
+            <p class="letter-h">Как использовать</p>
+            <ol class="letter-steps">
+              <li>Выберите билеты или отель на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">Туту</a></li>
+              <li>При оплате введите код сертификата</li>
+              <li>Заказ дороже&nbsp;– доплатите картой, дешевле&nbsp;– отправим сертификат на&nbsp;остаток</li>
+            </ol>
+            <ul class="letter-info">
+              <li>Любое направление и&nbsp;любые даты</li>
+              <li><a href="index-b.html#faq" target="_blank" rel="noopener">Подробные условия</a></li>
+              <li>Поддержка 24/7 в&nbsp;чате на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">tutu.ru</a> и&nbsp;в&nbsp;приложении Туту</li>
+            </ul>
+            <a class="btn btn-primary letter-pdf" id="letterPdf" target="_blank" rel="noopener">Скачать сертификат</a>
           </div>
         </div>
         <!-- Вручу лично: PDF с билетом для печати с двух сторон -->
@@ -329,8 +343,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118232331"></script>
-<script src="shared.js?v=20261118232331"></script>
+<script src="ticket.js?v=20261118233043"></script>
+<script src="shared.js?v=20261118233043"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -474,9 +488,7 @@ function render() {
   } else {
     showA4($('pvA4'), { amountNum: amountOk ? state.amount : 0, to: toName, from: fromName, msg }, d.id);
   }
-  $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
-  $('letterMsg').classList.toggle('is-empty', !msg);
-  $('certValid').textContent = 'Действует до ' + untilText(until);
+  fillLetter({ amountText, amountNum: amountOk ? state.amount : 0, to: toName, from: fromName, msg, design: d.id, till: untilText(until) });
 
   // Итог на последнем шаге
   const rows = [

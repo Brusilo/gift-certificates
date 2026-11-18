@@ -269,6 +269,15 @@ textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:
 /* Лист А4 в предпросмотре: пропорции листа, тень как у бумаги */
 .pv-a4{display:block;width:100%;aspect-ratio:210/297;border:0;border-radius:6px;background:#fff;box-shadow:0 14px 34px rgba(1,31,144,.18)}
 .letter{margin-top:20px;background:var(--bg-brand);border-radius:18px;padding:18px 20px}
+.letter-title{font-size:20px;font-weight:700;line-height:1.25;color:var(--ink);word-break:break-word}
+.letter-sub{margin:2px 0 12px;color:var(--muted)}
+.letter-h{margin:18px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
+.letter-steps{list-style:none;counter-reset:st;display:grid;gap:8px;margin:0;padding:0}
+.letter-steps li{counter-increment:st;position:relative;padding-left:34px;line-height:1.35;min-height:24px}
+.letter-steps li::before{content:counter(st);position:absolute;left:0;top:-1px;width:24px;height:24px;border-radius:50%;background:var(--action);color:var(--white);font-size:14px;font-weight:700;display:grid;place-items:center}
+.letter-info{margin:16px 0 0;padding:14px 0 0;border-top:1px solid rgba(112,40,235,.15);list-style:none;display:grid;gap:6px;font-size:14px;line-height:1.35;color:var(--ink)}
+.letter a:not(.btn){color:var(--action)}
+.letter-pdf{display:flex;width:100%;margin-top:18px}
 .letter-msg{color:var(--ink);white-space:pre-wrap;word-break:break-word;min-height:24px}
 .letter-msg.is-empty{color:var(--muted)}
 /* Код и срок в письме крупно, как на обороте билета: это главное, что нужно получателю */

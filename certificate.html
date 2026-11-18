@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261118232331">
-<link rel="stylesheet" href="ticket.css?v=20261118232331">
+<link rel="stylesheet" href="site.css?v=20261118233043">
+<link rel="stylesheet" href="ticket.css?v=20261118233043">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -110,13 +110,15 @@ html.embed,html.embed body{background:transparent;overflow:hidden}
   </div>
 </div>
 
-<script src="ticket.js?v=20261118232331"></script>
-<script src="shared.js?v=20261118232331"></script>
+<script src="ticket.js?v=20261118233043"></script>
+<script src="shared.js?v=20261118233043"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);
 // В предпросмотре формы пустые имена показываем подсказками, как на открытке, а не «Маша» и «Петя»
 const embed = p.has('embed');
+// Из письма имена приходят всегда, даже пустые: тогда образец «Маша» и «Петя» не подставляем
+const real = embed || p.has('to') || p.has('from');
 document.documentElement.classList.toggle('embed', embed);
 const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
 
@@ -127,8 +129,8 @@ function renderCert(c) {
   tkMount($('card'), 'card', findDesign(c.design || CONFIG.defaultDesign));
   tkFill($('card'), {
     amount: c.amount ? fmt(+c.amount) : '— ₽',
-    to: embed ? c.to : c.to || 'Маша',
-    from: embed ? c.from : c.from || 'Петя'
+    to: real ? c.to : c.to || 'Маша',
+    from: real ? c.from : c.from || 'Петя'
   });
   // Поздравление по умолчанию подходит к любому поводу. Больше 200 знаков не бывает, как в форме
   $('wish').textContent = nbsp((c.msg || 'Пусть впереди будет много отличных путешествий!').slice(0, 200));

@@ -213,6 +213,22 @@ function syncQty(qty) {
 // Текст кнопки оплаты: «Оплатить · 3 000 ₽», сумма за все сертификаты
 const payText = (qty, amount, amountOk) => amountOk ? 'Оплатить · ' + fmt(qty * amount) : 'Оплатить';
 
+// Письмо получателю: обращение, поздравление, код и ссылка на тот же лист А4, что уходит в PDF
+function fillLetter(f) {
+  // Имена не склоняем, поэтому «Петя дарит», а не «от Пети»
+  $('letterTitle').textContent = (f.to ? f.to + ', вам' : 'Вам') + ' подарок';
+  $('letterSub').textContent = (f.from ? f.from + ' дарит вам сертификат' : 'Сертификат') + ' Туту на ' + f.amountText;
+  $('letterMsg').textContent = f.msg || 'Здесь будет ваше поздравление';
+  $('letterMsg').classList.toggle('is-empty', !f.msg);
+  $('certValid').textContent = 'Действует до ' + f.till;
+  const q = new URLSearchParams({ design: f.design });
+  if (f.amountNum) q.set('amount', f.amountNum);
+  q.set('to', f.to);
+  q.set('from', f.from);
+  if (f.msg) q.set('msg', f.msg);
+  $('letterPdf').href = 'certificate.html?' + q;
+}
+
 // Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
 // дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания
 function showA4(frame, f, designId) {
