@@ -198,6 +198,13 @@ function initQty(onChange) {
   $('qty').addEventListener('input', () => { $('qty').value = $('qty').value.replace(/\D/g, '').slice(0, 2); if ($('qty').value) set(+$('qty').value); });
   $('qty').addEventListener('blur', () => set(+$('qty').value));
 }
+// Поле поздравления растёт под текст вместо полосы прокрутки
+function growMessage() {
+  const m = $('message');
+  m.style.height = 'auto';
+  m.style.height = Math.max(124, m.scrollHeight + 3) + 'px';
+}
+
 // Кнопки на краях диапазона
 function syncQty(qty) {
   $('qtyMinus').disabled = qty <= 1;

@@ -3,6 +3,10 @@
 @font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_demibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+/* ExtraBold и Black лежали в fonts, но не были подключены: браузер рисовал их из Bold и наклонял сам, буквы слипались */
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_extrabold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.woff2') format('woff2');font-weight:900;font-style:italic;font-display:swap}
 
 :root{
   /* Палитра сертификата для печати («Правила сборки подарочного сертификата Туту») */
@@ -189,16 +193,17 @@ main > section:last-child{padding-bottom:56px}
 #amountChips .chip{padding-inline:6px;text-align:center}
 /* Подпись слева от поля, подсказка про лимиты под полем */
 .amount-row{display:flex;gap:12px;align-items:flex-start;margin-top:12px;flex-wrap:wrap}
-.amount-row .label{margin:0;padding-top:14px;line-height:21px}
-.amount-box{max-width:200px}
+.amount-row .label{margin:0;padding-top:14px;line-height:22px}
+.amount-box{position:relative;max-width:200px}
+.field:has(.amount-row){margin-bottom:34px}
 /* Высота строки задана явно: поле суммы с крупными цифрами той же высоты, что «Кому» и «От кого» */
 .input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--white);font-size:16px;line-height:24px;outline:none;transition:border-color .15s}
 .input:focus{border-color:var(--action)}
 .input.is-invalid{border-color:#E5484D}
 .amount-input{max-width:200px;font-weight:700;font-size:18px;line-height:24px;color:var(--ink)}
-.err{font-size:13px;color:#C62828;margin-top:6px;padding-left:4px}
-.field-hint{margin-top:6px;padding-left:4px;font-size:13px;color:var(--muted)}
-.amount-box .field-hint,.amount-box .err{line-height:1.4;white-space:nowrap}
+.err{font-size:14px;color:#C62828;margin-top:6px;padding-left:4px}
+.field-hint{margin-top:6px;padding-left:4px;font-size:14px;color:var(--muted)}
+.amount-box .field-hint,.amount-box .err{position:absolute;left:0;top:100%;line-height:1.4;white-space:nowrap}
 /* Сколько сертификатов: сразу за полем суммы, без подписи и без рамки поля. Круглые кнопки − и +, цифра между ними */
 .stepper{display:flex;align-items:center;gap:4px;height:51px;margin-left:8px}
 .stepper button{all:unset;box-sizing:border-box;cursor:pointer;flex:none;width:36px;height:36px;border-radius:50%;background:var(--white);border:1.5px solid var(--line);display:grid;place-items:center;font-size:20px;line-height:1;font-weight:600;color:var(--action);transition:border-color .15s}
@@ -226,13 +231,13 @@ main > section:last-child{padding-bottom:56px}
 .design:focus-visible .tk-box::after{box-shadow:inset 0 0 0 2.5px var(--action-hover)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 /* Подписи над полями чуть отступают от края, чтобы не прилипать к рамке блоков */
-.label{display:block;font-size:14px;color:var(--ink);margin-bottom:6px;padding-left:4px}
+.label{display:block;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px;padding-left:4px}
 /* Поле поздравления не тянется: 200 знаков помещаются целиком */
 /* Счётчик знаков внутри поля, в правом нижнем углу */
 .msg-box{position:relative}
-textarea.input{display:block;resize:none;height:156px;line-height:1.4;padding-bottom:30px;overflow-wrap:anywhere}
+textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:hidden;line-height:1.4;padding-bottom:30px;overflow-wrap:anywhere}
 /* Счётчик сразу под полем поздравления, над готовыми текстами */
-.counter{position:absolute;right:14px;bottom:9px;font-size:13px;color:var(--muted);pointer-events:none}
+.counter{position:absolute;right:14px;bottom:9px;font-size:14px;color:var(--muted);pointer-events:none}
 .templates{margin-top:10px}
 .templates .chip{font-size:14px;padding:7px 12px}
 .radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -244,9 +249,9 @@ textarea.input{display:block;resize:none;height:156px;line-height:1.4;padding-bo
 .sub{margin-top:16px}
 /* Переключатель из двух кнопок с подписью под ним: способ отправки в мастере и формат для печати */
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--white);border-radius:14px;padding:4px;margin-bottom:8px}
-.seg button{all:unset;box-sizing:border-box;text-align:center;padding:12px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button{all:unset;box-sizing:border-box;text-align:center;padding:12px;border-radius:10px;font-weight:600;color:var(--ink);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--bg-brand);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--action)}
-.seg button:disabled{opacity:.45;cursor:default}
+.seg button:disabled{opacity:.35;cursor:default}
 .seg-hint{padding-left:4px;font-size:14px;line-height:1.35;color:var(--muted);margin-bottom:20px}
 .when-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
 .when-row .input{max-width:180px}

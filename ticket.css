@@ -65,23 +65,23 @@
 .tk-qbox{display:flex;flex-direction:column;align-items:center;gap:calc(2.2 * var(--mm))}
 .tk-qr{width:calc(36 * var(--mm));height:calc(36 * var(--mm));border-radius:calc(2.5 * var(--mm));overflow:hidden;background:#FFF}
 .tk-qr img{width:100%;height:100%;display:block}
-.tk-qcap{font-size:calc(3.4 * var(--mm));font-weight:800;line-height:1.2}
+.tk-qcap{font-size:calc(3.4 * var(--mm));font-weight:600;line-height:1.2}
 .tk-sup{font-size:calc(3.4 * var(--mm));font-weight:500;line-height:1.25}
-.tk-sup b{display:block;margin-bottom:calc(.8 * var(--mm));font-size:calc(3.6 * var(--mm));font-weight:900;font-style:italic;text-transform:uppercase;white-space:nowrap}
+.tk-sup b{display:block;margin-bottom:calc(.8 * var(--mm));font-size:calc(3.6 * var(--mm));font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
 
 /* Оборот: основная часть. Верхняя треть под поздравление, нижние две трети под шаги и код.
    Размер поздравления подбирает tkFitWish: самый крупный до 9 мм, при котором текст помещается в зону */
-.tk-back .tk-main{background:#F3F0FF;color:#011F90;padding:calc(5.5 * var(--mm)) calc(5 * var(--mm)) calc(5 * var(--mm)) calc(6.2 * var(--mm));display:flex;flex-direction:column}
+.tk-back .tk-main{background:#F3F0FF;color:#011F90;padding:calc(4.3 * var(--mm)) calc(5 * var(--mm)) calc(5 * var(--mm)) calc(6.2 * var(--mm));display:flex;flex-direction:column}
 .tk-wish{flex:none;height:calc(33 * var(--mm));display:flex;align-items:center;border-bottom:calc(.35 * var(--mm)) solid #D6C8FF;padding-bottom:calc(1 * var(--mm))}
 .tk-msg{margin:0;font-size:calc(6.2 * var(--mm));font-weight:700;line-height:1.18;word-break:break-word;padding:calc(.6 * var(--mm)) 0 calc(.8 * var(--mm))}
 /* Свободное место делится поровну: от линии до шагов столько же, сколько от шагов до кода */
 .tk-info{flex:1;display:flex;flex-direction:column}
 .tk-info > *{margin-top:auto}
 .tk-steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:calc(1 * var(--mm))}
-.tk-step{position:relative;z-index:0;height:calc(29 * var(--mm));display:flex;align-items:center;gap:calc(1.8 * var(--mm));padding:0 calc(5 * var(--mm)) 0 calc(6.2 * var(--mm));color:#FFF}
+.tk-step{position:relative;z-index:0;height:calc(29 * var(--mm));display:flex;align-items:center;gap:calc(2.1 * var(--mm));padding:0 calc(3.6 * var(--mm)) 0 calc(7.7 * var(--mm));color:#FFF}
 .tk-step svg{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
 .tk-n{flex:none;width:calc(6 * var(--mm));height:calc(6 * var(--mm));border-radius:50%;background:#FD5623;display:grid;place-items:center;padding-bottom:calc(.2 * var(--mm));font-size:calc(3.4 * var(--mm));font-weight:900}
-.tk-step p{margin:0;font-size:calc(3.4 * var(--mm));font-weight:600;line-height:1.16;white-space:nowrap}
+.tk-step p{margin:0;font-size:calc(3.4 * var(--mm));font-weight:500;line-height:1.16;white-space:nowrap}
 .tk-arr{position:absolute;z-index:2;top:50%;width:calc(6.2 * var(--mm));max-width:none;transform:translate(-50%,-50%)}
 .tk-code{position:relative;z-index:1;background:#FFF;border-radius:calc(3 * var(--mm));padding:calc(2.4 * var(--mm)) calc(5 * var(--mm)) calc(2.6 * var(--mm))}
 .tk-code-l{display:flex;justify-content:space-between;align-items:center;gap:calc(3 * var(--mm));font-size:calc(3.6 * var(--mm));font-weight:700}

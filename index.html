@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118225433">
-<link rel="stylesheet" href="ticket.css?v=20261118225433">
+<link rel="stylesheet" href="site.css?v=20261118232331">
+<link rel="stylesheet" href="ticket.css?v=20261118232331">
 </head>
 <body>
 
@@ -168,7 +168,7 @@
             <span class="label pick-label">Формат</span>
             <div class="seg" role="group" aria-label="Формат">
               <button type="button" data-format="ticket">Билет</button>
-              <button type="button" data-format="a4">Лист А4</button>
+              <button type="button" data-format="a4">Лист</button>
             </div>
             <p class="seg-hint" id="formatHint"></p>
           </div>
@@ -372,9 +372,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118225433"></script>
-<script src="shared.js?v=20261118225433"></script>
-<script src="landing.js?v=20261118225433"></script>
+<script src="ticket.js?v=20261118232331"></script>
+<script src="shared.js?v=20261118232331"></script>
+<script src="landing.js?v=20261118232331"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
@@ -526,6 +526,7 @@ function render() {
 
   // Письмо
   $('msgCount').textContent = $('message').value.length;
+  growMessage();
   $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
   $('letterMsg').classList.toggle('is-empty', !msg);
   $('certValid').textContent = 'Действует до ' + untilText(until);
@@ -569,7 +570,7 @@ $('form').addEventListener('submit', (e) => {
   showProto('Здесь будет оплата', [
     state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Сумма: ' + fmt(state.amount),
     toRecipient ? 'Открытка: ' + findDesign(state.design).name
-      : a4 ? 'Лист А4, открытка: ' + findDesign(state.design).name
+      : a4 ? 'Лист, открытка: ' + findDesign(state.design).name
       : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
     toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);

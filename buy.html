@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118225433">
-<link rel="stylesheet" href="ticket.css?v=20261118225433">
+<link rel="stylesheet" href="site.css?v=20261118232331">
+<link rel="stylesheet" href="ticket.css?v=20261118232331">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -131,7 +131,7 @@
             <span class="label pick-label">Формат</span>
             <div class="seg" role="group" aria-label="Формат">
               <button type="button" data-format="ticket">Билет</button>
-              <button type="button" data-format="a4">Лист А4</button>
+              <button type="button" data-format="a4">Лист</button>
             </div>
             <p class="seg-hint" id="formatHint"></p>
           </div>
@@ -329,8 +329,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118225433"></script>
-<script src="shared.js?v=20261118225433"></script>
+<script src="ticket.js?v=20261118232331"></script>
+<script src="shared.js?v=20261118232331"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -452,6 +452,7 @@ function render() {
     : 'Пришлём вам PDF, чтобы распечатать';
   $('selfEmailHint').textContent = many ? `Пришлём чек и ${certs(state.qty)} одним PDF` : 'Пришлём PDF с сертификатом и чек';
   $('msgCount').textContent = $('message').value.length;
+  growMessage();
 
   // Предпросмотр. Срок считаем от отправки: при отложенной отправке получатель не теряет месяцы
   const amountText = amountOk ? fmt(state.amount) : '— ₽';
@@ -485,7 +486,7 @@ function render() {
     ['От кого', fromName, 2],
     ['Поздравление', msg, 2],
     ['Как подарить', toRecipient ? 'На почту, ' + whenText() : many ? 'Лично, все одним PDF вам на почту' : 'Лично, PDF вам на почту', 3],
-    ...(toRecipient ? [] : [['Формат', a4 ? 'Лист А4, ' + d.name : 'Билет с двух сторон, ' + t.name, 3]]),
+    ...(toRecipient ? [] : [['Формат', a4 ? 'Лист, ' + d.name : 'Билет с двух сторон, ' + t.name, 3]]),
     [toRecipient ? 'Почта получателя' : 'Ваша почта', toRecipient ? $('toEmail').value.trim() : $('selfEmail').value.trim(), 3]
   ];
   $('summary').replaceChildren(...rows.map(([label, value, step]) => {
@@ -542,7 +543,7 @@ $('form').addEventListener('submit', (e) => {
   const a4 = !toRecipient && state.format === 'a4';
   showProto('Здесь будет оплата', [
     state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Сумма: ' + fmt(state.amount),
-    toRecipient ? 'Открытка: ' + d.name : a4 ? 'Лист А4, открытка: ' + d.name : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
+    toRecipient ? 'Открытка: ' + d.name : a4 ? 'Лист, открытка: ' + d.name : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
     toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);
 });
