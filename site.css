@@ -196,6 +196,7 @@ main > section:last-child{padding-bottom:56px}
 .amount-input{max-width:200px;font-weight:700;font-size:18px;color:var(--ink)}
 .err{font-size:13px;color:#C62828;margin-top:6px}
 .field-hint{margin-top:6px;font-size:13px;color:var(--muted)}
+.amount-box .field-hint,.amount-box .err{line-height:1.4;white-space:nowrap}
 /* Варианты оформления — маленькие билеты с текущей суммой */
 /* Ряд вариантов листается стрелками по кругу: три открытки или два билета в ряду */
 .designs{display:flex;gap:6px;overflow-x:auto;overflow-anchor:none;scroll-snap-type:x mandatory;scrollbar-width:none}

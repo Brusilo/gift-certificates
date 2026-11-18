@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118131317">
-<link rel="stylesheet" href="ticket.css?v=20261118131317">
+<link rel="stylesheet" href="site.css?v=20261118132010">
+<link rel="stylesheet" href="ticket.css?v=20261118132010">
 </head>
 <body>
 
@@ -125,7 +125,7 @@
           </div>
           <div class="amount-row">
             <label class="label" for="amount">Другая сумма</label>
-              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="5 000"><p class="field-hint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
+              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="5 000"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
             </div>
         </fieldset>
 
@@ -358,9 +358,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118131317"></script>
-<script src="shared.js?v=20261118131317"></script>
-<script src="landing.js?v=20261118131317"></script>
+<script src="ticket.js?v=20261118132010"></script>
+<script src="shared.js?v=20261118132010"></script>
+<script src="landing.js?v=20261118132010"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
@@ -438,8 +438,10 @@ function render() {
 
   // Сумма
   $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
+  // Ошибка встает на место подсказки, чтобы форма не меняла высоту
   $('amountErr').hidden = amountOk || !state.amount;
-  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма – ${fmt(CONFIG.minAmount)}` : `Максимальная сумма – ${fmt(CONFIG.maxAmount)}`;
+  $('amountHint').hidden = !$('amountErr').hidden;
+  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
   $('payBtn').textContent = 'Оплатить';
   const amountText = amountOk ? fmt(state.amount) : '— ₽';
   syncPicker('designs', d.id, amountText);

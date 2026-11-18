@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118131317">
-<link rel="stylesheet" href="ticket.css?v=20261118131317">
+<link rel="stylesheet" href="site.css?v=20261118132010">
+<link rel="stylesheet" href="ticket.css?v=20261118132010">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -96,7 +96,7 @@
             </div>
             <div class="amount-row">
               <label class="label" for="amount">Другая сумма</label>
-              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off"><p class="field-hint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
+              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
             </div>
           </fieldset>
         </div>
@@ -319,8 +319,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118131317"></script>
-<script src="shared.js?v=20261118131317"></script>
+<script src="ticket.js?v=20261118132010"></script>
+<script src="shared.js?v=20261118132010"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -402,8 +402,10 @@ function render() {
   document.querySelectorAll('#whenChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.when === state.when));
   document.querySelectorAll('[data-delivery]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.delivery === state.delivery));
   $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
+  // Ошибка встает на место подсказки, чтобы форма не меняла высоту
   $('amountErr').hidden = amountOk || !state.amount;
-  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма – ${fmt(CONFIG.minAmount)}` : `Максимальная сумма – ${fmt(CONFIG.maxAmount)}`;
+  $('amountHint').hidden = !$('amountErr').hidden;
+  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
   // Под переключателем: открытки для письма или билеты для печати
   $('designs').parentElement.hidden = !toRecipient;
   $('tickets').parentElement.hidden = toRecipient;
