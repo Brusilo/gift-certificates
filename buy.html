@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118191227">
-<link rel="stylesheet" href="ticket.css?v=20261118191227">
+<link rel="stylesheet" href="site.css?v=20261118203440">
+<link rel="stylesheet" href="ticket.css?v=20261118203440">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -44,6 +44,7 @@
 .seg button{all:unset;box-sizing:border-box;text-align:center;padding:12px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--bg-brand);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--action)}
 .seg-hint{font-size:14px;color:var(--muted);margin-bottom:20px}
+.seg button:disabled{opacity:.45;cursor:default}
 .summary{margin:0;display:grid;gap:2px;background:var(--white);border-radius:16px;overflow:hidden}
 .summary > div{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:14px 18px;background:var(--white)}
 .summary > div + div{border-top:1px solid var(--line)}
@@ -97,6 +98,10 @@
             <div class="amount-row">
               <label class="label" for="amount">Другая сумма</label>
               <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
+              <div class="qty">
+                <label class="label" for="qty">Сколько</label>
+                <div><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div><p class="field-hint" id="qtyHint"></p></div>
+              </div>
             </div>
           </fieldset>
         </div>
@@ -130,7 +135,17 @@
           </div>
           <p class="seg-hint" id="segHint"></p>
 
-          <!-- Оформление: для письма открытка, для вручения лично билет -->
+          <!-- Вручу лично: в каком виде распечатать -->
+          <div id="formatBlock" hidden>
+            <span class="label pick-label">Формат для печати</span>
+            <div class="seg" role="group" aria-label="Формат для печати">
+              <button type="button" data-format="ticket">Билет</button>
+              <button type="button" data-format="a4">Лист А4</button>
+            </div>
+            <p class="seg-hint" id="formatHint"></p>
+          </div>
+
+          <!-- Оформление: открытка для письма и листа А4, билет для печати с двух сторон -->
           <div class="pick" id="designField">
             <span class="label pick-label" id="designLabel">Открытка</span>
             <div class="designs" id="designs"></div>
@@ -164,7 +179,7 @@
           <div id="selfBlock" hidden>
             <label class="label" for="selfEmail">Ваша почта</label>
             <input class="input" id="selfEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
-            <p class="field-hint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
+            <p class="field-hint" id="selfEmailHint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
           </div>
         </div>
 
@@ -197,6 +212,10 @@
           <div class="tk-box pv-tk" id="pvPrintFront"></div>
           <span class="pv-side">Оборот</span>
           <div class="tk-box pv-tk" id="pvPrintBack"></div>
+        </div>
+        <!-- Вручу лично, лист А4: тот же лист, что уходит в PDF -->
+        <div id="a4Preview" hidden>
+          <iframe class="pv-a4" id="pvA4" title="Лист А4 для печати" loading="lazy"></iframe>
         </div>
       </aside>
     </div>
@@ -319,8 +338,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118191227"></script>
-<script src="shared.js?v=20261118191227"></script>
+<script src="ticket.js?v=20261118203440"></script>
+<script src="shared.js?v=20261118203440"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -332,8 +351,19 @@ const state = {
   design: findDesign(params.get('design')).id,
   ticket: CONFIG.defaultTicket,
   delivery: 'recipient',
+  // Сколько одинаковых сертификатов и как распечатать при «Вручу лично»: билет с двух сторон или лист А4
+  qty: 1,
+  format: 'ticket',
   when: 'now'
 };
+
+// Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно
+initQty((n) => {
+  state.qty = n;
+  if (n > 1) state.delivery = 'self';
+  render();
+});
+document.querySelectorAll('[data-format]').forEach((b) => b.addEventListener('click', () => { state.format = b.dataset.format; render(); }));
 const STEPS = 4;
 
 // Открытка для письма, оформление билета для печати и шаблоны
@@ -406,15 +436,26 @@ function render() {
   $('amountErr').hidden = amountOk || !state.amount;
   $('amountHint').hidden = !$('amountErr').hidden;
   $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
-  // Под переключателем: открытки для письма или билеты для печати
-  $('designs').parentElement.hidden = !toRecipient;
-  $('tickets').parentElement.hidden = toRecipient;
+  // Количество и итог
+  syncQty(state.qty, state.amount, amountOk);
+  const many = state.qty > 1;
+  document.querySelector('[data-delivery="recipient"]').disabled = many;
+
+  // Вручу лично: билет с двух сторон или лист А4. Для письма и листа А4 выбираем открытку, для билета — билет
+  const a4 = !toRecipient && state.format === 'a4';
+  const ticket = !toRecipient && !a4;
+  document.querySelectorAll('[data-format]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.format === state.format));
+  $('formatBlock').hidden = toRecipient;
+  $('formatHint').textContent = a4 ? 'На одной стороне листа, ничего не вырезать' : 'С двух сторон, вырезать по контуру';
+  $('designs').parentElement.hidden = ticket;
+  $('tickets').parentElement.hidden = !ticket;
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
   $('dateRow').hidden = state.when !== 'date';
-  $('segHint').textContent = toRecipient
-    ? 'Отправим письмо сразу или в выбранный день'
+  $('segHint').textContent = toRecipient ? 'Отправим письмо сразу или в выбранный день'
+    : many ? `На почту получателю можно отправить только один сертификат. Все ${state.qty} пришлём вам одним PDF`
     : 'Пришлём вам PDF, чтобы распечатать';
+  $('selfEmailHint').textContent = many ? `Пришлём все ${certs(state.qty)} одним PDF и чек` : 'Пришлём PDF с сертификатом и чек';
   $('msgCount').textContent = $('message').value.length;
 
   // Предпросмотр. Срок считаем от отправки: при отложенной отправке получатель не теряет месяцы
@@ -426,13 +467,16 @@ function render() {
   until.setMonth(until.getMonth() + CONFIG.validityMonths);
   const fields = { amount: amountText, to: toName, from: fromName, msg, till: untilText(until) };
   $('emailPreview').hidden = !toRecipient;
-  $('ticketPreview').hidden = toRecipient;
+  $('ticketPreview').hidden = !ticket;
+  $('a4Preview').hidden = !a4;
   if (toRecipient) {
     // На открытке для письма «Кому» и «От кого», как на билете для печати
     tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
-  } else {
+  } else if (ticket) {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
+  } else {
+    showA4($('pvA4'), { amountNum: amountOk ? state.amount : 0, to: toName, from: fromName, msg }, d.id);
   }
   $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
   $('letterMsg').classList.toggle('is-empty', !msg);
@@ -441,10 +485,12 @@ function render() {
   // Итог на последнем шаге
   const rows = [
     ['Сумма', amountOk ? fmt(state.amount) : '—', 1],
+    ...(many ? [['Количество', `${state.qty} шт., итого ${amountOk ? fmt(state.qty * state.amount) : '—'}`, 1]] : []),
     ['Кому', toName, 2],
     ['От кого', fromName, 2],
     ['Поздравление', msg, 2],
-    ['Как подарить', toRecipient ? 'На почту, ' + whenText() : 'Лично, PDF вам на почту', 3],
+    ['Как подарить', toRecipient ? 'На почту, ' + whenText() : many ? 'Лично, все одним PDF вам на почту' : 'Лично, PDF вам на почту', 3],
+    ...(toRecipient ? [] : [['Формат', a4 ? 'Лист А4, ' + d.name : 'Билет с двух сторон, ' + t.name, 3]]),
     [toRecipient ? 'Почта получателя' : 'Ваша почта', toRecipient ? $('toEmail').value.trim() : $('selfEmail').value.trim(), 3]
   ];
   $('summary').replaceChildren(...rows.map(([label, value, step]) => {
@@ -497,10 +543,12 @@ $('form').addEventListener('submit', (e) => {
   if (!stepValid(state.step)) return;
   if (state.step < STEPS) { goTo(state.step + 1); return; }
   const d = findDesign(state.design);
+  const toRecipient = state.delivery === 'recipient';
+  const a4 = !toRecipient && state.format === 'a4';
   showProto('Здесь будет оплата', [
-    'Сумма: ' + fmt(state.amount),
-    state.delivery === 'recipient' ? 'Открытка: ' + d.name : 'Билет: ' + findTicket(state.ticket).name,
-    state.delivery === 'recipient' ? 'Отправка получателю: ' + whenText() : 'PDF на почту покупателю',
+    state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Сумма: ' + fmt(state.amount),
+    toRecipient ? 'Открытка: ' + d.name : a4 ? 'Лист А4, открытка: ' + d.name : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
+    toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);
 });
 $('backBtn').addEventListener('click', () => goTo(state.step - 1));

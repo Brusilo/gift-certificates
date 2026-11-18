@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118191227">
-<link rel="stylesheet" href="ticket.css?v=20261118191227">
+<link rel="stylesheet" href="site.css?v=20261118203440">
+<link rel="stylesheet" href="ticket.css?v=20261118203440">
 </head>
 <body>
 
@@ -126,6 +126,10 @@
           <div class="amount-row">
             <label class="label" for="amount">Другая сумма</label>
               <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="1 000"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
+              <div class="qty">
+                <label class="label" for="qty">Сколько</label>
+                <div><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div><p class="field-hint" id="qtyHint"></p></div>
+              </div>
             </div>
         </fieldset>
 
@@ -154,16 +158,33 @@
             <label class="radio-card">
               <input type="radio" name="delivery" value="recipient" checked>
               <b>На&nbsp;почту получателю</b>
-              <span>Отправим письмо сразу или в&nbsp;выбранный день</span>
+              <span id="recipientHint">Отправим письмо сразу или в&nbsp;выбранный день</span>
             </label>
             <label class="radio-card">
               <input type="radio" name="delivery" value="self">
               <b>Вручу лично</b>
-              <span>Пришлём вам PDF, чтобы распечатать</span>
+              <span id="selfHint">Пришлём вам PDF, чтобы распечатать</span>
             </label>
           </div>
 
-          <!-- Оформление: для письма открытка, для вручения лично билет -->
+          <!-- Вручу лично: в каком виде распечатать -->
+          <div class="sub" id="formatBlock" hidden>
+            <span class="label">Формат для печати</span>
+            <div class="radio-cards">
+              <label class="radio-card">
+                <input type="radio" name="format" value="ticket" checked>
+                <b>Билет</b>
+                <span>С&nbsp;двух сторон, вырезать по&nbsp;контуру</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="format" value="a4">
+                <b>Лист А4</b>
+                <span>На&nbsp;одной стороне, ничего не&nbsp;вырезать</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Оформление: открытка для письма и листа А4, билет для печати с двух сторон -->
           <div class="pick sub" id="designField">
             <span class="label pick-label" id="designLabel">Открытка</span>
             <div class="designs" id="designs"></div>
@@ -197,7 +218,7 @@
           <div class="sub" id="selfBlock" hidden>
             <label class="label" for="selfEmail">Ваша почта</label>
             <input class="input" id="selfEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
-            <p class="field-hint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
+            <p class="field-hint" id="selfEmailHint">Пришлём PDF с&nbsp;сертификатом и&nbsp;чек</p><p class="err" id="selfEmailErr" hidden></p>
           </div>
         </fieldset>
 
@@ -223,6 +244,10 @@
           <div class="tk-box pv-tk" id="pvPrintFront"></div>
           <span class="pv-side">Оборот</span>
           <div class="tk-box pv-tk" id="pvPrintBack"></div>
+        </div>
+        <!-- Вручу лично, лист А4: тот же лист, что уходит в PDF -->
+        <div id="a4Preview" hidden>
+          <iframe class="pv-a4" id="pvA4" title="Лист А4 для печати" loading="lazy"></iframe>
         </div>
       </aside>
     </div>
@@ -358,12 +383,26 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118191227"></script>
-<script src="shared.js?v=20261118191227"></script>
-<script src="landing.js?v=20261118191227"></script>
+<script src="ticket.js?v=20261118203440"></script>
+<script src="shared.js?v=20261118203440"></script>
+<script src="landing.js?v=20261118203440"></script>
 <script>
 // Версия A: форма на этой же странице
-const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
+// qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
+const state = { amount: CONFIG.defaultAmount, qty: 1, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', format: 'ticket', when: 'now' };
+
+// Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно
+initQty((n) => {
+  state.qty = n;
+  if (n > 1 && state.delivery === 'recipient') {
+    state.delivery = 'self';
+    document.querySelector('input[name="delivery"][value="self"]').checked = true;
+  }
+  render();
+});
+document.querySelectorAll('input[name="format"]').forEach((r) =>
+  r.addEventListener('change', () => { state.format = r.value; render(); })
+);
 
 // Открытка для письма и оформление билета для печати
 buildPicker('designs', CONFIG.designs, 'card', (id) => { state.design = id; render(); });
@@ -447,10 +486,23 @@ function render() {
   syncPicker('designs', d.id, amountText);
   syncPicker('tickets', t.id, amountText);
 
-  // Отправка
-  // Под способом отправки: открытки для письма или билеты для печати
-  $('designs').parentElement.hidden = !toRecipient;
-  $('tickets').parentElement.hidden = toRecipient;
+  // Количество и итог
+  syncQty(state.qty, state.amount, amountOk);
+  const many = state.qty > 1;
+
+  // Отправка. Несколько сертификатов приходят покупателю одним файлом, письмо получателю тогда недоступно
+  const recipientRadio = document.querySelector('input[name="delivery"][value="recipient"]');
+  recipientRadio.disabled = many;
+  $('recipientHint').textContent = many ? 'Только для одного сертификата' : 'Отправим письмо сразу или в выбранный день';
+  $('selfHint').textContent = many ? `Пришлём вам все ${state.qty} одним PDF` : 'Пришлём вам PDF, чтобы распечатать';
+  $('selfEmailHint').textContent = many ? `Пришлём все ${certs(state.qty)} одним PDF и чек` : 'Пришлём PDF с сертификатом и чек';
+
+  // Вручу лично: билет с двух сторон или лист А4. Для письма и листа А4 выбираем открытку, для билета — билет
+  const a4 = !toRecipient && state.format === 'a4';
+  const ticket = !toRecipient && !a4;
+  $('formatBlock').hidden = toRecipient;
+  $('designs').parentElement.hidden = ticket;
+  $('tickets').parentElement.hidden = !ticket;
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
   $('dateRow').hidden = state.when !== 'date';
@@ -465,15 +517,18 @@ function render() {
   // Имя не склоняем: «для Ани» автоматически не собрать, поэтому пишем как ввели
   const fields = { amount: amountText, to: toName, from: fromName, msg, till: untilText(until) };
 
-  // Предпросмотр: на почту — открытка и письмо, лично — обе стороны билета для печати
+  // Предпросмотр: на почту — открытка и письмо, билет — обе стороны, лист А4 — сам лист
   $('emailPreview').hidden = !toRecipient;
-  $('ticketPreview').hidden = toRecipient;
+  $('ticketPreview').hidden = !ticket;
+  $('a4Preview').hidden = !a4;
   if (toRecipient) {
     // На открытке для письма «Кому» и «От кого», как на билете для печати
     tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
-  } else {
+  } else if (ticket) {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
+  } else {
+    showA4($('pvA4'), { amountNum: amountOk ? state.amount : 0, to: toName, from: fromName, msg }, d.id);
   }
 
   // Письмо
@@ -516,10 +571,14 @@ $('form').addEventListener('submit', (e) => {
     : checkEmail('selfEmail');
   if (!emails) { document.querySelector('.is-invalid')?.focus(); return; }
 
+  const toRecipient = state.delivery === 'recipient';
+  const a4 = !toRecipient && state.format === 'a4';
   showProto('Здесь будет оплата', [
-    'Сумма: ' + fmt(state.amount),
-    state.delivery === 'recipient' ? 'Открытка: ' + findDesign(state.design).name : 'Билет: ' + findTicket(state.ticket).name,
-    state.delivery === 'recipient' ? 'Отправка получателю: ' + whenText() : 'PDF на почту покупателю',
+    state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Сумма: ' + fmt(state.amount),
+    toRecipient ? 'Открытка: ' + findDesign(state.design).name
+      : a4 ? 'Лист А4, открытка: ' + findDesign(state.design).name
+      : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
+    toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);
 });
 

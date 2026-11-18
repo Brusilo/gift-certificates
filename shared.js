@@ -6,6 +6,8 @@ const CONFIG = {
   defaultDesign: 'classic',
   defaultTicket: 'meadow',
   validityMonths: 12,
+  // Сколько одинаковых сертификатов можно оформить в форме. Больше — через блок «Компаниям»
+  maxQty: 20,
   // Открытки к поводам для письма получателю. Нарисованы как основная часть билета: фон, логотип, стикеры, «Кому» и «От кого».
   // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька.
   // Сначала те же открытки, что в «Сколько подарить», и в том же порядке
@@ -63,6 +65,9 @@ const CONFIG = {
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString('ru-RU').replace(/ | /g, ' ') + ' ₽';
+// «3 сертификата», «5 сертификатов», «21 сертификат»
+const certs = (n) => n + ' ' + (n % 10 === 1 && n % 100 !== 11 ? 'сертификат'
+  : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'сертификата' : 'сертификатов');
 const findIn = (list, id, fallback) => list.find((d) => d.id === id) || list.find((d) => d.id === fallback);
 const findDesign = (id) => findIn(CONFIG.designs, id, CONFIG.defaultDesign);
 const findTicket = (id) => findIn(CONFIG.tickets, id, CONFIG.defaultTicket);
@@ -182,6 +187,33 @@ function syncPicker(containerId, selectedId, amountText) {
     row.dataset.placed = '1';
     row.scrollLeft += sel.getBoundingClientRect().left - row.getBoundingClientRect().left;
   }
+}
+
+// Количество: поле с кнопками − и +, от 1 до CONFIG.maxQty
+function initQty(onChange) {
+  const clamp = (n) => Math.min(Math.max(n || 1, 1), CONFIG.maxQty);
+  const set = (n) => { $('qty').value = clamp(n); onChange(clamp(n)); };
+  $('qtyMinus').addEventListener('click', () => set(+$('qty').value - 1));
+  $('qtyPlus').addEventListener('click', () => set(+$('qty').value + 1));
+  $('qty').addEventListener('input', () => { $('qty').value = $('qty').value.replace(/\D/g, '').slice(0, 2); if ($('qty').value) set(+$('qty').value); });
+  $('qty').addEventListener('blur', () => set(+$('qty').value));
+}
+// Подсказка под количеством и кнопки на краях диапазона
+function syncQty(qty, amount, amountOk) {
+  $('qtyMinus').disabled = qty <= 1;
+  $('qtyPlus').disabled = qty >= CONFIG.maxQty;
+  $('qtyHint').textContent = qty > 1 && amountOk ? 'Итого ' + fmt(qty * amount) : 'До ' + CONFIG.maxQty + ' штук';
+}
+
+// Предпросмотр листа А4: certificate.html в рамке, обновляется не чаще раза в 300 мс
+let a4Timer;
+function showA4(frame, f, designId) {
+  const q = new URLSearchParams({ embed: 1, design: designId, amount: f.amountNum || '', to: f.to, from: f.from, msg: f.msg });
+  const src = 'certificate.html?' + q;
+  if (frame.dataset.src === src) return;
+  frame.dataset.src = src;
+  clearTimeout(a4Timer);
+  a4Timer = setTimeout(() => { frame.src = src; }, frame.src ? 300 : 0);
 }
 
 function showProto(title, items) {

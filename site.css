@@ -197,6 +197,16 @@ main > section:last-child{padding-bottom:56px}
 .err{font-size:13px;color:#C62828;margin-top:6px}
 .field-hint{margin-top:6px;font-size:13px;color:var(--muted)}
 .amount-box .field-hint,.amount-box .err{line-height:1.4;white-space:nowrap}
+/* Сколько сертификатов: справа от суммы, кнопки − и + по краям поля. Подсказка под полем в одну строку, как у суммы */
+.qty{display:flex;gap:12px;align-items:flex-start;margin-left:auto}
+.stepper{display:flex;align-items:center;width:136px;height:53px;border:1.5px solid var(--line);border-radius:12px;background:var(--white)}
+.stepper button{all:unset;cursor:pointer;flex:none;width:42px;height:100%;display:grid;place-items:center;font-size:22px;font-weight:600;color:var(--action)}
+.stepper button:disabled{color:var(--line);cursor:default}
+.stepper input{all:unset;flex:1;min-width:0;text-align:center;font-weight:700;font-size:18px;color:var(--ink)}
+.qty .field-hint{line-height:1.4;white-space:nowrap}
+@media (max-width:520px){.qty{margin-left:0}}
+/* Неактивный способ отправки, когда сертификатов несколько */
+.radio-card:has(input:disabled){cursor:default;opacity:.55}
 /* Варианты оформления — маленькие билеты с текущей суммой */
 /* Ряд вариантов листается стрелками по кругу: три открытки или два билета в ряду */
 .designs{display:flex;gap:6px;overflow-x:auto;overflow-anchor:none;scroll-snap-type:x mandatory;scrollbar-width:none}
@@ -242,6 +252,8 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 .pv-tk{filter:drop-shadow(0 14px 26px rgba(1,31,144,.22))}
 .pv-side{display:block;margin:18px 0 8px;font-size:14px;font-weight:500;color:var(--muted)}
 .pv-side:first-child{margin-top:0}
+/* Лист А4 в предпросмотре: пропорции листа, тень как у бумаги */
+.pv-a4{display:block;width:100%;aspect-ratio:210/297;border:0;border-radius:6px;background:#fff;box-shadow:0 14px 34px rgba(1,31,144,.18)}
 .letter{margin-top:20px;background:var(--bg-brand);border-radius:18px;padding:18px 20px}
 .letter-msg{color:var(--ink);white-space:pre-wrap;word-break:break-word;min-height:24px}
 .letter-msg.is-empty{color:var(--muted)}

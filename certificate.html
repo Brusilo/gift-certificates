@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261118191227">
-<link rel="stylesheet" href="ticket.css?v=20261118191227">
+<link rel="stylesheet" href="site.css?v=20261118203440">
+<link rel="stylesheet" href="ticket.css?v=20261118203440">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -68,6 +68,10 @@ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .a4{margin:0;box-shadow:none}
   .screen-bar{display:none}
 }
+/* Встроенный предпросмотр в форме (?embed=1): только лист, без кнопки и полей вокруг */
+html.embed,html.embed body{background:transparent;overflow:hidden}
+.embed .screen-bar{display:none}
+.embed .a4{margin:0;box-shadow:none}
 </style>
 </head>
 <body>
@@ -106,17 +110,24 @@ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   </div>
 </div>
 
-<script src="ticket.js?v=20261118191227"></script>
-<script src="shared.js?v=20261118191227"></script>
+<script src="ticket.js?v=20261118203440"></script>
+<script src="shared.js?v=20261118203440"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);
-const amount = parseInt(p.get('amount'), 10) || 3000;
+// В предпросмотре формы пустые имена показываем подсказками, как на открытке, а не «Маша» и «Петя»
+const embed = p.has('embed');
+document.documentElement.classList.toggle('embed', embed);
+const amount = parseInt(p.get('amount'), 10) || (embed ? 0 : 3000);
 const d = findDesign(p.get('design') || CONFIG.defaultDesign);
 const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
 
 tkMount($('card'), 'card', d);
-tkFill($('card'), { amount: fmt(amount), to: p.get('to') || 'Маша', from: p.get('from') || 'Петя' });
+tkFill($('card'), {
+  amount: amount ? fmt(amount) : '— ₽',
+  to: embed ? p.get('to') : p.get('to') || 'Маша',
+  from: embed ? p.get('from') : p.get('from') || 'Петя'
+});
 
 // Короткие предлоги и союзы не остаются в конце строки
 const nbsp = (s) => s.replace(/(^|[\s(«])(в|во|и|к|ко|с|со|о|об|у|на|не|за|по|до|от|из|а|но|я)\s+/gi, '$1$2 ');
@@ -155,7 +166,7 @@ function fit() {
   const sheet = $('sheet');
   sheet.style.zoom = '';
   fitWish();
-  const k = Math.min(1, (innerWidth - 24) / sheet.offsetWidth);
+  const k = Math.min(1, (innerWidth - (embed ? 0 : 24)) / sheet.offsetWidth);
   if (k < 1) sheet.style.zoom = k;
 }
 addEventListener('resize', fit);
