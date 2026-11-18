@@ -409,7 +409,6 @@ function render() {
   // Под переключателем: открытки для письма или билеты для печати
   $('designs').parentElement.hidden = !toRecipient;
   $('tickets').parentElement.hidden = toRecipient;
-  $('designLabel').textContent = toRecipient ? 'Открытка' : 'Оформление билета';
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
   $('dateRow').hidden = state.when !== 'date';
