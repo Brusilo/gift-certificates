@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118020848">
-<link rel="stylesheet" href="ticket.css?v=20261118020848">
+<link rel="stylesheet" href="site.css?v=20261118113344">
+<link rel="stylesheet" href="ticket.css?v=20261118113344">
 </head>
 <body>
 
@@ -124,10 +124,9 @@
             <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
           </div>
           <div class="amount-row">
-            <label class="label" for="amount" style="margin:0">Другая сумма</label>
-            <input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="5 000">
-          </div>
-          <p class="field-hint">От&nbsp;500 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p>
+            <label class="label" for="amount">Другая сумма</label>
+              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="5 000"><p class="field-hint">От&nbsp;500 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
+            </div>
         </fieldset>
 
         <fieldset class="field">
@@ -140,13 +139,13 @@
             </div>
             <div>
               <label class="label" for="fromName">От кого</label>
-              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя или имена всех, кто дарит" required>
+              <input class="input" id="fromName" maxlength="80" placeholder="Ваше имя" required>
               <p class="err" id="fromNameErr" hidden></p>
             </div>
           </div>
           <textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
-          <div class="chips templates" id="templates"></div>
           <div class="counter"><span id="msgCount">0</span> / 200</div>
+          <div class="chips templates" id="templates"></div>
         </fieldset>
 
         <fieldset class="field">
@@ -369,9 +368,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118020848"></script>
-<script src="shared.js?v=20261118020848"></script>
-<script src="landing.js?v=20261118020848"></script>
+<script src="ticket.js?v=20261118113344"></script>
+<script src="shared.js?v=20261118113344"></script>
+<script src="landing.js?v=20261118113344"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };

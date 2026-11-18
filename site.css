@@ -177,10 +177,17 @@ main > section:last-child{padding-bottom:56px}
 .field{border:0;margin:0 0 32px;padding:0;min-width:0}
 .field-title{display:block;font-weight:600;color:var(--ink);font-size:18px;margin-bottom:12px;padding:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:15px;color:var(--ink);transition:border-color .15s,background .15s}
+/* Скругление 12px, как у пузырей в шапке */
+.chip{border:1.5px solid var(--line);background:var(--white);border-radius:12px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:15px;color:var(--ink);transition:border-color .15s,background .15s}
 .chip:hover{border-color:var(--action)}
 .chip[aria-pressed="true"]{border-color:var(--action);background:var(--bg-brand);color:var(--ink)}
-.amount-row{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+/* Суммы в одну строку на всю ширину формы */
+#amountChips{display:grid;grid-template-columns:repeat(5,1fr)}
+#amountChips .chip{padding-inline:6px;text-align:center}
+/* Подпись слева от поля, подсказка про лимиты под полем */
+.amount-row{display:flex;gap:12px;align-items:flex-start;margin-top:12px;flex-wrap:wrap}
+.amount-row .label{margin:0;padding-top:16px;line-height:21px}
+.amount-box{max-width:200px}
 .input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--white);font-size:16px;outline:none;transition:border-color .15s}
 .input:focus{border-color:var(--action)}
 .input.is-invalid{border-color:#E5484D}
@@ -205,9 +212,10 @@ main > section:last-child{padding-bottom:56px}
 .design[aria-pressed="true"] .tk-box::after{box-shadow:inset 0 0 0 2.5px var(--action)}
 .design:focus-visible .tk-box::after{box-shadow:inset 0 0 0 2.5px var(--action-hover)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.label{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+.label{display:block;font-size:14px;color:var(--ink);margin-bottom:6px}
 /* Поле поздравления не тянется: 200 знаков помещаются целиком */
 textarea.input{resize:none;height:124px;line-height:1.45}
+/* Счётчик сразу под полем поздравления, над готовыми текстами */
 .counter{text-align:right;font-size:13px;color:var(--muted);margin-top:4px}
 .templates{margin-top:10px}
 .templates .chip{font-size:14px;padding:7px 12px}
@@ -220,7 +228,7 @@ textarea.input{resize:none;height:124px;line-height:1.45}
 .sub{margin-top:16px}
 .when-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
 .when-row .input{max-width:180px}
-.pay{padding-top:24px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.pay{display:flex;flex-direction:column;gap:12px}
 .pay .btn{width:100%;font-size:18px;min-height:56px}
 .pay-note{font-size:14px;color:var(--muted);text-align:center}
 .pay-note a,.wiz-note a{color:var(--action)}
@@ -361,6 +369,7 @@ dialog .btn{width:100%}
   .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
   .how-cta{width:100%}
   .form{padding:22px 16px}
+  #amountChips{grid-template-columns:repeat(3,1fr)}
   .two,.radio-cards{grid-template-columns:1fr}
   #designs > .design{flex-basis:calc((100% - 6px) / 2)}
   #tickets > .design{flex-basis:88%}
