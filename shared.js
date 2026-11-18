@@ -227,6 +227,88 @@ function fillLetter(f) {
   $('letterPdf').href = 'certificate.html?' + q;
 }
 
+// День и время отправки: свой календарь и список часов в стиле tutu.ru вместо системных полей.
+// Значения лежат в скрытых полях sendDate и sendTime, страница читает их как раньше
+const DT_MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+const DT_WD = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+const DT_ICON = {
+  date: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  time: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+};
+function initWhen() {
+  const date = $('sendDate'), time = $('sendTime');
+  const isoD = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  const parse = (s) => new Date(s + 'T00:00');
+  $('dateRow').insertAdjacentHTML('beforeend',
+    '<div class="dt"><button type="button" class="input dt-btn" id="dtDate" aria-label="Дата отправки" aria-expanded="false"></button><div class="dt-pop dt-cal" id="dtCal" hidden></div></div>'
+    + '<div class="dt dt-t"><button type="button" class="input dt-btn" id="dtTime" aria-label="Время отправки" aria-expanded="false"></button><div class="dt-pop dt-times" id="dtTimes" hidden></div></div>');
+  let view = parse(date.value); view.setDate(1);
+
+  // Сегодня прошедшие часы выбрать нельзя
+  const pastHour = (v) => date.value === date.min && parseInt(v, 10) <= new Date().getHours();
+  const fixTime = () => {
+    if (!pastHour(time.value)) return;
+    const next = new Date().getHours() + 1;
+    if (next < 24) time.value = String(next).padStart(2, '0') + ':00';
+  };
+  const sync = () => {
+    const d = parse(date.value);
+    $('dtDate').innerHTML = DT_ICON.date + '<span>' + d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ', ' + DT_WD[(d.getDay() + 6) % 7] + '</span>';
+    $('dtTime').innerHTML = DT_ICON.time + '<span>' + time.value + '</span>';
+  };
+  const changed = (el) => { el.dispatchEvent(new Event('input', { bubbles: true })); sync(); };
+
+  function drawCal() {
+    const min = parse(date.min), max = new Date(min); max.setFullYear(max.getFullYear() + 1);
+    const y = view.getFullYear(), m = view.getMonth();
+    const lead = (new Date(y, m, 1).getDay() + 6) % 7;
+    const days = new Date(y, m + 1, 0).getDate();
+    let cells = '<span></span>'.repeat(lead);
+    for (let d = 1; d <= days; d++) {
+      const dt = new Date(y, m, d), v = isoD(dt), wd = (lead + d - 1) % 7;
+      const cls = 'dt-day' + (wd > 4 ? ' is-we' : '') + (v === date.min ? ' is-today' : '') + (v === date.value ? ' is-on' : '');
+      cells += `<button type="button" class="${cls}" data-v="${v}"${dt < min || dt > max ? ' disabled' : ''}>${d}</button>`;
+    }
+    const prevOff = y * 12 + m <= min.getFullYear() * 12 + min.getMonth();
+    const nextOff = y * 12 + m >= max.getFullYear() * 12 + max.getMonth();
+    $('dtCal').innerHTML = `<div class="dt-head"><button type="button" class="dt-nav" data-step="-1" aria-label="Предыдущий месяц"${prevOff ? ' disabled' : ''}>‹</button>`
+      + `<b>${DT_MONTHS[m]} ${y}</b><button type="button" class="dt-nav" data-step="1" aria-label="Следующий месяц"${nextOff ? ' disabled' : ''}>›</button></div>`
+      + '<div class="dt-grid">' + DT_WD.map((w, i) => `<span class="dt-wd${i > 4 ? ' is-we' : ''}">${w}</span>`).join('') + cells + '</div>';
+  }
+  function drawTimes() {
+    let h = '';
+    for (let i = 0; i < 24; i++) {
+      const v = String(i).padStart(2, '0') + ':00';
+      h += `<button type="button" class="dt-time${v === time.value ? ' is-on' : ''}" data-v="${v}"${pastHour(v) ? ' disabled' : ''}>${v}</button>`;
+    }
+    $('dtTimes').innerHTML = h;
+  }
+  const pops = [['dtDate', 'dtCal', drawCal], ['dtTime', 'dtTimes', drawTimes]];
+  const close = () => pops.forEach(([b, p]) => { $(p).hidden = true; $(b).setAttribute('aria-expanded', 'false'); });
+  pops.forEach(([b, p, draw]) => $(b).addEventListener('click', () => {
+    const open = $(p).hidden;
+    close();
+    if (!open) return;
+    if (p === 'dtCal') { view = parse(date.value); view.setDate(1); }
+    draw(); $(p).hidden = false; $(b).setAttribute('aria-expanded', 'true');
+    const on = $(p).querySelector('.is-on');
+    if (on && p === 'dtTimes') $(p).scrollTop = on.offsetTop - 60;
+  }));
+  $('dtCal').addEventListener('click', (e) => {
+    const nav = e.target.closest('.dt-nav'), day = e.target.closest('.dt-day');
+    if (nav) { view.setMonth(view.getMonth() + +nav.dataset.step); drawCal(); }
+    if (day) { date.value = day.dataset.v; fixTime(); changed(date); changed(time); close(); }
+  });
+  $('dtTimes').addEventListener('click', (e) => {
+    const t = e.target.closest('.dt-time');
+    if (t) { time.value = t.dataset.v; changed(time); close(); }
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('.dt')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  fixTime();
+  sync();
+}
+
 // Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
 // дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания
 function showA4(frame, f, designId) {

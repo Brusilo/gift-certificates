@@ -9,15 +9,15 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118234141">
-<link rel="stylesheet" href="ticket.css?v=20261118234141">
+<link rel="stylesheet" href="site.css?v=20261118235959">
+<link rel="stylesheet" href="ticket.css?v=20261118235959">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
 .builder{align-content:start}
 /* Форма уже, предпросмотр шире: билет и открытка крупнее */
 @media (min-width:1001px){.builder{grid-template-columns:540px minmax(0,1fr);gap:48px}}
-.wiz{position:relative;padding:32px 0 72px;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
+.wiz{position:relative;padding:32px 0 40px;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
 .top .top-inner{padding-bottom:44px}
 @media (min-width:768px){.wiz{margin-top:-40px;border-radius:40px 40px 0 0}.top .top-inner{padding-bottom:56px}}
 .faq-open{all:unset;cursor:pointer;margin-left:auto;color:var(--white);font-weight:500;font-size:15px}
@@ -152,8 +152,8 @@
               <button type="button" class="chip" data-when="date">Выбрать день и&nbsp;время</button>
             </div>
             <div class="when-row" id="dateRow" hidden>
-              <input class="input" type="date" id="sendDate" aria-label="Дата отправки">
-              <input class="input" type="time" id="sendTime" value="09:00" aria-label="Время отправки">
+              <input type="hidden" id="sendDate">
+              <input type="hidden" id="sendTime" value="09:00">
             </div>
             <div class="two sub">
               <div>
@@ -202,7 +202,7 @@
             <ol class="letter-steps">
               <li>Выберите билеты или отель на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">Туту</a></li>
               <li>При оплате введите код сертификата</li>
-              <li>Если заказ стоит дороже, доплатите картой. Если дешевле, остаток пришлём новым сертификатом</li>
+              <li>Если заказ стоит дороже, доплатите картой, если дешевле, остаток пришлём новым сертификатом</li>
             </ol>
             <div class="letter-any">
               <p>Любое направление и&nbsp;любые даты</p>
@@ -347,8 +347,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118234141"></script>
-<script src="shared.js?v=20261118234141"></script>
+<script src="ticket.js?v=20261118235959"></script>
+<script src="shared.js?v=20261118235959"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -416,6 +416,7 @@ const today = new Date();
 const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 $('sendDate').min = iso(today);
 $('sendDate').value = iso(today);
+initWhen();
 ['toName', 'fromName', 'message', 'sendDate', 'sendTime', 'toEmail', 'fromEmail', 'selfEmail'].forEach((id) => $(id).addEventListener('input', render));
 
 function whenText() {

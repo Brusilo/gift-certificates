@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118234141">
-<link rel="stylesheet" href="ticket.css?v=20261118234141">
+<link rel="stylesheet" href="site.css?v=20261118235959">
+<link rel="stylesheet" href="ticket.css?v=20261118235959">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
   <div class="container top-inner">
     <a href="https://www.tutu.ru/" aria-label="Туту — главная страница"><img class="logo" src="assets/ticket/lg-on-violet.svg" alt="Туту"></a>
     <nav class="top-nav" aria-label="Разделы страницы">
-      <a href="#how">Как оформить</a>
+      <a href="#how">Как подарить</a>
       <a href="#buy">Подарить</a>
       <a href="#business">Компаниям</a>
       <a href="#faq">Частые вопросы</a>
@@ -94,10 +94,10 @@
   </div>
 </section>
 
-<!-- Как оформить: шаги покупки, как в мастере -->
+<!-- Как подарить: шаги покупки, как в мастере -->
 <section class="section" id="how">
   <div class="container">
-    <h2>Как оформить</h2>
+    <h2>Как подарить</h2>
     <ol class="use-steps">
       <li class="use-step"><span class="use-num">1</span><h3>Выберите сумму и&nbsp;напишите поздравление</h3></li>
       <li class="use-step"><span class="use-num">2</span><h3>Выберите открытку для письма или билет для печати</h3></li>
@@ -109,7 +109,7 @@
 <!-- Форма оформления подарка -->
 <section class="section buy" id="buy">
   <div class="container">
-    <h2>Оформите подарок</h2>
+    <h2>Оформите сертификат</h2>
 
     <div class="builder">
       <form class="form form-a" id="form" novalidate>
@@ -187,8 +187,8 @@
               <button type="button" class="chip" data-when="date" aria-pressed="false">Выбрать день и&nbsp;время</button>
             </div>
             <div class="when-row" id="dateRow" hidden>
-              <input class="input" type="date" id="sendDate" aria-label="Дата отправки">
-              <input class="input" type="time" id="sendTime" value="09:00" aria-label="Время отправки">
+              <input type="hidden" id="sendDate">
+              <input type="hidden" id="sendTime" value="09:00">
             </div>
             <div class="two sub">
               <div>
@@ -230,7 +230,7 @@
             <ol class="letter-steps">
               <li>Выберите билеты или отель на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">Туту</a></li>
               <li>При оплате введите код сертификата</li>
-              <li>Если заказ стоит дороже, доплатите картой. Если дешевле, остаток пришлём новым сертификатом</li>
+              <li>Если заказ стоит дороже, доплатите картой, если дешевле, остаток пришлём новым сертификатом</li>
             </ol>
             <div class="letter-any">
               <p>Любое направление и&nbsp;любые даты</p>
@@ -388,9 +388,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118234141"></script>
-<script src="shared.js?v=20261118234141"></script>
-<script src="landing.js?v=20261118234141"></script>
+<script src="ticket.js?v=20261118235959"></script>
+<script src="shared.js?v=20261118235959"></script>
+<script src="landing.js?v=20261118235959"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
@@ -467,6 +467,7 @@ const today = new Date();
 const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 $('sendDate').min = iso(today);
 $('sendDate').value = iso(today);
+initWhen();
 
 ['toName', 'fromName', 'message', 'sendDate', 'sendTime'].forEach((id) => $(id).addEventListener('input', render));
 

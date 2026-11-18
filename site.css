@@ -165,7 +165,7 @@ main > section:last-child{padding-bottom:56px}
 /* «Как оформить»: карточки-параллелограммы, как шаги на обороте билета */
 .use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 /* Синие плашки шагов, стрелки между ними фиолетовые */
-.use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 16% 50px 21%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
+.use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 11% 50px 25%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
 .use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23011F90' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
 /* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
 .use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
@@ -257,6 +257,27 @@ textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:
 .seg-hint{padding-left:4px;font-size:14px;line-height:1.35;color:var(--muted);margin-bottom:20px}
 .when-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
 .when-row .input{max-width:180px}
+/* День и время отправки: календарь как на tutu.ru. Белое окно, мягкая тень, выбранный день фиолетовым, сегодня с обводкой, выходные красным */
+.dt{position:relative}
+.when-row .dt-btn{max-width:none;width:auto;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;color:var(--ink);font-family:inherit}
+.dt-btn svg{width:20px;height:20px;flex:none;color:var(--action)}
+.dt-btn[aria-expanded="true"]{border-color:var(--action)}
+.dt-pop{position:absolute;top:calc(100% + 8px);left:0;z-index:30;background:var(--white);border-radius:24px;box-shadow:0 4px 16px rgba(85,90,122,.16);padding:16px}
+.dt-t .dt-pop{left:auto;right:0}
+.dt-cal{width:316px}
+.dt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.dt-head b{font-size:15px;font-weight:600;color:var(--ink)}
+.dt-nav{width:32px;height:32px;border:0;border-radius:10px;background:#F2F3F7;color:var(--ink);font-size:22px;line-height:1;cursor:pointer;padding-bottom:3px}
+.dt-nav:disabled{opacity:.35;cursor:default}
+.dt-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dt-wd{font-size:11px;font-weight:500;text-transform:uppercase;color:#555A7A;text-align:center;padding:8px 0 6px}
+.dt-day,.dt-time{height:40px;border:1.5px solid transparent;border-radius:10px;background:none;font:inherit;font-size:15px;color:var(--ink);cursor:pointer;padding:0}
+.dt-day:hover,.dt-time:hover{background:var(--bg-brand)}
+.dt-wd.is-we,.dt-day.is-we{color:#E0262B}
+.dt-day.is-today{border-color:#C9B6FF}
+.dt-day:disabled,.dt-time:disabled{color:#BDBECB;background:none;cursor:default}
+.dt-day.is-on,.dt-time.is-on{background:var(--action);border-color:var(--action);color:var(--white);font-weight:600}
+.dt-times{width:268px;max-height:236px;overflow-y:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;scrollbar-width:thin}
 .pay{display:flex;flex-direction:column;gap:12px}
 .pay .btn{width:100%;font-size:18px;min-height:56px}
 .pay-note{font-size:14px;color:var(--muted);text-align:center}
@@ -271,7 +292,7 @@ textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:
 /* Лист А4 в предпросмотре: пропорции листа, тень как у бумаги */
 .pv-a4{display:block;width:100%;aspect-ratio:210/297;border:0;border-radius:6px;background:#fff;box-shadow:0 14px 34px rgba(1,31,144,.18)}
 .letter{margin-top:20px;background:var(--bg-brand);border-radius:18px;padding:18px 20px}
-.letter-title{font-size:20px;font-weight:700;line-height:1.25;color:var(--ink);word-break:break-word;margin-bottom:10px}
+.letter-title{font-size:26px;font-weight:700;line-height:1.25;color:var(--ink);word-break:break-word;margin-bottom:10px}
 .letter-h{margin:18px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
 .letter-steps{list-style:none;counter-reset:st;display:grid;gap:8px;margin:0;padding:0}
 .letter-steps li{counter-increment:st;position:relative;padding-left:34px;line-height:1.35;min-height:24px}
@@ -411,7 +432,7 @@ dialog .btn{width:100%}
   .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
   .use-steps::-webkit-scrollbar{display:none}
   .use-step + .use-step::after{display:none}
-  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 16% 46px 20%}
+  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 12% 46px 24%}
   .how-cta{width:100%}
   .form{padding:22px 16px}
   #amountChips{grid-template-columns:repeat(3,1fr)}
