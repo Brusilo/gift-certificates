@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118233500">
-<link rel="stylesheet" href="ticket.css?v=20261118233500">
+<link rel="stylesheet" href="site.css?v=20261118234141">
+<link rel="stylesheet" href="ticket.css?v=20261118234141">
 </head>
 <body>
 
@@ -224,19 +224,21 @@
           <div class="tk-box pv-tk" id="pvFront"></div>
           <div class="letter">
             <p class="letter-title" id="letterTitle"></p>
-            <p class="letter-sub" id="letterSub"></p>
             <p class="letter-msg" id="letterMsg"></p>
             <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX-XXXX</b></div>
             <p class="letter-h">Как использовать</p>
             <ol class="letter-steps">
               <li>Выберите билеты или отель на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">Туту</a></li>
               <li>При оплате введите код сертификата</li>
-              <li>Заказ дороже&nbsp;– доплатите картой, дешевле&nbsp;– отправим сертификат на&nbsp;остаток</li>
+              <li>Если заказ стоит дороже, доплатите картой. Если дешевле, остаток пришлём новым сертификатом</li>
             </ol>
+            <div class="letter-any">
+              <p>Любое направление и&nbsp;любые даты</p>
+              <div class="letter-modes"><span class="letter-mode"><i><img src="assets/ticket/ic-train-w.svg" alt=""></i>Поезда</span><span class="letter-mode"><i><img src="assets/ticket/ic-plane-w.svg" alt=""></i>Самолёты</span><span class="letter-mode"><i><img src="assets/ticket/ic-bus-w.svg" alt=""></i>Автобусы</span><span class="letter-mode"><i><img src="assets/ticket/ic-bed-w.svg" alt=""></i>Отели</span></div>
+            </div>
             <ul class="letter-info">
-              <li>Любое направление и&nbsp;любые даты</li>
-              <li><a href="index.html#faq" target="_blank" rel="noopener">Подробные условия</a></li>
-              <li>Поддержка 24/7 в&nbsp;чате на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">tutu.ru</a> и&nbsp;в&nbsp;приложении Туту</li>
+              <li><a href="index.html#faq" target="_blank" rel="noopener">Подробные условия использования сертификата</a></li>
+              <li>Поддержка 24/7 в&nbsp;чате на&nbsp;<a href="https://www.tutu.ru/" target="_blank" rel="noopener">tutu.ru</a> и&nbsp;в&nbsp;<a href="https://c.tutu.ru/mobileapp" target="_blank" rel="noopener">приложении Туту</a></li>
             </ul>
             <a class="btn btn-primary letter-pdf" id="letterPdf" target="_blank" rel="noopener">Скачать сертификат</a>
           </div>
@@ -263,7 +265,7 @@
     <div class="biz-inner">
       <div>
         <h2>Компаниям</h2>
-        <p>Подарки сотрудникам и&nbsp;партнёрам. Оплата по&nbsp;счёту, закрывающие документы. Отправим сертификаты на&nbsp;почту каждому получателю или&nbsp;пришлём вам PDF, чтобы вручить лично.</p>
+        <p>Подарки сотрудникам и&nbsp;партнёрам с&nbsp;оплатой по&nbsp;счёту. Отправим сертификаты в&nbsp;PDF на&nbsp;почту или доставим готовые физические сертификаты.</p>
         <button type="button" class="btn btn-lime" data-proto="business">Оставить заявку</button>
       </div>
       <img class="biz-art" src="assets/art/tickets-two.webp" alt="">
@@ -386,9 +388,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118233500"></script>
-<script src="shared.js?v=20261118233500"></script>
-<script src="landing.js?v=20261118233500"></script>
+<script src="ticket.js?v=20261118234141"></script>
+<script src="shared.js?v=20261118234141"></script>
+<script src="landing.js?v=20261118234141"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4

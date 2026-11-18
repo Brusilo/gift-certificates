@@ -85,7 +85,7 @@
 .tk-arr{position:absolute;z-index:2;top:50%;width:calc(6.2 * var(--mm));max-width:none;transform:translate(-50%,-50%)}
 .tk-code{position:relative;z-index:1;background:#FFF;border-radius:calc(3 * var(--mm));padding:calc(2.4 * var(--mm)) calc(5 * var(--mm)) calc(2.6 * var(--mm))}
 .tk-code-l{display:flex;justify-content:space-between;align-items:center;gap:calc(3 * var(--mm));font-size:calc(3.6 * var(--mm));font-weight:700}
-.tk-till{color:#FFF;background:#011F90;border-radius:calc(10 * var(--mm));padding:calc(.9 * var(--mm)) calc(3 * var(--mm));font-size:calc(2.9 * var(--mm));white-space:nowrap}
+.tk-till{color:#FFF;background:#011F90;border-radius:calc(1.5 * var(--mm));padding:calc(.9 * var(--mm)) calc(3 * var(--mm));font-size:calc(2.9 * var(--mm));white-space:nowrap}
 .tk-code-c{display:block;margin-top:calc(.6 * var(--mm));font-size:calc(7.4 * var(--mm));font-weight:900;white-space:nowrap}
 
 /* Открытка для письма: основная часть билета 165 × 99 мм без корешка и вырезов */
