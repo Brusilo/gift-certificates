@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118113344">
-<link rel="stylesheet" href="ticket.css?v=20261118113344">
+<link rel="stylesheet" href="site.css?v=20261118120905">
+<link rel="stylesheet" href="ticket.css?v=20261118120905">
 </head>
 <body>
 
@@ -189,7 +189,7 @@
               <div>
                 <label class="label" for="fromEmail">Ваша почта</label>
                 <input class="input" id="fromEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
-                <p class="field-hint">Пришлём чек</p><p class="err" id="fromEmailErr" hidden></p>
+                <p class="field-hint">Пришлём на&nbsp;неё чек</p><p class="err" id="fromEmailErr" hidden></p>
               </div>
             </div>
           </div>
@@ -213,9 +213,7 @@
         <div id="emailPreview">
           <div class="tk-box pv-tk" id="pvFront"></div>
           <div class="letter">
-            <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
             <p class="letter-msg" id="letterMsg"></p>
-            <p class="letter-sign" id="letterSign" hidden></p>
             <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX</b></div>
           </div>
         </div>
@@ -368,9 +366,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118113344"></script>
-<script src="shared.js?v=20261118113344"></script>
-<script src="landing.js?v=20261118113344"></script>
+<script src="ticket.js?v=20261118120905"></script>
+<script src="shared.js?v=20261118120905"></script>
+<script src="landing.js?v=20261118120905"></script>
 <script>
 // Версия A: форма на этой же странице
 const state = { amount: CONFIG.defaultAmount, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', when: 'now' };
@@ -478,8 +476,8 @@ function render() {
   $('emailPreview').hidden = !toRecipient;
   $('ticketPreview').hidden = toRecipient;
   if (toRecipient) {
-    // В письме открытка без «Кому» и «От кого»: имена уже есть в самом письме
-    tkMount($('pvFront'), 'card', d); $('pvFront').firstElementChild.classList.add('no-who'); tkFill($('pvFront'), fields);
+    // На открытке для письма «Кому» и «От кого», как на билете для печати
+    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
   } else {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
@@ -489,12 +487,13 @@ function render() {
   $('msgCount').textContent = $('message').value.length;
   $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
   $('letterMsg').classList.toggle('is-empty', !msg);
-  $('letterSign').hidden = !fromName;
-  $('letterSign').textContent = fromName;
-  $('letterTo').textContent = toName ? `Кому: ${toName}` : 'Письмо получателю';
-  $('letterWhen').textContent = state.when === 'now' ? 'сразу после оплаты'
-    : new Date($('sendDate').value + 'T00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ' в ' + ($('sendTime').value || '09:00');
   $('certValid').textContent = 'Действует до ' + untilText(until);
+}
+
+// Когда уйдёт письмо: для итога заказа
+function whenText() {
+  return state.when === 'now' ? 'сразу после оплаты'
+    : new Date($('sendDate').value + 'T00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ' в ' + ($('sendTime').value || '09:00');
 }
 
 // Оплата: в прототипе только показываем, что ушло бы в заказ
@@ -527,7 +526,7 @@ $('form').addEventListener('submit', (e) => {
   showProto('Здесь будет оплата', [
     'Сумма: ' + fmt(state.amount),
     state.delivery === 'recipient' ? 'Открытка: ' + findDesign(state.design).name : 'Билет: ' + findTicket(state.ticket).name,
-    state.delivery === 'recipient' ? 'Отправка получателю: ' + $('letterWhen').textContent : 'PDF на почту покупателю',
+    state.delivery === 'recipient' ? 'Отправка получателю: ' + whenText() : 'PDF на почту покупателю',
   ]);
 });
 

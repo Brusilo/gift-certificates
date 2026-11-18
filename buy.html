@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118113344">
-<link rel="stylesheet" href="ticket.css?v=20261118113344">
+<link rel="stylesheet" href="site.css?v=20261118120905">
+<link rel="stylesheet" href="ticket.css?v=20261118120905">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -156,7 +156,7 @@
               <div>
                 <label class="label" for="fromEmail">Ваша почта</label>
                 <input class="input" id="fromEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
-                <p class="field-hint">Пришлём чек</p><p class="err" id="fromEmailErr" hidden></p>
+                <p class="field-hint">Пришлём на&nbsp;неё чек</p><p class="err" id="fromEmailErr" hidden></p>
               </div>
             </div>
           </div>
@@ -187,9 +187,7 @@
         <div id="emailPreview">
           <div class="tk-box pv-tk" id="pvFront"></div>
           <div class="letter">
-            <div class="letter-head"><span id="letterTo"></span><span id="letterWhen"></span></div>
             <p class="letter-msg" id="letterMsg"></p>
-            <p class="letter-sign" id="letterSign" hidden></p>
             <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="certValid"></span></div><b>XXXX-XXXX-XXXX-XXXX</b></div>
           </div>
         </div>
@@ -329,8 +327,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118113344"></script>
-<script src="shared.js?v=20261118113344"></script>
+<script src="ticket.js?v=20261118120905"></script>
+<script src="shared.js?v=20261118120905"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -437,18 +435,14 @@ function render() {
   $('emailPreview').hidden = !toRecipient;
   $('ticketPreview').hidden = toRecipient;
   if (toRecipient) {
-    // В письме открытка без «Кому» и «От кого»: имена уже есть в самом письме
-    tkMount($('pvFront'), 'card', d); $('pvFront').firstElementChild.classList.add('no-who'); tkFill($('pvFront'), fields);
+    // На открытке для письма «Кому» и «От кого», как на билете для печати
+    tkMount($('pvFront'), 'card', d); tkFill($('pvFront'), fields);
   } else {
     tkMount($('pvPrintFront'), 'front', t); tkFill($('pvPrintFront'), fields);
     tkMount($('pvPrintBack'), 'back', t); tkFill($('pvPrintBack'), fields);
   }
   $('letterMsg').textContent = msg || 'Здесь будет ваше поздравление';
   $('letterMsg').classList.toggle('is-empty', !msg);
-  $('letterSign').hidden = !fromName;
-  $('letterSign').textContent = fromName;
-  $('letterTo').textContent = toName ? `Кому: ${toName}` : 'Письмо получателю';
-  $('letterWhen').textContent = whenText();
   $('certValid').textContent = 'Действует до ' + untilText(until);
 
   // Итог на последнем шаге
