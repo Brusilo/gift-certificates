@@ -2,7 +2,7 @@
 const CONFIG = {
   minAmount: 100,
   maxAmount: 200000,
-  defaultAmount: 5000,
+  defaultAmount: 1000,
   defaultDesign: 'classic',
   defaultTicket: 'meadow',
   validityMonths: 12,
