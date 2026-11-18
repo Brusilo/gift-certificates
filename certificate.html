@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261118203440">
-<link rel="stylesheet" href="ticket.css?v=20261118203440">
+<link rel="stylesheet" href="site.css?v=20261118225433">
+<link rel="stylesheet" href="ticket.css?v=20261118225433">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -18,18 +18,18 @@
 @page{size:A4;margin:0}
 html,body{background:#E9E6F5}
 body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.a4{width:210mm;height:297mm;margin:24px auto;padding:8mm 10mm;background:#fff;box-shadow:0 10px 40px rgba(1,31,144,.15);display:flex;flex-direction:column;gap:3.5mm;overflow:hidden;color:#011F90}
+.a4{width:210mm;height:297mm;margin:24px auto;padding:7mm 10mm;background:#fff;box-shadow:0 10px 40px rgba(1,31,144,.15);display:flex;flex-direction:column;gap:3mm;overflow:hidden;color:#011F90}
 .a4-card .tk{border-radius:5mm}
 
 /* Сиреневая часть */
-.a4-back{flex:1;min-height:0;display:flex;flex-direction:column;background:#F3F0FF;border-radius:5mm;padding:4mm 8mm 5mm}
+.a4-back{flex:1;min-height:0;display:flex;flex-direction:column;background:#F3F0FF;border-radius:5mm;padding:4mm 8mm 4.5mm}
 /* Поздравление до 200 знаков: размер подбирается под длину, от 7 до 4 мм */
 .a4-wish{flex:1;display:flex;align-items:center;min-height:0;overflow:hidden;border-bottom:.45mm solid #D6C8FF;padding-bottom:2.5mm}
-.a4-wish p{margin:0;font-size:7mm;font-weight:700;line-height:1.18;text-wrap:balance;word-break:break-word}
-.a4-h{margin:3mm 0 2.5mm;font-size:4.6mm;line-height:1.1;font-weight:700;color:#011F90}
+.a4-wish p{margin:0;font-size:7mm;font-weight:700;line-height:1.18;text-wrap:balance;overflow-wrap:anywhere}
+.a4-h{margin:2.5mm 0 2mm;font-size:4.6mm;line-height:1.1;font-weight:700;color:#011F90}
 
 /* Шаги: на обороте билета блок 50,6 × 29 мм, здесь 56,7 × 32,5 мм, всё остальное во столько же раз крупнее (×1,12) */
-.a4-steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:1.1mm;margin:0 0 4mm}
+.a4-steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:1.1mm;margin:0 0 3mm}
 /* Текст сдвинут правее, чем на билете: на скошенной фигуре так он смотрится по центру */
 .a4-step{position:relative;z-index:0;height:32.5mm;display:flex;align-items:center;gap:2.4mm;padding:0 4mm 0 9.6mm;color:#fff}
 .a4-step svg{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
@@ -40,15 +40,15 @@ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .a4-arr{position:absolute;z-index:2;top:50%;width:6.9mm;max-width:none;transform:translate(-50%,-50%)}
 
 /* Код и срок */
-.a4-code{background:#fff;border-radius:4mm;padding:3mm 7mm 3.5mm}
+.a4-code{background:#fff;border-radius:4mm;padding:2.5mm 7mm 3mm}
 .a4-code-l{display:flex;justify-content:space-between;align-items:center;gap:4mm;font-size:4.6mm;font-weight:700}
 /* Плашка срока: скругление как у кнопок, полей и пузырей сайта, а не капсула */
 .a4-till{color:#fff;background:#011F90;border-radius:2mm;padding:1.3mm 3.4mm;font-size:3.8mm;line-height:1.2;font-weight:700;white-space:nowrap}
-.a4-code-c{display:block;margin-top:1mm;font-size:8.6mm;line-height:1.1;font-weight:900;letter-spacing:.02em;white-space:nowrap}
+.a4-code-c{display:block;margin-top:1mm;font-size:8.2mm;line-height:1.1;font-weight:900;letter-spacing:.02em;white-space:nowrap}
 
 /* Синяя полоса: три равные колонки, всё по центру. QR, потом транспорт, потом поддержка.
    Подписи всех трёх колонок одного размера и начертания (.a4-t) */
-.a4-stub{flex:none;display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:6mm;background:#011F90;color:#fff;border-radius:5mm;padding:5mm 8mm}
+.a4-stub{flex:none;display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:6mm;background:#011F90;color:#fff;border-radius:5mm;padding:4.5mm 8mm}
 .a4-c{display:flex;flex-direction:column;align-items:center;gap:3mm;text-align:center}
 .a4-t{font-size:4.2mm;line-height:1.3;font-weight:600}
 .a4-qr{width:40mm;height:40mm;border-radius:3mm;overflow:hidden;background:#fff}
@@ -110,29 +110,34 @@ html.embed,html.embed body{background:transparent;overflow:hidden}
   </div>
 </div>
 
-<script src="ticket.js?v=20261118203440"></script>
-<script src="shared.js?v=20261118203440"></script>
+<script src="ticket.js?v=20261118225433"></script>
+<script src="shared.js?v=20261118225433"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);
 // В предпросмотре формы пустые имена показываем подсказками, как на открытке, а не «Маша» и «Петя»
 const embed = p.has('embed');
 document.documentElement.classList.toggle('embed', embed);
-const amount = parseInt(p.get('amount'), 10) || (embed ? 0 : 3000);
-const d = findDesign(p.get('design') || CONFIG.defaultDesign);
 const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
-
-tkMount($('card'), 'card', d);
-tkFill($('card'), {
-  amount: amount ? fmt(amount) : '— ₽',
-  to: embed ? p.get('to') : p.get('to') || 'Маша',
-  from: embed ? p.get('from') : p.get('from') || 'Петя'
-});
 
 // Короткие предлоги и союзы не остаются в конце строки
 const nbsp = (s) => s.replace(/(^|[\s(«])(в|во|и|к|ко|с|со|о|об|у|на|не|за|по|до|от|из|а|но|я)\s+/gi, '$1$2 ');
-// Поздравление по умолчанию подходит к любому поводу, как в шапке лендинга. Больше 200 знаков не бывает, как в форме
-$('wish').textContent = nbsp((p.get('msg') || 'Пусть впереди будет много хороших поездок!').slice(0, 200));
+// Открытка и поздравление. Форма присылает новые данные сообщением, лист перерисовывается без перезагрузки
+function renderCert(c) {
+  tkMount($('card'), 'card', findDesign(c.design || CONFIG.defaultDesign));
+  tkFill($('card'), {
+    amount: c.amount ? fmt(+c.amount) : '— ₽',
+    to: embed ? c.to : c.to || 'Маша',
+    from: embed ? c.from : c.from || 'Петя'
+  });
+  // Поздравление по умолчанию подходит к любому поводу. Больше 200 знаков не бывает, как в форме
+  $('wish').textContent = nbsp((c.msg || 'Пусть впереди будет много отличных путешествий!').slice(0, 200));
+  if (typeof fit === 'function' && $('steps').children.length) fit();
+}
+renderCert({ design: p.get('design'), amount: parseInt(p.get('amount'), 10) || (embed ? 0 : 3000), to: p.get('to'), from: p.get('from'), msg: p.get('msg') });
+addEventListener('message', (e) => {
+  if (e.origin === location.origin && e.data && e.data.type === 'cert') renderCert(e.data);
+});
 $('code').textContent = p.get('code') || 'XXXX-XXXX-XXXX-XXXX-XXXX';
 $('till').textContent = 'Действует до ' + untilText(until);
 
@@ -150,12 +155,12 @@ $('steps').innerHTML = `<img class="a4-arr" src="${TK}arrow-navy.svg" style="lef
 const icon = (f, cap, cls = '') => `<div class="a4-icon"><i><img class="${cls}" src="${TK}ic-${f}-w.svg" alt=""></i><span>${cap}</span></div>`;
 $('icons').innerHTML = icon('train', 'Поезда') + icon('plane', 'Самолёты', 'pl') + icon('bus', 'Автобусы') + icon('bed', 'Отели', 'bd');
 
-// Поздравление: самый крупный размер от 7 до 4 мм, при котором текст помещается в свою зону
+// Поздравление: самый крупный размер от 7 до 3,4 мм, при котором текст помещается в свою зону
 function fitWish() {
   const zone = $('wish').parentElement, el = $('wish');
   const mm = $('sheet').offsetWidth / 210;
   const room = zone.clientHeight - 3 * mm;
-  for (let fs = 7; fs >= 4; fs -= 0.2) {
+  for (let fs = 7; fs >= 3.4; fs -= 0.2) {
     el.style.fontSize = fs.toFixed(1) + 'mm';
     if (el.offsetHeight <= room) break;
   }

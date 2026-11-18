@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118203440">
-<link rel="stylesheet" href="ticket.css?v=20261118203440">
+<link rel="stylesheet" href="site.css?v=20261118225433">
+<link rel="stylesheet" href="ticket.css?v=20261118225433">
 </head>
 <body>
 
@@ -126,10 +126,7 @@
           <div class="amount-row">
             <label class="label" for="amount">Другая сумма</label>
               <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="1 000"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
-              <div class="qty">
-                <label class="label" for="qty">Сколько</label>
-                <div><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div><p class="field-hint" id="qtyHint"></p></div>
-              </div>
+              <div class="stepper" role="group" aria-label="Количество сертификатов"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div>
             </div>
         </fieldset>
 
@@ -147,8 +144,7 @@
               <p class="err" id="fromNameErr" hidden></p>
             </div>
           </div>
-          <textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
-          <div class="counter"><span id="msgCount">0</span> / 200</div>
+          <div class="msg-box"><textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea><div class="counter"><span id="msgCount">0</span> / 200</div></div>
           <div class="chips templates" id="templates"></div>
         </fieldset>
 
@@ -169,19 +165,12 @@
 
           <!-- Вручу лично: в каком виде распечатать -->
           <div class="sub" id="formatBlock" hidden>
-            <span class="label">Формат для печати</span>
-            <div class="radio-cards">
-              <label class="radio-card">
-                <input type="radio" name="format" value="ticket" checked>
-                <b>Билет</b>
-                <span>С&nbsp;двух сторон, вырезать по&nbsp;контуру</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="format" value="a4">
-                <b>Лист А4</b>
-                <span>На&nbsp;одной стороне, ничего не&nbsp;вырезать</span>
-              </label>
+            <span class="label pick-label">Формат</span>
+            <div class="seg" role="group" aria-label="Формат">
+              <button type="button" data-format="ticket">Билет</button>
+              <button type="button" data-format="a4">Лист А4</button>
             </div>
+            <p class="seg-hint" id="formatHint"></p>
           </div>
 
           <!-- Оформление: открытка для письма и листа А4, билет для печати с двух сторон -->
@@ -247,7 +236,7 @@
         </div>
         <!-- Вручу лично, лист А4: тот же лист, что уходит в PDF -->
         <div id="a4Preview" hidden>
-          <iframe class="pv-a4" id="pvA4" title="Лист А4 для печати" loading="lazy"></iframe>
+          <iframe class="pv-a4" id="pvA4" scrolling="no" title="Лист А4 для печати" loading="lazy"></iframe>
         </div>
       </aside>
     </div>
@@ -383,25 +372,26 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118203440"></script>
-<script src="shared.js?v=20261118203440"></script>
-<script src="landing.js?v=20261118203440"></script>
+<script src="ticket.js?v=20261118225433"></script>
+<script src="shared.js?v=20261118225433"></script>
+<script src="landing.js?v=20261118225433"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
 const state = { amount: CONFIG.defaultAmount, qty: 1, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', format: 'ticket', when: 'now' };
 
-// Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно
+// Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно.
+// Когда количество вернулось к одному, возвращаем способ, который был выбран до этого
+let deliveryBeforeMany = null;
+const setDelivery = (v) => { state.delivery = v; document.querySelector(`input[name="delivery"][value="${v}"]`).checked = true; };
 initQty((n) => {
   state.qty = n;
-  if (n > 1 && state.delivery === 'recipient') {
-    state.delivery = 'self';
-    document.querySelector('input[name="delivery"][value="self"]').checked = true;
-  }
+  if (n > 1 && state.delivery === 'recipient') { deliveryBeforeMany = 'recipient'; setDelivery('self'); }
+  if (n === 1 && deliveryBeforeMany) { setDelivery(deliveryBeforeMany); deliveryBeforeMany = null; }
   render();
 });
-document.querySelectorAll('input[name="format"]').forEach((r) =>
-  r.addEventListener('change', () => { state.format = r.value; render(); })
+document.querySelectorAll('[data-format]').forEach((b) =>
+  b.addEventListener('click', () => { state.format = b.dataset.format; render(); })
 );
 
 // Открытка для письма и оформление билета для печати
@@ -481,25 +471,28 @@ function render() {
   $('amountErr').hidden = amountOk || !state.amount;
   $('amountHint').hidden = !$('amountErr').hidden;
   $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
-  $('payBtn').textContent = 'Оплатить';
+  // На кнопке сумма за все сертификаты
+  $('payBtn').textContent = payText(state.qty, state.amount, amountOk);
   const amountText = amountOk ? fmt(state.amount) : '— ₽';
   syncPicker('designs', d.id, amountText);
   syncPicker('tickets', t.id, amountText);
 
-  // Количество и итог
-  syncQty(state.qty, state.amount, amountOk);
+  // Количество
+  syncQty(state.qty);
   const many = state.qty > 1;
 
   // Отправка. Несколько сертификатов приходят покупателю одним файлом, письмо получателю тогда недоступно
   const recipientRadio = document.querySelector('input[name="delivery"][value="recipient"]');
   recipientRadio.disabled = many;
   $('recipientHint').textContent = many ? 'Только для одного сертификата' : 'Отправим письмо сразу или в выбранный день';
-  $('selfHint').textContent = many ? `Пришлём вам все ${state.qty} одним PDF` : 'Пришлём вам PDF, чтобы распечатать';
-  $('selfEmailHint').textContent = many ? `Пришлём все ${certs(state.qty)} одним PDF и чек` : 'Пришлём PDF с сертификатом и чек';
+  $('selfHint').textContent = many ? `Пришлём ${certs(state.qty)} одним PDF` : 'Пришлём вам PDF, чтобы распечатать';
+  $('selfEmailHint').textContent = many ? `Пришлём чек и ${certs(state.qty)} одним PDF` : 'Пришлём PDF с сертификатом и чек';
 
   // Вручу лично: билет с двух сторон или лист А4. Для письма и листа А4 выбираем открытку, для билета — билет
   const a4 = !toRecipient && state.format === 'a4';
   const ticket = !toRecipient && !a4;
+  document.querySelectorAll('[data-format]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.format === state.format));
+  $('formatHint').textContent = a4 ? 'Можно просто распечатать или отправить в мессенджере' : 'Распечатайте с двух сторон листа и вырежьте по контуру';
   $('formatBlock').hidden = toRecipient;
   $('designs').parentElement.hidden = ticket;
   $('tickets').parentElement.hidden = !ticket;

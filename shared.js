@@ -78,7 +78,7 @@ function mountHero() {
   const d = findTicket(CONFIG.defaultTicket);
   const until = new Date();
   until.setMonth(until.getMonth() + CONFIG.validityMonths);
-  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много хороших поездок!', till: untilText(until) };
+  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много отличных путешествий!', till: untilText(until) };
   tkMount($('heroBack'), 'back', d); tkFill($('heroBack'), f);
   tkMount($('heroFront'), 'front', d); tkFill($('heroFront'), f);
 }
@@ -198,22 +198,25 @@ function initQty(onChange) {
   $('qty').addEventListener('input', () => { $('qty').value = $('qty').value.replace(/\D/g, '').slice(0, 2); if ($('qty').value) set(+$('qty').value); });
   $('qty').addEventListener('blur', () => set(+$('qty').value));
 }
-// Подсказка под количеством и кнопки на краях диапазона
-function syncQty(qty, amount, amountOk) {
+// Кнопки на краях диапазона
+function syncQty(qty) {
   $('qtyMinus').disabled = qty <= 1;
   $('qtyPlus').disabled = qty >= CONFIG.maxQty;
-  $('qtyHint').textContent = qty > 1 && amountOk ? 'Итого ' + fmt(qty * amount) : 'До ' + CONFIG.maxQty + ' штук';
 }
+// Текст кнопки оплаты: «Оплатить · 3 000 ₽», сумма за все сертификаты
+const payText = (qty, amount, amountOk) => amountOk ? 'Оплатить · ' + fmt(qty * amount) : 'Оплатить';
 
-// Предпросмотр листа А4: certificate.html в рамке, обновляется не чаще раза в 300 мс
-let a4Timer;
+// Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
+// дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания
 function showA4(frame, f, designId) {
-  const q = new URLSearchParams({ embed: 1, design: designId, amount: f.amountNum || '', to: f.to, from: f.from, msg: f.msg });
-  const src = 'certificate.html?' + q;
-  if (frame.dataset.src === src) return;
-  frame.dataset.src = src;
-  clearTimeout(a4Timer);
-  a4Timer = setTimeout(() => { frame.src = src; }, frame.src ? 300 : 0);
+  const data = { type: 'cert', design: designId, amount: f.amountNum || 0, to: f.to, from: f.from, msg: f.msg };
+  frame._cert = data;
+  if (!frame.src) {
+    frame.addEventListener('load', () => frame.contentWindow.postMessage(frame._cert, location.origin));
+    frame.src = 'certificate.html?embed=1&design=' + encodeURIComponent(designId);
+    return;
+  }
+  frame.contentWindow?.postMessage(data, location.origin);
 }
 
 function showProto(title, items) {

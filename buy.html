@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261118203440">
-<link rel="stylesheet" href="ticket.css?v=20261118203440">
+<link rel="stylesheet" href="site.css?v=20261118225433">
+<link rel="stylesheet" href="ticket.css?v=20261118225433">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -40,11 +40,6 @@
 .step-title{font-size:clamp(28px,3.2vw,36px);font-weight:600;letter-spacing:-.01em;margin-bottom:24px}
 .step .field:last-child{margin-bottom:0}
 .design-note{font-size:14px;color:var(--muted);background:var(--white);border-radius:12px;padding:12px 14px}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--white);border-radius:14px;padding:4px;margin-bottom:8px}
-.seg button{all:unset;box-sizing:border-box;text-align:center;padding:12px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--bg-brand);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--action)}
-.seg-hint{font-size:14px;color:var(--muted);margin-bottom:20px}
-.seg button:disabled{opacity:.45;cursor:default}
 .summary{margin:0;display:grid;gap:2px;background:var(--white);border-radius:16px;overflow:hidden}
 .summary > div{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:14px 18px;background:var(--white)}
 .summary > div + div{border-top:1px solid var(--line)}
@@ -98,10 +93,7 @@
             <div class="amount-row">
               <label class="label" for="amount">Другая сумма</label>
               <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
-              <div class="qty">
-                <label class="label" for="qty">Сколько</label>
-                <div><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div><p class="field-hint" id="qtyHint"></p></div>
-              </div>
+              <div class="stepper" role="group" aria-label="Количество сертификатов"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div>
             </div>
           </fieldset>
         </div>
@@ -121,8 +113,7 @@
               <p class="err" id="fromNameErr" hidden></p>
             </div>
           </div>
-          <textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea>
-          <div class="counter"><span id="msgCount">0</span> / 200</div>
+          <div class="msg-box"><textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea><div class="counter"><span id="msgCount">0</span> / 200</div></div>
           <div class="chips templates" id="templates"></div>
         </div>
 
@@ -137,8 +128,8 @@
 
           <!-- Вручу лично: в каком виде распечатать -->
           <div id="formatBlock" hidden>
-            <span class="label pick-label">Формат для печати</span>
-            <div class="seg" role="group" aria-label="Формат для печати">
+            <span class="label pick-label">Формат</span>
+            <div class="seg" role="group" aria-label="Формат">
               <button type="button" data-format="ticket">Билет</button>
               <button type="button" data-format="a4">Лист А4</button>
             </div>
@@ -215,7 +206,7 @@
         </div>
         <!-- Вручу лично, лист А4: тот же лист, что уходит в PDF -->
         <div id="a4Preview" hidden>
-          <iframe class="pv-a4" id="pvA4" title="Лист А4 для печати" loading="lazy"></iframe>
+          <iframe class="pv-a4" id="pvA4" scrolling="no" title="Лист А4 для печати" loading="lazy"></iframe>
         </div>
       </aside>
     </div>
@@ -338,8 +329,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261118203440"></script>
-<script src="shared.js?v=20261118203440"></script>
+<script src="ticket.js?v=20261118225433"></script>
+<script src="shared.js?v=20261118225433"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -358,9 +349,12 @@ const state = {
 };
 
 // Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно
+// Когда количество вернулось к одному, возвращаем способ, который был выбран до этого
+let deliveryBeforeMany = null;
 initQty((n) => {
   state.qty = n;
-  if (n > 1) state.delivery = 'self';
+  if (n > 1 && state.delivery === 'recipient') { deliveryBeforeMany = 'recipient'; state.delivery = 'self'; }
+  if (n === 1 && deliveryBeforeMany) { state.delivery = deliveryBeforeMany; deliveryBeforeMany = null; }
   render();
 });
 document.querySelectorAll('[data-format]').forEach((b) => b.addEventListener('click', () => { state.format = b.dataset.format; render(); }));
@@ -424,7 +418,8 @@ function render() {
   // Шаги
   document.querySelectorAll('.step').forEach((s) => { s.hidden = +s.dataset.step !== state.step; });
   $('backBtn').hidden = state.step === 1;
-  $('nextBtn').textContent = state.step === STEPS ? 'Оплатить' : 'Продолжить';
+  // На последнем шаге на кнопке сумма за все сертификаты
+  $('nextBtn').textContent = state.step === STEPS ? payText(state.qty, state.amount, amountValid()) : 'Продолжить';
   $('wizNote').hidden = state.step !== STEPS;
 
   // Выбор
@@ -437,7 +432,7 @@ function render() {
   $('amountHint').hidden = !$('amountErr').hidden;
   $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
   // Количество и итог
-  syncQty(state.qty, state.amount, amountOk);
+  syncQty(state.qty);
   const many = state.qty > 1;
   document.querySelector('[data-delivery="recipient"]').disabled = many;
 
@@ -446,16 +441,16 @@ function render() {
   const ticket = !toRecipient && !a4;
   document.querySelectorAll('[data-format]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.format === state.format));
   $('formatBlock').hidden = toRecipient;
-  $('formatHint').textContent = a4 ? 'На одной стороне листа, ничего не вырезать' : 'С двух сторон, вырезать по контуру';
+  $('formatHint').textContent = a4 ? 'Можно просто распечатать или отправить в мессенджере' : 'Распечатайте с двух сторон листа и вырежьте по контуру';
   $('designs').parentElement.hidden = ticket;
   $('tickets').parentElement.hidden = !ticket;
   $('recipientBlock').hidden = !toRecipient;
   $('selfBlock').hidden = toRecipient;
   $('dateRow').hidden = state.when !== 'date';
   $('segHint').textContent = toRecipient ? 'Отправим письмо сразу или в выбранный день'
-    : many ? `На почту получателю можно отправить только один сертификат. Все ${state.qty} пришлём вам одним PDF`
+    : many ? `На почту получателю можно отправить только один сертификат. Пришлём ${certs(state.qty)} одним PDF`
     : 'Пришлём вам PDF, чтобы распечатать';
-  $('selfEmailHint').textContent = many ? `Пришлём все ${certs(state.qty)} одним PDF и чек` : 'Пришлём PDF с сертификатом и чек';
+  $('selfEmailHint').textContent = many ? `Пришлём чек и ${certs(state.qty)} одним PDF` : 'Пришлём PDF с сертификатом и чек';
   $('msgCount').textContent = $('message').value.length;
 
   // Предпросмотр. Срок считаем от отправки: при отложенной отправке получатель не теряет месяцы
@@ -485,7 +480,7 @@ function render() {
   // Итог на последнем шаге
   const rows = [
     ['Сумма', amountOk ? fmt(state.amount) : '—', 1],
-    ...(many ? [['Количество', `${state.qty} шт., итого ${amountOk ? fmt(state.qty * state.amount) : '—'}`, 1]] : []),
+    ...(many ? [['Количество', certs(state.qty), 1]] : []),
     ['Кому', toName, 2],
     ['От кого', fromName, 2],
     ['Поздравление', msg, 2],
