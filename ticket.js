@@ -12,7 +12,6 @@ let tkUid = 0;
 
 function tkArt(d) {
   let art = '';
-  if (d.snow) art += '<div class="tk-art tk-snow"></div>';
   if (d.blob) art += `<div class="tk-art tk-blob" style="background-image:url('${TK + d.blob}')"></div>`;
   // Фото открытки для письма: обычный кадр, форму даёт маска большой формы
   if (d.photo) art += `<div class="tk-art tk-blob" style="background-image:url('${d.photo}')"></div>`;
@@ -79,7 +78,7 @@ function tkBackHtml(d) {
 <div class="tk-step">${card}<span class="tk-n">2</span><p>При оплате<br>введите код<br>сертификата</p></div>
 <div class="tk-step">${card}<span class="tk-n">3</span><p>Заказ дороже&nbsp;–<br>доплатите картой,<br>дешевле&nbsp;–<br>отправим<br>сертификат<br>на&nbsp;остаток</p></div>
 </div>
-<div class="tk-code"><div class="tk-code-l"><span>Код сертификата</span><span class="tk-till" data-f="till"></span></div><b class="tk-code-c">XXXX-XXXX-XXXX-XXXX</b></div>
+<div class="tk-code"><div class="tk-code-l"><span>Код сертификата</span><span class="tk-till" data-f="till"></span></div><b class="tk-code-c">XXXX-XXXX-XXXX-XXXX-XXXX</b></div>
 </div>
 </div>
 </div>`;

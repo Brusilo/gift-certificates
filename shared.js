@@ -7,7 +7,7 @@ const CONFIG = {
   defaultTicket: 'meadow',
   validityMonths: 12,
   // Открытки к поводам для письма получателю. Нарисованы как основная часть билета: фон, логотип, стикеры, «Кому» и «От кого».
-  // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька, snow — снег.
+  // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька.
   // Сначала те же открытки, что в «Сколько подарить», и в том же порядке
   designs: [
     { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' },
@@ -18,7 +18,7 @@ const CONFIG = {
     { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
     { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
     { id: 'birthday', name: 'День рождения', main: '#A181FF', step: '#D6C8FF', art3d: 'assets/art/bubbles.webp' },
-    { id: 'newyear',  name: 'Новый год',     main: '#011F90', snow: true, suit: true }
+    { id: 'newyear',  name: 'Новый год',     main: '#011F90', suit: true }
   ],
   // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:
   // main — фон основной части, stub — цвет корешка, blob — фото в большой форме, stepPhoto — фото в ступеньке,
