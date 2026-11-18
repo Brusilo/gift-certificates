@@ -169,7 +169,7 @@ main > section:last-child{padding-bottom:56px}
 .use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23011F90' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
 /* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
 .use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
-.use-step h3{font-size:clamp(20px,1.75vw,23px);font-weight:600;line-height:1.25;color:var(--white)}
+.use-step h3{font-size:clamp(22px,1.95vw,26px);font-weight:600;line-height:1.25;color:var(--white)}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
 .use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
 .how-cta{margin-top:32px}
