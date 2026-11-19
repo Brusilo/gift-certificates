@@ -2,7 +2,13 @@
 mountHero();
 
 // «Кому подарить»: карточки только рассказывают, кому подойдет подарок, и не кликаются
-CONFIG.giftCards.forEach((c) => {
+// На телефоне видна одна карточка и половина следующей, поэтому первыми самые частые поводы:
+// любителям путешествий, к празднику, родителям, тем, кто живет далеко. На компьютере порядок как в CONFIG
+const phoneOrder = ['Любителям путешествий', 'К празднику', 'Родителям', 'Тем, кто живет далеко'];
+const giftCards = matchMedia('(max-width:720px)').matches
+  ? [...CONFIG.giftCards].sort((a, b) => phoneOrder.indexOf(a.title) - phoneOrder.indexOf(b.title))
+  : CONFIG.giftCards;
+giftCards.forEach((c) => {
   const d = document.createElement('div');
   fillGiftCard(d, c);
   $('giftRow').append(d);

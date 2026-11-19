@@ -78,7 +78,8 @@ function mountHero() {
   const d = findTicket(CONFIG.defaultTicket);
   const until = new Date();
   until.setMonth(until.getMonth() + CONFIG.validityMonths);
-  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много отличных путешествий!', till: untilText(until) };
+    // В заголовке уже «путешествие», поэтому на билете первого экрана поздравление без этого слова
+  const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много ярких впечатлений!', till: untilText(until) };
   tkMount($('heroBack'), 'back', d); tkFill($('heroBack'), f);
   tkMount($('heroFront'), 'front', d); tkFill($('heroFront'), f);
 }
@@ -340,6 +341,26 @@ function initFooterMenu() {
   mq.addEventListener('change', (e) => { if (!e.matches) document.querySelectorAll('.fgroup').forEach((d) => { d.open = true; }); });
 }
 initFooterMenu();
+
+// Кнопка всегда в одну строку: если текст не помещается, шрифт уменьшается до 13px
+function fitButton(b) {
+  b.style.fontSize = '';
+  let fs = parseFloat(getComputedStyle(b).fontSize);
+  while (b.scrollWidth > b.clientWidth && fs > 13) { fs -= 0.5; b.style.fontSize = fs + 'px'; }
+}
+
+// Частые вопросы: открыт всегда один, закрыть можно по тому же заголовку или по стрелке справа.
+// Если после закрытия соседнего вопроса заголовок уехал вверх за экран, возвращаем его на экран
+function initFaq() {
+  document.querySelectorAll('.faq-list').forEach((list) => list.addEventListener('toggle', (e) => {
+    const d = e.target;
+    if (!d.open) return;
+    list.querySelectorAll('details[open]').forEach((o) => { if (o !== d) o.open = false; });
+    const top = d.getBoundingClientRect().top;
+    if (top < 0) d.scrollIntoView({ block: 'start' });
+  }, true));
+}
+initFaq();
 
 // Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
 // дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания

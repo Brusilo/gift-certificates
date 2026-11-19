@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Подарочный сертификат Туту</title>
 <meta name="robots" content="noindex">
-<!-- Только светлая тема: «only» запрещает браузеру (Samsung Internet, авто-тёмный режим Chrome) перекрашивать страницу -->
-<meta name="color-scheme" content="only light">
-<meta name="supported-color-schemes" content="light only">
+<!-- Тема: Samsung Internet и авто-тёмный режим Chrome не перекрашивают страницы, у которых заявлена своя тёмная тема.
+     Поэтому заявляем «light dark», а цвета везде задаём светлые сами (site.css) -->
+<meta name="color-scheme" content="light dark">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261119134522">
-<link rel="stylesheet" href="ticket.css?v=20261119134522">
+<link rel="stylesheet" href="site.css?v=20261119140529">
+<link rel="stylesheet" href="ticket.css?v=20261119140529">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -112,8 +112,8 @@ html.embed,html.embed body{background:transparent;overflow:hidden}
   </div>
 </div>
 
-<script src="ticket.js?v=20261119134522"></script>
-<script src="shared.js?v=20261119134522"></script>
+<script src="ticket.js?v=20261119140529"></script>
+<script src="shared.js?v=20261119140529"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);

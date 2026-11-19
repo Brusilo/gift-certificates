@@ -6,14 +6,14 @@
 <title>Подарочный сертификат Туту на поездку</title>
 <meta name="description" content="Сертификат на ж/д и авиабилеты, автобусы и отели. Действует год, остаток не сгорает.">
 <meta name="robots" content="noindex">
-<!-- Только светлая тема: «only» запрещает браузеру (Samsung Internet, авто-тёмный режим Chrome) перекрашивать страницу -->
-<meta name="color-scheme" content="only light">
-<meta name="supported-color-schemes" content="light only">
+<!-- Тема: Samsung Internet и авто-тёмный режим Chrome не перекрашивают страницы, у которых заявлена своя тёмная тема.
+     Поэтому заявляем «light dark», а цвета везде задаём светлые сами (site.css) -->
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119134522">
-<link rel="stylesheet" href="ticket.css?v=20261119134522">
+<link rel="stylesheet" href="site.css?v=20261119140529">
+<link rel="stylesheet" href="ticket.css?v=20261119140529">
 </head>
 <body>
 
@@ -21,10 +21,10 @@
   <div class="container top-inner">
     <a href="https://www.tutu.ru/" aria-label="Туту — главная страница"><img class="logo" src="assets/ticket/lg-on-violet.svg" alt="Туту"></a>
     <nav class="top-nav" id="topNav" aria-label="Разделы страницы">
-      <a href="#how">Как подарить</a>
-      <a href="buy.html">Подарить</a>
-      <a href="#business">Компаниям</a>
-      <a href="#faq">Частые вопросы</a>
+      <a href="https://www.tutu.ru/juicy-offers/">Это выгодно!</a>
+      <a href="https://provereno.tutu.ru/">Маршруты</a>
+      <a href="https://www.tutu.ru/2read/">Справочная</a>
+      <a href="https://www.tutu.ru/geo/">Путеводитель</a>
     </nav>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="topNav"><svg class="menu-lines" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="menu-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
@@ -89,10 +89,10 @@
     </div>
     <!-- Телефон: плитки стопкой, текст слева, стикер или 3D справа -->
     <ul class="pkm">
-      <li class="pkm-i is-lime"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p><img src="assets/art/wallet-coins.webp" alt=""></li>
-      <li class="pkm-i"><p>Отправим письмом в&nbsp;нужный день или вручите лично</p><img src="assets/art/cards-heart.webp" alt=""></li>
+      <li class="pkm-i"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p></li>
+      <li class="pkm-i is-lime"><p>Отправим письмом в&nbsp;нужный день или вручите лично</p><img src="assets/art/cards-heart.webp" alt=""></li>
       <li class="pkm-i"><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span><p>Чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
-      <li class="pkm-i is-lime"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p><img src="assets/ticket/suitcase.webp" alt=""></li>
+      <li class="pkm-i"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p></li>
     </ul>
   </div>
 </section>
@@ -241,9 +241,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119134522"></script>
-<script src="shared.js?v=20261119134522"></script>
-<script src="landing.js?v=20261119134522"></script>
+<script src="ticket.js?v=20261119140529"></script>
+<script src="shared.js?v=20261119140529"></script>
+<script src="landing.js?v=20261119140529"></script>
 <script>
 // «Сколько подарить»: открытка с суммой открывает форму с этой суммой и открыткой
 CONFIG.amountCards.forEach((c) => {

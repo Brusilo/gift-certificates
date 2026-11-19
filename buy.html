@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Оформление подарочного сертификата Туту</title>
 <meta name="robots" content="noindex">
-<!-- Только светлая тема: «only» запрещает браузеру (Samsung Internet, авто-тёмный режим Chrome) перекрашивать страницу -->
-<meta name="color-scheme" content="only light">
-<meta name="supported-color-schemes" content="light only">
+<!-- Тема: Samsung Internet и авто-тёмный режим Chrome не перекрашивают страницы, у которых заявлена своя тёмная тема.
+     Поэтому заявляем «light dark», а цвета везде задаём светлые сами (site.css) -->
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119134522">
-<link rel="stylesheet" href="ticket.css?v=20261119134522">
+<link rel="stylesheet" href="site.css?v=20261119140529">
+<link rel="stylesheet" href="ticket.css?v=20261119140529">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -66,7 +66,16 @@
   .preview{width:100%;max-width:420px;margin:0 auto}
   .summary > div{grid-template-columns:1fr auto;padding:12px 14px}
   .summary dt{grid-column:1/-1;margin-bottom:-8px}
-  .wiz-nav{position:sticky;bottom:0;margin:0 -16px -22px;padding:12px 16px 16px;background:var(--bg-brand);border-radius:0 0 var(--r-panel) var(--r-panel)}
+  .wiz-nav{position:sticky;bottom:0;order:2;margin:0 -16px -22px;padding:12px 16px 16px;background:var(--bg-brand);border-radius:0 0 var(--r-panel) var(--r-panel)}
+  .wiz-nav .btn{min-width:0;white-space:nowrap;overflow:hidden;padding:0 16px}
+  /* «Назад» стрелкой, как у OneTwoTrip: кнопке оплаты нужно место под сумму в одну строку */
+  .wiz-nav .btn-secondary{flex:0 0 56px;padding:0;font-size:0}
+  .wiz-nav .btn-secondary::before{content:"";width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5m6-6-6 6 6 6' fill='none' stroke='%23181C2D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+  /* Подпись про срок над кнопками: снизу её закрывали липкие кнопки */
+  #form{display:flex;flex-direction:column}
+  .wiz-note{order:1;margin:0 0 12px}
+  .step,.step[data-step="1"]{margin-bottom:16px}
+  .step[data-step="1"]{margin-bottom:36px}
 }
 </style>
 </head>
@@ -355,8 +364,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119134522"></script>
-<script src="shared.js?v=20261119134522"></script>
+<script src="ticket.js?v=20261119140529"></script>
+<script src="shared.js?v=20261119140529"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -447,6 +456,7 @@ function render() {
   $('backBtn').hidden = state.step === 1;
   // На последнем шаге на кнопке сумма за все сертификаты
   $('nextBtn').textContent = state.step === STEPS ? payText(state.qty, state.amount, amountValid()) : 'Продолжить';
+  fitButton($('nextBtn'));
   $('wizNote').hidden = state.step !== STEPS;
 
   // Выбор
@@ -589,6 +599,8 @@ function lockFormHeight() {
   const builder = document.querySelector('.builder');
   const saved = { step: state.step, delivery: state.delivery, when: state.when };
   builder.style.minHeight = '';
+  // На телефоне шаги идут один под другим без колонки предпросмотра, высоту не держим: иначе под коротким шагом пустота
+  if (matchMedia('(max-width:1000px)').matches) return;
   let max = 0;
   for (const delivery of ['recipient', 'self']) {
     for (let step = 1; step <= STEPS; step++) {
@@ -606,10 +618,11 @@ document.fonts.ready.then(lockFormHeight);
 // Если билет вырос, пока человек печатает поздравление, блок растёт вместе с ним и уже не уменьшается
 new ResizeObserver(() => {
   const builder = document.querySelector('.builder');
+  if (matchMedia('(max-width:1000px)').matches) return;
   if (builder.offsetHeight > (parseFloat(builder.style.minHeight) || 0)) builder.style.minHeight = builder.offsetHeight + 'px';
 }).observe(document.querySelector('.builder'));
 let lockTimer;
-window.addEventListener('resize', () => { clearTimeout(lockTimer); lockTimer = setTimeout(lockFormHeight, 150); });
+window.addEventListener('resize', () => { clearTimeout(lockTimer); lockTimer = setTimeout(lockFormHeight, 150); fitButton($('nextBtn')); });
 
 if (params.get('amount') === 'other') $('amount').focus();
 </script>

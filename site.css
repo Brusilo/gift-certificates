@@ -9,8 +9,9 @@
 @font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.woff2') format('woff2');font-weight:900;font-style:italic;font-display:swap}
 
 :root{
-  /* Только светлая тема: браузер не перекрашивает страницу в тёмную сам */
-  color-scheme:only light;
+  /* Тема заявлена «light dark» (см. мету в страницах), чтобы Samsung Internet и Chrome не перекрашивали страницу сами.
+     Тёмных цветов у нас нет: фон, текст и поля заданы явно, а поля и окна рисуются в светлой теме браузера */
+  color-scheme:light dark;
   /* Палитра сертификата для печати («Правила сборки подарочного сертификата Туту») */
   --berry:#A181FF;
   --blueberry:#011F90;
@@ -45,6 +46,11 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
+/* Без синей подсветки при нажатии на телефоне */
+*{-webkit-tap-highlight-color:transparent}
+::placeholder{color:#8C8CA1;opacity:1}
+/* Фон за краями страницы, когда её тянут пальцем дальше края: сверху шапка и снизу подвал фиолетовые */
+html{background:var(--berry)}
 html{scroll-behavior:smooth;scroll-padding-top:16px;scrollbar-gutter:stable}
 body{margin:0;font-family:var(--font);color:var(--text);background:var(--white);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
@@ -89,7 +95,7 @@ main > section:last-child{padding-bottom:56px}
 .menu-btn{display:none}
 
 /* Первый экран */
-.hero{background:var(--berry);color:var(--white);padding:28px 0 84px;position:relative;overflow-x:clip;overflow-y:visible}
+.hero{background:var(--berry);color:var(--white);padding:28px 0 84px;position:relative;overflow-x:clip;overflow-y:visible;margin-top:-1px;border-top:1px solid var(--berry)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
 /* Сверху место под подъём стикеров: при наклоне 8° правый край поднимается примерно на 0,9 высоты шрифта, иначе их обрезает край экрана */
 .hero-title{margin:.5em 0 10px;font-size:clamp(52px,7.09vw,101px);color:inherit}
@@ -129,7 +135,8 @@ main > section:last-child{padding-bottom:56px}
 
 /* «Сколько подарить»: только суммы, на открытках для письма */
 /* Панель с розово-фиолетовым градиентом, как подборки на tutu.ru («Развеяться на выходных на поезде») */
-.sum-panel{border-radius:var(--r-panel);padding:28px 32px 32px;background:radial-gradient(60% 120% at 82% 10%,#F1B6F8 0%,rgba(241,182,248,0) 70%),linear-gradient(100deg,#C65CF2 0%,#E59BF6 50%,#CD6CF1 100%)}
+/* Светлое пятно смещено к правому краю и прозрачнее, полосы градиента тоже правее */
+.sum-panel{border-radius:var(--r-panel);padding:28px 32px 32px;background:radial-gradient(55% 110% at 96% 0%,rgba(241,182,248,.7) 0%,rgba(241,182,248,0) 70%),linear-gradient(100deg,#C65CF2 0%,#CF72F3 35%,#E29AF6 72%,#D57EF3 100%)}
 .sum-panel h2{color:var(--white);margin-bottom:24px}
 .sum-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0;scrollbar-width:none;isolation:isolate}
 .sum-row::-webkit-scrollbar{display:none}
@@ -247,7 +254,11 @@ textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:
 .templates .chip{font-size:14px;padding:7px 12px}
 .radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .radio-card{position:relative;display:block;background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px 14px 44px;cursor:pointer;transition:border-color .15s}
-.radio-card input{position:absolute;left:16px;top:17px;accent-color:var(--action);width:18px;height:18px;margin:0}
+.radio-card input{position:absolute;left:16px;top:17px;width:18px;height:18px;margin:0}
+/* Переключатель нарисован сам, а не браузером: при тёмной теме телефона браузер заливал его тёмным */
+.radio-card input{-webkit-appearance:none;appearance:none;border:1.5px solid #B9B4D6;border-radius:50%;background:var(--white);cursor:pointer}
+.radio-card input:checked{border-color:var(--action);background:radial-gradient(circle,var(--action) 0 4px,var(--white) 4.5px)}
+.radio-card input:focus-visible{outline:2px solid var(--action);outline-offset:2px}
 .radio-card b{display:block;color:var(--ink);font-weight:600}
 .radio-card span{display:block;margin-top:2px;font-size:14px;line-height:1.3;color:var(--muted)}
 .radio-card:has(input:checked){border-color:var(--action)}
@@ -282,7 +293,7 @@ textarea.input{display:block;resize:none;min-height:124px;height:124px;overflow:
 .dt-day.is-on,.dt-time.is-on{background:var(--action);border-color:var(--action);color:var(--white);font-weight:600}
 .dt-times{width:268px;max-height:236px;overflow-y:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;scrollbar-width:thin}
 .pay{display:flex;flex-direction:column;gap:12px}
-.pay .btn{width:100%;font-size:18px;min-height:56px}
+.pay .btn{width:100%;font-size:18px;min-height:56px;white-space:nowrap;overflow:hidden}
 .pay-note{font-size:14px;color:var(--muted);text-align:center}
 .pay-note a,.wiz-note a{color:var(--action)}
 
@@ -337,8 +348,10 @@ html.pv-lock{overflow:hidden}
 .faq-list details[open]{background:var(--surface-neutral-2)}
 .faq-list summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:600;color:var(--ink);font-size:17px;line-height:1.35;position:relative}
 .faq-list summary::-webkit-details-marker{display:none}
-.faq-list summary::after{content:"";position:absolute;right:4px;top:50%;width:11px;height:11px;border-right:2.2px solid var(--action);border-bottom:2.2px solid var(--action);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
-.faq-list details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq-list summary{padding-right:48px}
+/* Стрелка в кружке справа: видно, что заголовок нажимается, а у открытого вопроса стрелка смотрит вверх */
+.faq-list summary::after{content:"";position:absolute;right:0;top:50%;width:32px;height:32px;border-radius:50%;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5' fill='none' stroke='%237028EB' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat;transform:translateY(-50%);transition:transform .2s}
+.faq-list details[open] summary::after{transform:translateY(-50%) rotate(180deg)}
 .faq-list details p{padding-bottom:18px;color:var(--text);font-size:15px;line-height:1.6}
 .faq-list a{color:var(--action)}
 
@@ -375,7 +388,7 @@ html.pv-lock{overflow:hidden}
 .footer-legal a:hover{text-decoration:underline}
 
 /* Окно-заглушка прототипа */
-dialog{border:0;border-radius:24px;padding:28px;max-width:480px;width:calc(100% - 32px);box-shadow:var(--shadow-md);color:var(--text)}
+dialog{border:0;border-radius:24px;padding:28px;max-width:480px;width:calc(100% - 32px);box-shadow:var(--shadow-md);color:var(--text);background:var(--white)}
 dialog::backdrop{background:rgba(1,31,144,.45)}
 dialog h3{margin-bottom:10px}
 dialog ul{padding-left:20px;margin:12px 0 20px}
@@ -397,6 +410,8 @@ dialog .btn{width:100%}
   /* Предпросмотр целиком (открытка, письмо, обе стороны билета) на телефоне длиннее самой формы.
      Поэтому над формой только выбранная открытка, как у OneTwoTrip, а всё письмо открывается отдельным экраном */
   .pv-mini{display:block;width:100%;max-width:480px;margin:0 auto}
+  .builder{gap:16px}
+  .pv-mini .pv-tk{filter:none}
   .pv-open{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:14px;border-radius:12px;background:var(--bg-brand);color:var(--action);font-weight:600;font-size:16px;transition:background .15s}
   .pv-open:hover{background:var(--lavender)}
   .pv-open svg{width:22px;height:22px;flex:none}
@@ -433,9 +448,13 @@ dialog .btn{width:100%}
   .hero{padding:0 0 44px}
   .hero-grid{gap:0}
   .hero-grid > div:first-child{display:contents}
-  .hero-title{order:1;margin:36px 0 4px;font-size:clamp(44px,14.6vw,64px)}
-  .hero-art{order:2;width:92%;max-width:400px;margin:0 auto 10px;padding:4% 6% 7% 0}
-  .hero-sub{order:3;font-size:17px;margin-bottom:16px}
+  /* Билеты лежат фоном за заголовком, полупрозрачные и чуть размытые, как чемодан на индийском лендинге */
+  .hero-title{order:1;position:relative;z-index:1;margin:44px 0 18px;font-size:clamp(44px,14.6vw,64px)}
+  .hero-art{position:absolute;z-index:0;top:14px;right:-104px;width:320px;max-width:none;margin:0;padding:0;opacity:.45;filter:blur(1.5px);pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 25%,transparent 78%);mask-image:linear-gradient(to bottom,#000 25%,transparent 78%)}
+  .hero-art .hero-back,.hero-art .hero-front{filter:none}
+  .hero-sub{order:3;position:relative;z-index:1;font-size:17px;margin-bottom:16px}
+  .facts,.hero-cta{position:relative;z-index:1}
   .facts{order:4;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;scroll-padding-inline:16px}
   .facts::-webkit-scrollbar{display:none}
   .facts li{flex:none;font-size:15px;line-height:20px;padding:8px 13px 8px 11px}
@@ -443,25 +462,27 @@ dialog .btn{width:100%}
   .hero-cta{order:5;width:100%;margin-top:22px}
   /* «Кому подарить»: видна одна карточка и половина следующей, первыми самые частые поводы */
   .gift{flex-basis:66%}
-  .gift:nth-child(2){order:-3}
-  .gift:nth-child(4){order:-2}
-  .gift:nth-child(1){order:-1}
+
   .sum-row{gap:12px}
+  /* Панель до краёв экрана, как подборки на индийском лендинге */
+  .sum-panel{margin-inline:-16px;border-radius:24px}
   .sum{flex-basis:72%}
   /* «Почему сертификат Туту»: вместо сцены плитки стопкой, как в мобильном макете «Тутуленда» */
   .pk{display:none}
   /* Плитки стопкой, все одной ширины и высоты, как в мобильном «Тутуленде»: текст слева, 3D справа по центру.
      Высота строк одинаковая (1fr), поэтому плитки без стикера не короче плиток со стикером */
   .pkm{display:grid;grid-auto-rows:1fr;gap:12px;list-style:none;margin:0;padding:0}
-  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:150px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry);overflow:hidden}
+  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px;min-height:146px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry);overflow:hidden}
   .pkm-i.is-lime{background:var(--lime)}
-  .pkm-i p{position:relative;z-index:1;margin:0;max-width:60%;color:var(--white);font-size:19px;font-weight:600;line-height:1.22}
+  /* Текст крупно, как в примере: 22px. Без картинки текст на всю ширину плитки */
+  .pkm-i p{position:relative;z-index:1;margin:0;max-width:68%;color:var(--white);font-size:21px;font-weight:600;line-height:1.2}
+  .pkm-i:not(:has(img)) p{max-width:none}
   .pkm-i.is-lime p{color:#000}
   /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
   .pkm-i.is-lime .stk-lime{color:var(--white)}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
-  .pkm-i img{position:absolute;right:-6px;top:50%;width:40%;max-width:170px;max-height:82%;object-fit:contain;transform:translateY(-50%)}
-  .pkm-i .stk-group{position:relative;z-index:1;font-size:20px;margin:12px 0 0}
+  .pkm-i img{position:absolute;right:-12px;top:50%;width:36%;max-width:160px;max-height:82%;object-fit:contain;transform:translateY(-50%)}
+  .pkm-i .stk-group{position:relative;z-index:1;font-size:16px;margin:8px 0 0}
   /* Шаги листаются вбок, как карточки «Кому подарить» */
   .use-steps{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
   .use-steps::-webkit-scrollbar{display:none}
@@ -485,9 +506,9 @@ dialog .btn{width:100%}
   .two,.radio-cards{grid-template-columns:1fr}
   #designs > .design{flex-basis:calc((100% - 12px) / 2.4)}
   #tickets > .design{flex-basis:76%}
-  /* Билеты выходят над плашкой на 32px, поэтому сверху 40 + 32: до соседнего блока те же 40px, что везде */
-  .biz{padding-top:72px}
-  .biz-inner{padding:28px 20px}
+  /* «Компаниям» до краёв экрана и без билетов: на телефоне они только висели над плашкой */
+  .biz-inner{margin-inline:-16px;border-radius:24px;padding:28px 20px}
+  .biz-art{display:none}
   .biz p{font-size:17px}
   .biz .btn{width:100%}
   /* Вопросы как на индийском лендинге: поля уже, текст 16px */
