@@ -451,12 +451,12 @@ dialog .btn{width:100%}
   .pkm{display:grid;grid-auto-rows:1fr;gap:22px;list-style:none;margin:0;padding:0}
   /* Стикер первой плитки заходит вверх, под него место от заголовка */
   #perks h2{margin-bottom:42px}
-  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:146px;padding:16px 16px 16px 20px;border-radius:28px;background:var(--berry)}
+  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px;min-height:146px;padding:14px 16px 14px 20px;border-radius:28px;background:var(--berry)}
   /* Со стикером текст прижат книзу, сам стикер лежит на верхнем крае */
-  .pkm-i:has(.stk-group){justify-content:flex-end;padding-bottom:14px}
+  /* Стикер и текст одним блоком по центру плитки. Стикер наклонён, поэтому правый край чуть выходит за верх плитки */
   .pkm-i.is-lime{background:var(--lime)}
   /* Текст крупно, 24px. Без картинки текст на всю ширину плитки */
-  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:24px;font-weight:600;line-height:1.15}
+  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:22px;font-weight:600;line-height:1.15}
   .pkm-i:not(:has(img)) p{max-width:none}
   .pkm-i.is-lime p{color:#000}
   /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
@@ -464,9 +464,9 @@ dialog .btn{width:100%}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
   .pkm-i img{position:absolute;right:-14px;top:50%;width:40%;max-width:180px;max-height:96%;object-fit:contain;transform:translateY(-50%)}
   /* Стикер крупный и заходит за верхний край плитки, как в «Тутуленде» */
-  .pkm-i .stk-group{position:absolute;z-index:2;top:-20px;left:10px;margin:0;font-size:26px}
+  .pkm-i .stk-group{position:relative;z-index:2;margin:0 0 0 -6px;font-size:24px}
   /* «1 год» крупнее и правее, текст под ним в три строки, календарь крупнее */
-  .pkm-i .pkm-year{top:-2px;left:20px;font-size:34px}
+  .pkm-i .pkm-year{margin-left:2px;font-size:34px}
   .pkm-i:has(.pkm-year) p{max-width:56%}
   .pkm-i:has(.pkm-year) img{width:46%;max-width:200px;max-height:112%}
 }
@@ -574,12 +574,13 @@ dialog .btn{width:100%}
 @media (min-width:561px) and (max-width:640px){
   .pkm{grid-template-columns:1fr 1fr;column-gap:14px;row-gap:34px}
   .pkm-i{min-height:150px;padding-left:18px}
-  .pkm-i p{font-size:19px;max-width:76%}
-  .pkm-i img{width:30%;right:-10px}
-  .pkm-i .stk-group{font-size:26px}
-  .pkm-i .pkm-year{font-size:34px}
-  .pkm-i:has(.pkm-year) p{max-width:62%}
-  .pkm-i:has(.pkm-year) img{width:40%}
+  .pkm-i p{font-size:19px;max-width:62%}
+  /* 3D внутри плитки, по центру своей правой части */
+  .pkm-i img{width:42%;right:2px;max-height:92%}
+  .pkm-i .stk-group{font-size:24px}
+  .pkm-i .pkm-year{font-size:30px}
+  .pkm-i:has(.pkm-year) p{max-width:60%}
+  .pkm-i:has(.pkm-year) img{width:44%;max-height:96%}
 }
 
 /* Планшет и небольшой ноутбук: поля по краям шире, как на индийском лендинге,
