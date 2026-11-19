@@ -407,7 +407,7 @@ dialog .btn{width:100%}
   /* minmax(0,1fr): ряды, которые листаются пальцем, не растягивают колонку шире экрана */
   .builder{grid-template-columns:minmax(0,1fr)}
   /* Предпросмотр целиком (открытка, письмо, обе стороны билета) на телефоне длиннее самой формы.
-     Поэтому над формой только выбранная открытка, как у OneTwoTrip, а всё письмо открывается отдельным экраном */
+     Поэтому над формой только выбранная открытка, а всё письмо открывается отдельным экраном */
   .pv-mini{display:block;width:100%;max-width:480px;margin:0 auto}
   .builder{gap:16px}
   .pv-mini .pv-tk{filter:none}
@@ -565,10 +565,18 @@ dialog .btn{width:100%}
 
 /* Планшет 721–1000px: первый экран в две колонки, плитки по две в ряд, шаги с текстом помельче */
 @media (min-width:721px) and (max-width:1000px){
-  .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px}
-  .hero-title{font-size:clamp(46px,6.6vw,64px)}
-  .hero-art{margin:0;padding:6% 8% 10% 0}
-  .hero-cta{margin-top:20px}
+  /* Портретный iPad: заголовок крупно на всю ширину, под ним слева текст, пузыри и кнопка, справа билеты.
+     Заголовок главный, текст и пузыри спокойнее, чем на компьютере */
+  .hero{padding-bottom:72px}
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"title title" "sub art" "facts art" "cta art";column-gap:28px;align-items:start}
+  .hero-grid > div:first-child{display:contents}
+  .hero-title{grid-area:title;margin:.62em 0 22px;font-size:clamp(70px,11vw,100px)}
+  .hero-sub{grid-area:sub;max-width:none;font-size:17px;margin-bottom:18px}
+  .facts{grid-area:facts}
+  .facts li{font-size:15px;line-height:19px;padding:8px 13px 8px 11px}
+  .facts svg{width:17px;height:17px}
+  .hero-cta{grid-area:cta;justify-self:start;margin-top:22px}
+  .hero-art{grid-area:art;align-self:center;margin:-8% 0 0;padding:4% 7% 8% 0}
 }
 
 /* Узкий планшет и большой телефон: плитки по две в ряд, текст помельче */
@@ -591,6 +599,14 @@ dialog .btn{width:100%}
   .container{padding-inline:32px}
   .hero-back{right:3%}
   .hero-front{margin:-4% -2% 0 8%}
+}
+/* Альбомный iPad и небольшой ноутбук: билеты не обрезаются краем экрана, текст под заголовком чуть спокойнее */
+@media (min-width:1001px) and (max-width:1260px){
+  .hero-art{padding-right:9%}
+  /* Заголовок крупнее: на альбомном iPad он был мельче текста рядом с билетами */
+  .hero-title{font-size:clamp(78px,8vw,96px)}
+  .hero-sub{font-size:18px}
+  .facts li{font-size:16px}
 }
 /* Ряды, которые листаются пальцем, уходят до края экрана при тех же полях */
 @media (min-width:721px) and (max-width:1000px){
