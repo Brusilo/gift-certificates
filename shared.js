@@ -337,7 +337,7 @@ function initPreviewSheet() {
   $('pvClose').addEventListener('click', () => open(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheet.classList.contains('is-open')) open(false); });
   // Экран стал широким: предпросмотр снова стоит рядом с формой
-  matchMedia('(min-width:1001px)').addEventListener('change', (e) => { if (e.matches && sheet.classList.contains('is-open')) open(false); });
+  matchMedia('(min-width:1101px)').addEventListener('change', (e) => { if (e.matches && sheet.classList.contains('is-open')) open(false); });
 }
 initPreviewSheet();
 

@@ -11,14 +11,16 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119144643">
-<link rel="stylesheet" href="ticket.css?v=20261119144643">
+<link rel="stylesheet" href="site.css?v=20261119145439">
+<link rel="stylesheet" href="ticket.css?v=20261119145439">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
 .builder{align-content:start}
 /* Форма уже, предпросмотр шире: билет и открытка крупнее */
-@media (min-width:1001px){.builder{grid-template-columns:540px minmax(0,1fr);gap:48px}}
+/* Планшет: мастер одной колонкой посередине, не во всю ширину */
+@media (min-width:721px) and (max-width:1100px){.builder{max-width:640px;margin-inline:auto}}
+@media (min-width:1101px){.builder{grid-template-columns:540px minmax(0,1fr);gap:48px}}
 .wiz{position:relative;padding:32px 0 40px;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
 .top .top-inner{padding-bottom:44px}
 @media (min-width:768px){.wiz{margin-top:-40px;border-radius:40px 40px 0 0}.top .top-inner{padding-bottom:56px}}
@@ -365,8 +367,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119144643"></script>
-<script src="shared.js?v=20261119144643"></script>
+<script src="ticket.js?v=20261119145439"></script>
+<script src="shared.js?v=20261119145439"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -603,7 +605,7 @@ function lockFormHeight() {
   const saved = { step: state.step, delivery: state.delivery, when: state.when };
   builder.style.minHeight = '';
   // На телефоне шаги идут один под другим без колонки предпросмотра, высоту не держим: иначе под коротким шагом пустота
-  if (matchMedia('(max-width:1000px)').matches) return;
+  if (matchMedia('(max-width:1100px)').matches) return;
   let max = 0;
   for (const delivery of ['recipient', 'self']) {
     for (let step = 1; step <= STEPS; step++) {
@@ -621,7 +623,7 @@ document.fonts.ready.then(lockFormHeight);
 // Если билет вырос, пока человек печатает поздравление, блок растёт вместе с ним и уже не уменьшается
 new ResizeObserver(() => {
   const builder = document.querySelector('.builder');
-  if (matchMedia('(max-width:1000px)').matches) return;
+  if (matchMedia('(max-width:1100px)').matches) return;
   if (builder.offsetHeight > (parseFloat(builder.style.minHeight) || 0)) builder.style.minHeight = builder.offsetHeight + 'px';
 }).observe(document.querySelector('.builder'));
 let lockTimer;

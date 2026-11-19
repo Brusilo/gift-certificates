@@ -398,17 +398,8 @@ dialog h3{margin-bottom:10px}
 dialog ul{padding-left:20px;margin:12px 0 20px}
 dialog .btn{width:100%}
 
-@media (max-width:1000px){
-  .hero-grid{grid-template-columns:1fr;gap:8px}
-  .hero-art{max-width:560px;width:100%;margin:0 auto;padding:2% 6% 6% 0}
-  /* Карусели без стрелок: ряды листаются пальцем от края до края */
-  .carousel-nav--overlay{display:none}
-  .gift-row{gap:12px;scroll-snap-type:x proximity;scroll-padding-inline:16px;margin-inline:-16px;padding:0 16px}
-  .gift{flex-basis:calc((100% - 24px) / 3)}
-  .sum-panel{padding:22px 0 24px}
-  .sum-panel h2{padding-inline:20px}
-  .sum-row{scroll-snap-type:x proximity;scroll-padding-inline:20px;padding:0 20px}
-  .sum{flex-basis:44%}
+/* Планшет, как на индийском лендинге: до 1100px форма в одну колонку с открыткой сверху, подвал в две колонки */
+@media (max-width:1100px){
   /* minmax(0,1fr): ряды, которые листаются пальцем, не растягивают колонку шире экрана */
   .builder{grid-template-columns:minmax(0,1fr)}
   /* Предпросмотр целиком (открытка, письмо, обе стороны билета) на телефоне длиннее самой формы.
@@ -426,8 +417,6 @@ dialog .btn{width:100%}
   .preview-head .preview-title{margin:0;font-size:20px}
   .pv-close{all:unset;box-sizing:border-box;cursor:pointer;display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:var(--bg-brand);color:var(--ink)}
   .pv-close svg{width:22px;height:22px}
-  .biz-inner{grid-template-columns:1fr}
-  .biz-art{order:-1;width:min(200px,55%);margin:-60px 0 0}
   .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
   .footer-app-col{grid-column:1/-1}
   .footer-col{grid-row:auto}
@@ -435,6 +424,48 @@ dialog .btn{width:100%}
   .footer-app-col .qr{display:none}
   .footer-app-col .stores{flex-direction:row;width:auto;height:auto}
 }
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:8px}
+  .hero-art{max-width:560px;width:100%;margin:0 auto;padding:2% 6% 6% 0}
+  /* Карусели без стрелок: ряды листаются пальцем от края до края */
+  .carousel-nav--overlay{display:none}
+  .gift-row{gap:12px;scroll-snap-type:x proximity;scroll-padding-inline:16px;margin-inline:-16px;padding:0 16px}
+  .gift{flex-basis:calc((100% - 24px) / 3)}
+  .sum-panel{padding:22px 0 24px}
+  .sum-panel h2{padding-inline:20px}
+  .sum-row{scroll-snap-type:x proximity;scroll-padding-inline:20px;padding:0 20px}
+  .sum{flex-basis:44%}
+  .biz-art{width:min(190px,22vw);margin:-30px 0}
+}
+/* Плитки «О сертификате Туту» на телефоне и планшете */
+@media (max-width:1000px){
+  /* Вместо сцены плитки стопкой (на планшете по две), как в мобильном макете «Тутуленда» */
+  .pk{display:none}
+  /* Плитки стопкой, все одной ширины и высоты, как в мобильном «Тутуленде»: текст слева, 3D справа по центру.
+     Высота строк одинаковая (1fr), поэтому плитки без стикера не короче плиток со стикером */
+  .pkm{display:grid;grid-auto-rows:1fr;gap:22px;list-style:none;margin:0;padding:0}
+  /* Стикер первой плитки заходит вверх, под него место от заголовка */
+  #perks h2{margin-bottom:42px}
+  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:146px;padding:16px 16px 16px 20px;border-radius:28px;background:var(--berry)}
+  /* Со стикером текст прижат книзу, сам стикер лежит на верхнем крае */
+  .pkm-i:has(.stk-group){justify-content:flex-end;padding-bottom:14px}
+  .pkm-i.is-lime{background:var(--lime)}
+  /* Текст крупно, 24px. Без картинки текст на всю ширину плитки */
+  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:24px;font-weight:600;line-height:1.15}
+  .pkm-i:not(:has(img)) p{max-width:none}
+  .pkm-i.is-lime p{color:#000}
+  /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
+  .pkm-i.is-lime .stk-lime{color:var(--white)}
+  .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
+  .pkm-i img{position:absolute;right:-14px;top:50%;width:40%;max-width:180px;max-height:96%;object-fit:contain;transform:translateY(-50%)}
+  /* Стикер крупный и заходит за верхний край плитки, как в «Тутуленде» */
+  .pkm-i .stk-group{position:absolute;z-index:2;top:-20px;left:10px;margin:0;font-size:26px}
+  /* «1 год» крупнее и правее, текст под ним в три строки, календарь крупнее */
+  .pkm-i .pkm-year{top:-2px;left:20px;font-size:34px}
+  .pkm-i:has(.pkm-year) p{max-width:56%}
+  .pkm-i:has(.pkm-year) img{width:46%;max-width:200px;max-height:112%}
+}
+
 @media (max-width:720px){
   /* Как на индийском лендинге: блоки через 32px, заголовки 26px, под заголовком 16px */
   .section{padding:32px 0 0}
@@ -474,35 +505,10 @@ dialog .btn{width:100%}
   /* Панель до краёв экрана, как подборки на индийском лендинге */
   .sum-panel{margin-inline:-16px;border-radius:24px}
   .sum{flex-basis:72%}
-  /* «Почему сертификат Туту»: вместо сцены плитки стопкой, как в мобильном макете «Тутуленда» */
-  .pk{display:none}
-  /* Плитки стопкой, все одной ширины и высоты, как в мобильном «Тутуленде»: текст слева, 3D справа по центру.
-     Высота строк одинаковая (1fr), поэтому плитки без стикера не короче плиток со стикером */
-  .pkm{display:grid;grid-auto-rows:1fr;gap:22px;list-style:none;margin:0;padding:0}
-  /* Стикер первой плитки заходит вверх, под него место от заголовка */
-  #perks h2{margin-bottom:42px}
-  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:146px;padding:16px 16px 16px 20px;border-radius:28px;background:var(--berry)}
-  /* Со стикером текст прижат книзу, сам стикер лежит на верхнем крае */
-  .pkm-i:has(.stk-group){justify-content:flex-end;padding-bottom:14px}
-  .pkm-i.is-lime{background:var(--lime)}
-  /* Текст крупно, как в примере: 22px. Без картинки текст на всю ширину плитки */
-  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:24px;font-weight:600;line-height:1.15}
-  .pkm-i:not(:has(img)) p{max-width:none}
-  .pkm-i.is-lime p{color:#000}
-  /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
-  .pkm-i.is-lime .stk-lime{color:var(--white)}
-  .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
-  .pkm-i img{position:absolute;right:-14px;top:50%;width:40%;max-width:180px;max-height:96%;object-fit:contain;transform:translateY(-50%)}
-  /* Стикер крупный и заходит за верхний край плитки, как в «Тутуленде» */
-  .pkm-i .stk-group{position:absolute;z-index:2;top:-20px;left:10px;margin:0;font-size:26px}
-  /* «1 год» крупнее и правее, текст под ним в три строки, календарь крупнее */
-  .pkm-i .pkm-year{top:-14px;left:20px;font-size:34px}
-  .pkm-i:has(.pkm-year) p{max-width:56%}
-  .pkm-i:has(.pkm-year) img{width:46%;max-width:200px;max-height:112%}
   /* Шаги листаются вбок, как карточки «Кому подарить» */
-  .use-steps{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
+  .use-steps{display:flex;gap:30px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
   .use-steps::-webkit-scrollbar{display:none}
-  .use-step + .use-step::after{left:-11px;width:30px;height:18px}
+  .use-step + .use-step::after{left:-15px;width:42px;height:26px}
   .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 9% 46px 21%}
   .how-cta{width:100%}
   .form{padding:22px 16px}
@@ -519,7 +525,7 @@ dialog .btn{width:100%}
   /* «Когда отправить»: две кнопки поровну в одну строку */
   #whenChips{display:grid;grid-template-columns:1fr 1fr}
   #whenChips .chip{text-align:center;padding-inline:8px}
-  .field:has(+ .pay){margin-bottom:4px}
+  .field:has(+ .pay){margin-bottom:16px}
   /* Подсказки способа отправки в одну строку: карточки одной высоты */
   .radio-card{padding-right:12px}
   .radio-card span{font-size:13px}
@@ -552,4 +558,14 @@ dialog .btn{width:100%}
   .footer-legal p{font-size:13px;line-height:1.6;margin-bottom:6px}
   .social{width:44px;height:44px;border-radius:10px}
   .socials{gap:10px}
+}
+
+/* Планшет 721–1000px: первый экран в две колонки, плитки по две в ряд, шаги с текстом помельче */
+@media (min-width:721px) and (max-width:1000px){
+  .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px}
+  .hero-title{font-size:clamp(46px,6.6vw,64px)}
+  .hero-art{margin:0;padding:6% 8% 10% 0}
+  .pkm{grid-template-columns:1fr 1fr;column-gap:16px;row-gap:34px}
+  .use-step{min-height:180px;padding:36px 8% 44px 20%}
+  .use-step h3{font-size:18px}
 }
