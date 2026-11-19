@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<!-- Макет лежит в mockups/, все пути считаются от корня сайта -->
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Открытки для письма — новые</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="site.css?v=20261119154144">
+<link rel="stylesheet" href="ticket.css?v=20261119154144">
+<style>
+/* Макет: открытки для письма. Каждая — основная часть своего билета для печати, без корешка */
+body{background:var(--surface-neutral);padding:40px 0 64px}
+.mk-h{font-size:32px;margin-bottom:6px}
+.mk-sub{color:var(--muted);margin-bottom:32px;max-width:760px}
+.mk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 20px}
+.mk-item h2{font-size:17px;margin-bottom:10px}
+.mk-item .tk-box{filter:drop-shadow(0 10px 22px rgba(1,31,144,.16))}
+@media (max-width:1000px){.mk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.mk-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="container">
+  <h1 class="mk-h">Открытки для письма</h1>
+  <p class="mk-sub">Новые открытки: у каждого билета для печати есть такая же открытка для письма, в том же порядке и с тем же названием. Открытка — основная часть билета без корешка.</p>
+  <div class="mk-grid" id="grid"></div>
+</main>
+<script src="ticket.js?v=20261119154144"></script>
+<script src="shared.js?v=20261119154144"></script>
+<script>
+// Открытка = основная часть билета: тот же фон, фото, ступенька и чемодан, без корешка и перфорации
+const cards = CONFIG.tickets.map((t) => ({ id: 'card-' + t.id, name: t.name, main: t.main, blob: t.blob, stepPhoto: t.stepPhoto, ix: t.ix, suit: t.suit, step: t.step, low: t.low }));
+const f = { amount: fmt(5000), to: 'Маша', from: 'Петя' };
+cards.forEach((c, i) => {
+  const item = document.createElement('section');
+  item.className = 'mk-item';
+  item.innerHTML = `<h2>${i + 1}. ${c.name}</h2><div class="tk-box"></div>`;
+  $('grid').append(item);
+  const card = item.querySelector('.tk-box');
+  tkMount(card, 'card', c); tkFill(card, f);
+});
+</script>
+</body>
+</html>

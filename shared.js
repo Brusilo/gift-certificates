@@ -19,7 +19,6 @@ const CONFIG = {
     { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
     { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
     { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
-    { id: 'birthday', name: 'День рождения', main: '#A181FF', step: '#D6C8FF', art3d: 'assets/art/bubbles.webp' },
     { id: 'newyear',  name: 'Новый год',     main: '#011F90', suit: true }
   ],
   // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:

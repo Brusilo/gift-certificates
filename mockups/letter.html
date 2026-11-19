@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<!-- Макет лежит в mockups/, все пути считаются от корня сайта -->
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Письмо получателю — шаблон</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="site.css?v=20261119154144">
+<link rel="stylesheet" href="ticket.css?v=20261119154144">
+<style>
+/* Шаблон письма получателю шириной 600px, как обычно верстают письма. Сверху тема и отправитель, как в почтовом ящике */
+body{background:#E9E8EF;padding:32px 16px 64px}
+.mail{max-width:600px;margin:0 auto}
+.mail-meta{background:var(--white);border-radius:16px 16px 0 0;padding:16px 24px;border-bottom:1px solid #ECEBF2;font-size:14px;color:var(--muted);line-height:1.6}
+.mail-meta b{color:var(--ink);font-weight:600}
+.mail-body{background:var(--white);border-radius:0 0 16px 16px;padding:24px}
+.mail-body .letter{margin-top:20px}
+.letter-pdf{pointer-events:auto;cursor:pointer}
+.mail-foot{margin-top:20px;text-align:center;font-size:12px;line-height:1.6;color:var(--muted)}
+.mail-foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="mail">
+  <div class="mail-meta">
+    <div>От: <b>Туту</b> &lt;gift@tutu.ru&gt;</div>
+    <div>Тема: <b>Маша, вам подарок — сертификат Туту на&nbsp;5&nbsp;000&nbsp;₽</b></div>
+  </div>
+  <div class="mail-body">
+    <div class="tk-box" id="card"></div>
+    <div class="letter">
+      <p class="letter-title">Маша, вам подарок</p>
+      <p class="letter-msg">С днём рождения! Выбирай, куда поехать.</p>
+      <div class="letter-code"><div class="letter-code-l"><span>Код сертификата</span><span class="letter-till" id="till"></span></div><b>XXXX-XXXX-XXXX-XXXX-XXXX</b></div>
+      <p class="letter-h">Как использовать</p>
+      <ol class="letter-steps">
+        <li>Выберите билеты или отель на&nbsp;<a href="https://www.tutu.ru/">Туту</a></li>
+        <li>При оплате введите код сертификата</li>
+        <li>Если заказ стоит дороже, доплатите картой, если дешевле, остаток пришлём новым сертификатом</li>
+      </ol>
+      <div class="letter-any">
+        <p>Любое направление и&nbsp;любые даты</p>
+        <div class="letter-modes"><span class="letter-mode"><i><img src="assets/ticket/ic-train-w.svg" alt=""></i>Поезда</span><span class="letter-mode"><i><img src="assets/ticket/ic-plane-w.svg" alt=""></i>Самолёты</span><span class="letter-mode"><i><img src="assets/ticket/ic-bus-w.svg" alt=""></i>Автобусы</span><span class="letter-mode"><i><img src="assets/ticket/ic-bed-w.svg" alt=""></i>Отели</span></div>
+      </div>
+      <ul class="letter-info">
+        <li><a href="https://www.tutu.ru/2read/legal_information/sertificat/">Подробные условия использования сертификата</a></li>
+        <li>Поддержка 24/7 в&nbsp;чате на&nbsp;<a href="https://www.tutu.ru/">tutu.ru</a> и&nbsp;в&nbsp;<a href="https://c.tutu.ru/mobileapp">приложении Туту</a></li>
+      </ul>
+      <a class="btn btn-primary letter-pdf" href="mockups/pdf.html">Скачать сертификат</a>
+    </div>
+    <p class="mail-foot">Вы получили это письмо, потому что Петя подарил вам сертификат на&nbsp;<a href="https://www.tutu.ru/">tutu.ru</a>.<br>ООО «Туту.ру», Москва</p>
+  </div>
+</div>
+<script src="ticket.js?v=20261119154144"></script>
+<script src="shared.js?v=20261119154144"></script>
+<script>
+const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
+$('till').textContent = 'Действует до ' + untilText(until);
+const t = findTicket(CONFIG.defaultTicket);
+const card = { id: 'card-' + t.id, name: t.name, main: t.main, blob: t.blob, suit: t.suit, step: t.step, low: t.low };
+tkMount($('card'), 'card', card); tkFill($('card'), { amount: fmt(5000), to: 'Маша', from: 'Петя' });
+</script>
+</body>
+</html>

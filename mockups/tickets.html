@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<!-- Макет лежит в mockups/, все пути считаются от корня сайта -->
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Билеты для печати — все варианты</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="site.css?v=20261119154144">
+<link rel="stylesheet" href="ticket.css?v=20261119154144">
+<style>
+/* Макет: все варианты билета для печати, лицевая сторона и оборот рядом */
+body{background:var(--surface-neutral);padding:40px 0 64px}
+.mk-h{font-size:32px;margin-bottom:6px}
+.mk-sub{color:var(--muted);margin-bottom:32px}
+.mk-list{display:grid;gap:40px}
+.mk-item h2{font-size:20px;margin-bottom:12px}
+.mk-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mk-pair .tk-box{filter:drop-shadow(0 10px 24px rgba(1,31,144,.16))}
+.mk-side{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+@media (max-width:900px){.mk-pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="container">
+  <h1 class="mk-h">Билеты для печати</h1>
+  <p class="mk-sub">Все варианты оформления. Лицевая сторона и оборот, печатаются с двух сторон листа и вырезаются по контуру.</p>
+  <div class="mk-list" id="list"></div>
+</main>
+<script src="ticket.js?v=20261119154144"></script>
+<script src="shared.js?v=20261119154144"></script>
+<script>
+const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
+const f = { amount: fmt(5000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много отличных путешествий!', till: untilText(until) };
+CONFIG.tickets.forEach((t, i) => {
+  const item = document.createElement('section');
+  item.className = 'mk-item';
+  item.innerHTML = `<h2>${i + 1}. ${t.name}</h2><div class="mk-pair"><div><span class="mk-side">Лицевая сторона</span><div class="tk-box"></div></div><div><span class="mk-side">Оборот</span><div class="tk-box"></div></div></div>`;
+  $('list').append(item);
+  const [front, back] = item.querySelectorAll('.tk-box');
+  tkMount(front, 'front', t); tkFill(front, f);
+  tkMount(back, 'back', t); tkFill(back, f);
+});
+</script>
+</body>
+</html>

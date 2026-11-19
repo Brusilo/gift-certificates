@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<!-- Макет лежит в mockups/, все пути считаются от корня сайта -->
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF сертификата — шаблон</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+/* Шаблон PDF: страница 1 — лист А4 с открыткой (его же скачивают из письма), страница 2 — билет для печати с двух сторон */
+html,body{margin:0;background:#E9E8EF;font-family:'Tutu Sans',sans-serif}
+.pg{display:block;width:210mm;height:297mm;margin:24px auto;border:0;background:#fff;box-shadow:0 10px 40px rgba(1,31,144,.15)}
+@media print{body{background:#fff}.pg{margin:0;box-shadow:none;break-after:page}}
+@page{size:A4;margin:0}
+</style>
+</head>
+<body>
+<iframe class="pg" src="certificate.html?embed=1&design=meadow&amount=5000&to=Маша&from=Петя&msg=С%20днём%20рождения!%20Выбирай,%20куда%20поехать." title="Лист А4 с сертификатом" scrolling="no"></iframe>
+<iframe class="pg" src="mockups/print-ticket.html" title="Билет для печати" scrolling="no"></iframe>
+</body>
+</html>
