@@ -184,7 +184,7 @@ main > section:last-child{padding-bottom:56px}
 .use-num{position:absolute;left:26px;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
 .use-step h3{font-size:22px;font-weight:600;line-height:1.25;color:var(--white)}
 /* На планшете и компьютере текст шагов крупнее, как было на компьютере */
-@media (min-width:721px){.use-step h3{font-size:24px}}
+@media (min-width:721px){.use-step h3{font-size:24px}.use-steps{gap:24px}.use-step{flex-basis:350px;padding-left:80px}.use-step + .use-step::after{left:-12px}}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
 .use-step + .use-step::after{content:"";position:absolute;left:-15px;top:50%;width:42px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
 .how-cta{margin-top:32px}
@@ -441,9 +441,9 @@ dialog .btn{width:100%}
   .sum{flex-basis:min(44%,320px)}
   .biz-art{width:min(190px,22vw);margin:-30px 0}
 }
-/* Плитки «О сертификате Туту»: сцена с компьютера держится, пока текст в ней крупнее 18px (экран от 641px).
+/* Плитки «О сертификате Туту»: сцена с компьютера держится до экрана 686px (Диана выбрала по окну).
    Уже — недолго по две плитки в ряд, на телефоне стопкой */
-@media (max-width:640px){
+@media (max-width:685px){
   /* Вместо сцены плитки стопкой (на планшете по две), как в мобильном макете «Тутуленда» */
   .pk{display:none}
   /* Плитки стопкой, все одной ширины и высоты, как в мобильном «Тутуленде»: текст слева, 3D справа по центру.
@@ -502,7 +502,7 @@ dialog .btn{width:100%}
   .facts::-webkit-scrollbar{display:none}
   .facts li{flex:none;font-size:15px;line-height:20px;padding:8px 13px 8px 11px}
   .facts svg{width:17px;height:17px}
-  .hero-cta{order:5;width:100%;margin-top:22px}
+  .hero-cta{order:5;width:100%;margin-top:16px}
   /* «Кому подарить»: видна одна карточка и половина следующей, первыми самые частые поводы */
   .gift{flex-basis:min(66%,250px)}
 
@@ -568,10 +568,11 @@ dialog .btn{width:100%}
   .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px}
   .hero-title{font-size:clamp(46px,6.6vw,64px)}
   .hero-art{margin:0;padding:6% 8% 10% 0}
+  .hero-cta{margin-top:20px}
 }
 
 /* Узкий планшет и большой телефон: плитки по две в ряд, текст помельче */
-@media (min-width:561px) and (max-width:640px){
+@media (min-width:561px) and (max-width:685px){
   .pkm{grid-template-columns:1fr 1fr;column-gap:14px;row-gap:34px}
   .pkm-i{min-height:150px;padding-left:18px}
   .pkm-i p{font-size:19px;max-width:62%}
@@ -580,7 +581,8 @@ dialog .btn{width:100%}
   .pkm-i .stk-group{font-size:24px}
   .pkm-i .pkm-year{font-size:30px}
   .pkm-i:has(.pkm-year) p{max-width:60%}
-  .pkm-i:has(.pkm-year) img{width:44%;max-height:96%}
+  /* Календарь чуть ниже середины: сверху над ним стикер */
+  .pkm-i:has(.pkm-year) img{width:48%;max-height:100%;top:58%}
 }
 
 /* Планшет и небольшой ноутбук: поля по краям шире, как на индийском лендинге,
