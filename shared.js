@@ -219,12 +219,6 @@ function fillLetter(f) {
   // Без своего текста везде одно поздравление по умолчанию: в письме, на билете и на листе
   $('letterMsg').textContent = f.msg || 'Пусть впереди будет много отличных путешествий!';
   $('certValid').textContent = 'Действует до ' + f.till;
-  const q = new URLSearchParams({ design: f.design });
-  if (f.amountNum) q.set('amount', f.amountNum);
-  q.set('to', f.to);
-  q.set('from', f.from);
-  if (f.msg) q.set('msg', f.msg);
-  $('letterPdf').href = 'certificate.html?' + q;
 }
 
 // День и время отправки: свой календарь и список часов в стиле tutu.ru вместо системных полей.
@@ -308,6 +302,44 @@ function initWhen() {
   fixTime();
   sync();
 }
+
+// Телефон: предпросмотр целиком открывается отдельным экраном поверх страницы по кнопке «Как увидит получатель»
+function initPreviewSheet() {
+  const sheet = document.querySelector('.preview');
+  if (!sheet || !$('pvOpen')) return;
+  const open = (on) => {
+    sheet.classList.toggle('is-open', on);
+    document.documentElement.classList.toggle('pv-lock', on);
+    if (on) { sheet.scrollTop = 0; $('pvClose').focus({ preventScroll: true }); }
+    else $('pvOpen').focus({ preventScroll: true });
+  };
+  $('pvOpen').addEventListener('click', () => open(true));
+  $('pvClose').addEventListener('click', () => open(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheet.classList.contains('is-open')) open(false); });
+  // Экран стал широким: предпросмотр снова стоит рядом с формой
+  matchMedia('(min-width:1001px)').addEventListener('change', (e) => { if (e.matches && sheet.classList.contains('is-open')) open(false); });
+}
+initPreviewSheet();
+
+// Телефон: разделы подвала сворачиваются, как на индийском лендинге. Соцсети и строки внизу видны всегда
+function initFooterMenu() {
+  const mq = matchMedia('(max-width:720px)');
+  if (!mq.matches) return;
+  document.querySelectorAll('.footer-col > h4').forEach((h) => {
+    if (h.nextElementSibling?.classList.contains('socials')) return;
+    const d = document.createElement('details');
+    d.className = 'fgroup';
+    const s = document.createElement('summary');
+    s.textContent = h.textContent;
+    d.append(s);
+    let n = h.nextElementSibling;
+    while (n && n.tagName === 'A') { const next = n.nextElementSibling; d.append(n); n = next; }
+    h.replaceWith(d);
+  });
+  // Окно стало широким: все разделы раскрыты, как в обычном подвале
+  mq.addEventListener('change', (e) => { if (!e.matches) document.querySelectorAll('.fgroup').forEach((d) => { d.open = true; }); });
+}
+initFooterMenu();
 
 // Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
 // дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания

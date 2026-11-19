@@ -8,3 +8,9 @@ CONFIG.giftCards.forEach((c) => {
   $('giftRow').append(d);
 });
 makeRail($('giftRow'));
+
+// Телефон: разделы страницы прячутся в меню под кнопкой в шапке, как на индийском лендинге
+const topBar = document.querySelector('.top');
+const menu = (open) => { topBar.classList.toggle('is-menu-open', open); $('menuBtn').setAttribute('aria-expanded', open); };
+$('menuBtn').addEventListener('click', () => menu(!topBar.classList.contains('is-menu-open')));
+$('topNav').addEventListener('click', (e) => { if (e.target.closest('a')) menu(false); });

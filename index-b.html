@@ -10,20 +10,21 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119000343">
-<link rel="stylesheet" href="ticket.css?v=20261119000343">
+<link rel="stylesheet" href="site.css?v=20261119134040">
+<link rel="stylesheet" href="ticket.css?v=20261119134040">
 </head>
 <body>
 
 <header class="top">
   <div class="container top-inner">
     <a href="https://www.tutu.ru/" aria-label="Туту — главная страница"><img class="logo" src="assets/ticket/lg-on-violet.svg" alt="Туту"></a>
-    <nav class="top-nav" aria-label="Разделы страницы">
+    <nav class="top-nav" id="topNav" aria-label="Разделы страницы">
       <a href="#how">Как подарить</a>
       <a href="buy.html">Подарить</a>
       <a href="#business">Компаниям</a>
       <a href="#faq">Частые вопросы</a>
     </nav>
+    <button type="button" class="menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="topNav"><svg class="menu-lines" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="menu-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
 </header>
 
@@ -86,10 +87,10 @@
     </div>
     <!-- Телефон: плитки стопкой, текст слева, стикер или 3D справа -->
     <ul class="pkm">
-      <li class="pkm-i is-lime is-stack"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p><img src="assets/art/wallet-coins.webp" alt=""></li>
+      <li class="pkm-i is-lime"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p><img src="assets/art/wallet-coins.webp" alt=""></li>
       <li class="pkm-i"><p>Отправим письмом в&nbsp;нужный день или вручите лично</p><img src="assets/art/cards-heart.webp" alt=""></li>
-      <li class="pkm-i is-stack"><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span><p>Чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
-      <li class="pkm-i"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p></li>
+      <li class="pkm-i"><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span><p>Чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
+      <li class="pkm-i is-lime"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p><img src="assets/ticket/suitcase.webp" alt=""></li>
     </ul>
   </div>
 </section>
@@ -238,9 +239,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119000343"></script>
-<script src="shared.js?v=20261119000343"></script>
-<script src="landing.js?v=20261119000343"></script>
+<script src="ticket.js?v=20261119134040"></script>
+<script src="shared.js?v=20261119134040"></script>
+<script src="landing.js?v=20261119134040"></script>
 <script>
 // «Сколько подарить»: открытка с суммой открывает форму с этой суммой и открыткой
 CONFIG.amountCards.forEach((c) => {
