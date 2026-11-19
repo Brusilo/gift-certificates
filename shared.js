@@ -3,19 +3,19 @@ const CONFIG = {
   minAmount: 100,
   maxAmount: 200000,
   defaultAmount: 1000,
-  defaultDesign: 'classic',
+  defaultDesign: 'meadow',
   defaultTicket: 'meadow',
   validityMonths: 12,
   // Сколько одинаковых сертификатов можно оформить в форме. Больше — через блок «Компаниям»
   maxQty: 20,
   // Открытки к поводам для письма получателю. Нарисованы как основная часть билета: фон, логотип, стикеры, «Кому» и «От кого».
   // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька.
-  // Сначала те же открытки, что в «Сколько подарить», и в том же порядке
+  // Первой и по умолчанию «Чемодан в поле», как билет в первом экране. Дальше открытки из «Сколько подарить»
   designs: [
+    { id: 'meadow',   name: 'Чемодан в поле', main: '#A181FF', blob: 'blob-meadow.jpg' },
     { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' },
     { id: 'plum',     name: 'Оранжевый чемодан', main: '#5F17C5', suit: true },
     { id: 'sea',      name: 'Бассейн',       main: '#011F90', blob: 'blob-pool.jpg' },
-    { id: 'meadow',   name: 'Чемодан в поле', main: '#A181FF', blob: 'blob-meadow.jpg' },
     { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
     { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
     { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
@@ -239,13 +239,12 @@ function initWhen() {
     + '<div class="dt dt-t"><button type="button" class="input dt-btn" id="dtTime" aria-label="Время отправки" aria-expanded="false"></button><div class="dt-pop dt-times" id="dtTimes" hidden></div></div>');
   let view = parse(date.value); view.setDate(1);
 
-  // Сегодня прошедшие часы выбрать нельзя
-  const pastHour = (v) => date.value === date.min && parseInt(v, 10) <= new Date().getHours();
-  const fixTime = () => {
-    if (!pastHour(time.value)) return;
-    const next = new Date().getHours() + 1;
-    if (next < 24) time.value = String(next).padStart(2, '0') + ':00';
-  };
+  // Время в минутах от начала суток. Сегодня прошедшее время выбрать нельзя
+  const nowMin = () => { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); };
+  const toMin = (v) => +v.slice(0, 2) * 60 + +v.slice(3, 5);
+  const fmtT = (m) => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  const past = (m) => date.value === date.min && m <= nowMin();
+  const fixTime = () => { if (past(toMin(time.value)) && nowMin() < 1439) time.value = fmtT(nowMin() + 1); };
   const sync = () => {
     const d = parse(date.value);
     $('dtDate').innerHTML = DT_ICON.date + '<span>' + d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ', ' + DT_WD[(d.getDay() + 6) % 7] + '</span>';
@@ -270,14 +269,20 @@ function initWhen() {
       + `<b>${DT_MONTHS[m]} ${y}</b><button type="button" class="dt-nav" data-step="1" aria-label="Следующий месяц"${nextOff ? ' disabled' : ''}>›</button></div>`
       + '<div class="dt-grid">' + DT_WD.map((w, i) => `<span class="dt-wd${i > 4 ? ' is-we' : ''}">${w}</span>`).join('') + cells + '</div>';
   }
+  // Время двумя колонками, как барабаны: слева часы, справа минуты. Каждая листается отдельно
+  const pad = (n) => String(n).padStart(2, '0');
   function drawTimes() {
-    let h = '';
-    for (let i = 0; i < 24; i++) {
-      const v = String(i).padStart(2, '0') + ':00';
-      h += `<button type="button" class="dt-time${v === time.value ? ' is-on' : ''}" data-v="${v}"${pastHour(v) ? ' disabled' : ''}>${v}</button>`;
-    }
-    $('dtTimes').innerHTML = h;
+    const cur = toMin(time.value), ch = Math.floor(cur / 60), cm = cur % 60;
+    let hs = '', ms = '';
+    for (let h = 0; h < 24; h++) hs += `<button type="button" class="dt-time${h === ch ? ' is-on' : ''}" data-h="${h}"${past(h * 60 + 59) ? ' disabled' : ''}>${pad(h)}</button>`;
+    for (let m = 0; m < 60; m++) ms += `<button type="button" class="dt-time${m === cm ? ' is-on' : ''}" data-m="${m}"${past(ch * 60 + m) ? ' disabled' : ''}>${pad(m)}</button>`;
+    $('dtTimes').innerHTML = `<div class="dt-col" role="group" aria-label="Часы">${hs}</div><div class="dt-col" role="group" aria-label="Минуты">${ms}</div>`;
   }
+  // Выбранные часы и минуты по центру своих колонок
+  const centerTimes = (only) => $('dtTimes').querySelectorAll('.dt-col').forEach((col, i) => {
+    const on = col.querySelector('.is-on');
+    if (on && (only === undefined || only === i)) col.scrollTop = on.offsetTop - col.clientHeight / 2 + on.offsetHeight / 2;
+  });
   const pops = [['dtDate', 'dtCal', drawCal], ['dtTime', 'dtTimes', drawTimes]];
   const close = () => pops.forEach(([b, p]) => { $(p).hidden = true; $(b).setAttribute('aria-expanded', 'false'); });
   pops.forEach(([b, p, draw]) => $(b).addEventListener('click', () => {
@@ -286,19 +291,32 @@ function initWhen() {
     if (!open) return;
     if (p === 'dtCal') { view = parse(date.value); view.setDate(1); }
     draw(); $(p).hidden = false; $(b).setAttribute('aria-expanded', 'true');
-    const on = $(p).querySelector('.is-on');
-    if (on && p === 'dtTimes') $(p).scrollTop = on.offsetTop - 60;
+    if (p === 'dtTimes') centerTimes();
   }));
   $('dtCal').addEventListener('click', (e) => {
     const nav = e.target.closest('.dt-nav'), day = e.target.closest('.dt-day');
     if (nav) { view.setMonth(view.getMonth() + +nav.dataset.step); drawCal(); }
     if (day) { date.value = day.dataset.v; fixTime(); changed(date); changed(time); close(); }
   });
+  // Час выбирается без закрытия окна, минуты закрывают окно
   $('dtTimes').addEventListener('click', (e) => {
     const t = e.target.closest('.dt-time');
-    if (t) { time.value = t.dataset.v; changed(time); close(); }
+    if (!t) return;
+    const cur = toMin(time.value);
+    if (t.dataset.h !== undefined) {
+      let m = +t.dataset.h * 60 + cur % 60;
+      if (past(m)) m = nowMin() + 1;
+      time.value = fmtT(m); changed(time);
+      const keep = $('dtTimes').querySelector('.dt-col').scrollTop;
+      drawTimes();
+      $('dtTimes').querySelector('.dt-col').scrollTop = keep;
+      centerTimes(1);
+    } else {
+      time.value = fmtT(Math.floor(cur / 60) * 60 + +t.dataset.m); changed(time); close();
+    }
   });
-  document.addEventListener('click', (e) => { if (!e.target.closest('.dt')) close(); });
+  // Путь события считаем на момент нажатия: после перерисовки колонок нажатая кнопка уже не в окне
+  document.addEventListener('click', (e) => { if (!e.composedPath().some((n) => n.classList && n.classList.contains('dt'))) close(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
   fixTime();
   sync();
