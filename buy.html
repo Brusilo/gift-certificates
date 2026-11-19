@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119143531">
-<link rel="stylesheet" href="ticket.css?v=20261119143531">
+<link rel="stylesheet" href="site.css?v=20261119144643">
+<link rel="stylesheet" href="ticket.css?v=20261119144643">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -26,7 +26,7 @@
 .faq-open:hover{opacity:.8}
 /* Частые вопросы окном по центру экрана */
 #faqDialog{max-width:1000px;width:calc(100% - 32px);max-height:none;padding:0}
-@media (max-width:800px){#faqDialog{height:calc(100dvh - 32px);max-height:calc(100dvh - 32px)}.faq-dialog-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.faq-dialog-head{box-shadow:0 1px 0 var(--line)}#faqDialog .faq-dialog-body{padding-top:16px}}
+@media (max-width:800px){#faqDialog{height:calc(100dvh - 32px);max-height:calc(100dvh - 32px)}.faq-dialog-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}.faq-dialog-body::-webkit-scrollbar{display:none}.faq-dialog-head{box-shadow:0 1px 0 var(--line)}#faqDialog .faq-dialog-body{padding-top:16px}}
 #faqDialog[open]{display:flex;flex-direction:column}
 .faq-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 28px 16px}
 .faq-dialog-head h2{margin:0;font-size:28px}
@@ -365,8 +365,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119143531"></script>
-<script src="shared.js?v=20261119143531"></script>
+<script src="ticket.js?v=20261119144643"></script>
+<script src="shared.js?v=20261119144643"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=birthday&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);

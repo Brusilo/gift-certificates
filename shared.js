@@ -78,10 +78,11 @@ function mountHero() {
   const d = findTicket(CONFIG.defaultTicket);
   const until = new Date();
   until.setMonth(until.getMonth() + CONFIG.validityMonths);
-    // В заголовке уже «путешествие», поэтому на билете первого экрана поздравление без этого слова
+  // В заголовке уже «путешествие», поэтому на билете первого экрана поздравление без этого слова
   const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много ярких впечатлений!', till: untilText(until) };
   tkMount($('heroBack'), 'back', d); tkFill($('heroBack'), f);
-  tkMount($('heroFront'), 'front', d); tkFill($('heroFront'), f);
+  // Лицевая сторона синяя: фиолетовая сливалась с фоном первого экрана. Логотип на синем белый, корешок фиолетовый
+  tkMount($('heroFront'), 'front', { ...d, id: 'hero-' + d.id, main: '#011F90', stub: '#5F17C5' }); tkFill($('heroFront'), f);
 }
 
 // Карточка «Кому подарить»: фото, фиолетовая волна, заголовок и подпись

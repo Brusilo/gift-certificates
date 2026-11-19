@@ -480,11 +480,13 @@ dialog .btn{width:100%}
      Высота строк одинаковая (1fr), поэтому плитки без стикера не короче плиток со стикером */
   .pkm{display:grid;grid-auto-rows:1fr;gap:22px;list-style:none;margin:0;padding:0}
   /* Стикер первой плитки заходит вверх, под него место от заголовка */
-  #perks h2{margin-bottom:44px}
-  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:146px;padding:18px 16px 18px 20px;border-radius:28px;background:var(--berry)}
+  #perks h2{margin-bottom:42px}
+  .pkm-i{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-height:146px;padding:16px 16px 16px 20px;border-radius:28px;background:var(--berry)}
+  /* Со стикером текст прижат книзу, сам стикер лежит на верхнем крае */
+  .pkm-i:has(.stk-group){justify-content:flex-end;padding-bottom:14px}
   .pkm-i.is-lime{background:var(--lime)}
   /* Текст крупно, как в примере: 22px. Без картинки текст на всю ширину плитки */
-  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:24px;font-weight:600;line-height:1.18}
+  .pkm-i p{position:relative;z-index:1;margin:0;max-width:74%;color:var(--white);font-size:24px;font-weight:600;line-height:1.15}
   .pkm-i:not(:has(img)) p{max-width:none}
   .pkm-i.is-lime p{color:#000}
   /* На лаймовой плитке лаймовый стикер не виден, он здесь синий */
@@ -492,9 +494,11 @@ dialog .btn{width:100%}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
   .pkm-i img{position:absolute;right:-14px;top:50%;width:40%;max-width:180px;max-height:96%;object-fit:contain;transform:translateY(-50%)}
   /* Стикер крупный и заходит за верхний край плитки, как в «Тутуленде» */
-  .pkm-i .stk-group{position:relative;z-index:2;font-size:28px;margin:-36px 0 0 -10px}
-  /* «1 год» крупнее и правее */
-  .pkm-i .pkm-year{font-size:36px;margin:-44px 0 0 8px}
+  .pkm-i .stk-group{position:absolute;z-index:2;top:-20px;left:10px;margin:0;font-size:26px}
+  /* «1 год» крупнее и правее, текст под ним в три строки, календарь крупнее */
+  .pkm-i .pkm-year{top:-14px;left:20px;font-size:34px}
+  .pkm-i:has(.pkm-year) p{max-width:56%}
+  .pkm-i:has(.pkm-year) img{width:46%;max-width:200px;max-height:112%}
   /* Шаги листаются вбок, как карточки «Кому подарить» */
   .use-steps{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
   .use-steps::-webkit-scrollbar{display:none}
