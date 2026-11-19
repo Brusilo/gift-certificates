@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119142342">
-<link rel="stylesheet" href="ticket.css?v=20261119142342">
+<link rel="stylesheet" href="site.css?v=20261119143531">
+<link rel="stylesheet" href="ticket.css?v=20261119143531">
 </head>
 <body>
 
@@ -89,9 +89,9 @@
     </div>
     <!-- Телефон: плитки стопкой, текст слева, стикер или 3D справа -->
     <ul class="pkm">
-      <li class="pkm-i"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>Придёт новым сертификатом, если заказ дешевле</p></li>
+      <li class="pkm-i"><span class="stk-group"><span class="stk stk-red">Остаток</span><span class="stk stk-lime">не&nbsp;сгорит</span></span><p>придёт новым сертификатом, если заказ дешевле</p></li>
       <li class="pkm-i is-lime"><p>Отправим письмом в&nbsp;нужный день или вручите лично</p><img src="assets/art/cards-heart.webp" alt=""></li>
-      <li class="pkm-i"><span class="stk-group"><span class="stk stk-lime">1&nbsp;год</span></span><p>Чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
+      <li class="pkm-i"><span class="stk-group pkm-year"><span class="stk stk-lime">1&nbsp;год</span></span><p>чтобы выбрать поездку без&nbsp;спешки</p><img src="assets/art/calendar.webp" alt=""></li>
       <li class="pkm-i"><p>Универсальный подарок, подойдёт даже тем, кто редко путешествует</p></li>
     </ul>
   </div>
@@ -162,7 +162,7 @@
             <label class="radio-card">
               <input type="radio" name="delivery" value="recipient" checked>
               <b>На&nbsp;почту получателю</b>
-              <span id="recipientHint">Отправим письмо сразу или в&nbsp;выбранный день</span>
+              <span id="recipientHint">Отправим сразу или в&nbsp;выбранный день</span>
             </label>
             <label class="radio-card">
               <input type="radio" name="delivery" value="self">
@@ -396,9 +396,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119142342"></script>
-<script src="shared.js?v=20261119142342"></script>
-<script src="landing.js?v=20261119142342"></script>
+<script src="ticket.js?v=20261119143531"></script>
+<script src="shared.js?v=20261119143531"></script>
+<script src="landing.js?v=20261119143531"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
@@ -510,7 +510,7 @@ function render() {
   // Отправка. Несколько сертификатов приходят покупателю одним файлом, письмо получателю тогда недоступно
   const recipientRadio = document.querySelector('input[name="delivery"][value="recipient"]');
   recipientRadio.disabled = many;
-  $('recipientHint').textContent = many ? 'Только для одного сертификата' : 'Отправим письмо сразу или в выбранный день';
+  $('recipientHint').textContent = many ? 'Только для одного сертификата' : 'Отправим сразу или в выбранный день';
   $('selfHint').textContent = many ? `Пришлём ${certs(state.qty)} одним PDF` : 'Пришлём вам PDF, чтобы распечатать';
   $('selfEmailHint').textContent = many ? `Пришлём чек и ${certs(state.qty)} одним PDF` : 'Пришлём PDF с сертификатом и чек';
 

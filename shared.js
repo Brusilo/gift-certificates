@@ -380,6 +380,12 @@ function initFaq() {
 }
 initFaq();
 
+// Телефон: после нажатия кнопка не остаётся «выбранной» с обводкой, фокус с неё снимаем
+document.addEventListener('pointerup', (e) => {
+  const b = e.target.closest('button,.btn');
+  if (b && e.pointerType !== 'mouse') setTimeout(() => b.blur(), 0);
+});
+
 // Предпросмотр листа А4: certificate.html в рамке. Рамка загружается один раз,
 // дальше новые данные уходят сообщением и лист перерисовывается без перезагрузки и мигания
 function showA4(frame, f, designId) {
