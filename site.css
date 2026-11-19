@@ -9,6 +9,8 @@
 @font-face{font-family:'Tutu Sans';src:url('fonts/tutu_sans_black_italic.woff2') format('woff2');font-weight:900;font-style:italic;font-display:swap}
 
 :root{
+  /* Только светлая тема: браузер не перекрашивает страницу в тёмную сам */
+  color-scheme:only light;
   /* Палитра сертификата для печати («Правила сборки подарочного сертификата Туту») */
   --berry:#A181FF;
   --blueberry:#011F90;

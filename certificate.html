@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Подарочный сертификат Туту</title>
 <meta name="robots" content="noindex">
-<meta name="color-scheme" content="light">
+<!-- Только светлая тема: «only» запрещает браузеру (Samsung Internet, авто-тёмный режим Chrome) перекрашивать страницу -->
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light only">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261119134040">
-<link rel="stylesheet" href="ticket.css?v=20261119134040">
+<link rel="stylesheet" href="site.css?v=20261119134522">
+<link rel="stylesheet" href="ticket.css?v=20261119134522">
 <style>
 /* Сертификат для печати на одной стороне листа А4: ничего не вырезать и не переворачивать.
    Этот же лист уходит покупателю и получателю в PDF.
@@ -110,8 +112,8 @@ html.embed,html.embed body{background:transparent;overflow:hidden}
   </div>
 </div>
 
-<script src="ticket.js?v=20261119134040"></script>
-<script src="shared.js?v=20261119134040"></script>
+<script src="ticket.js?v=20261119134522"></script>
+<script src="shared.js?v=20261119134522"></script>
 <script>
 // Данные сертификата из адреса, например certificate.html?amount=5000&design=meadow&to=Маша&from=Петя&msg=...
 const p = new URLSearchParams(location.search);
