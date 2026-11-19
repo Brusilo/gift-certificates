@@ -6,8 +6,8 @@
 <base href="../">
 <title>Билет для печати — лист А4</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="site.css?v=20261119154144">
-<link rel="stylesheet" href="ticket.css?v=20261119154144">
+<link rel="stylesheet" href="site.css?v=20261119154333">
+<link rel="stylesheet" href="ticket.css?v=20261119154333">
 <style>
 /* Лист А4: лицевая сторона и оборот билета шириной 190 мм, под ними подсказка, как печатать */
 @page{size:A4;margin:0}
@@ -24,8 +24,8 @@ html,body{margin:0;background:#fff}
   <div class="tk-box" id="back"></div>
   <p><b>Как распечатать</b><br>Печать с&nbsp;двух сторон листа, переворот по&nbsp;длинному краю. Вырежьте билет по&nbsp;контуру.</p>
 </div>
-<script src="ticket.js?v=20261119154144"></script>
-<script src="shared.js?v=20261119154144"></script>
+<script src="ticket.js?v=20261119154333"></script>
+<script src="shared.js?v=20261119154333"></script>
 <script>
 const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
 const f = { amount: fmt(5000), to: 'Маша', from: 'Петя', msg: 'С днём рождения! Выбирай, куда поехать.', till: untilText(until) };

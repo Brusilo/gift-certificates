@@ -9,8 +9,8 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="site.css?v=20261119154144">
-<link rel="stylesheet" href="ticket.css?v=20261119154144">
+<link rel="stylesheet" href="site.css?v=20261119154333">
+<link rel="stylesheet" href="ticket.css?v=20261119154333">
 <style>
 /* Макет: все варианты билета для печати, лицевая сторона и оборот рядом */
 body{background:var(--surface-neutral);padding:40px 0 64px}
@@ -30,8 +30,8 @@ body{background:var(--surface-neutral);padding:40px 0 64px}
   <p class="mk-sub">Все варианты оформления. Лицевая сторона и оборот, печатаются с двух сторон листа и вырезаются по контуру.</p>
   <div class="mk-list" id="list"></div>
 </main>
-<script src="ticket.js?v=20261119154144"></script>
-<script src="shared.js?v=20261119154144"></script>
+<script src="ticket.js?v=20261119154333"></script>
+<script src="shared.js?v=20261119154333"></script>
 <script>
 const until = new Date(); until.setMonth(until.getMonth() + CONFIG.validityMonths);
 const f = { amount: fmt(5000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много отличных путешествий!', till: untilText(until) };

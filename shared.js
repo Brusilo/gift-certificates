@@ -8,18 +8,18 @@ const CONFIG = {
   validityMonths: 12,
   // Сколько одинаковых сертификатов можно оформить в форме. Больше — через блок «Компаниям»
   maxQty: 20,
-  // Открытки к поводам для письма получателю. Нарисованы как основная часть билета: фон, логотип, стикеры, «Кому» и «От кого».
-  // На красном стикере всегда «Сертификат», на лаймовом сумма. photo — фото в большой форме, art3d / suit — 3D-предмет, step — светлая ступенька.
-  // Первой и по умолчанию «Чемодан в поле», как билет в первом экране. Дальше открытки из «Сколько подарить»
+  // Открытки для письма: у каждого билета для печати своя открытка, в том же порядке и с тем же названием.
+  // Открытка — основная часть билета без корешка: тот же фон, фото, ступенька и чемодан. Первой и по умолчанию «Чемодан в поле»
   designs: [
-    { id: 'meadow',   name: 'Чемодан в поле', main: '#A181FF', blob: 'blob-meadow.jpg' },
-    { id: 'pagoda',   name: 'Пагода',        main: '#011F90', blob: 'blob-pagoda.jpg' },
-    { id: 'plum',     name: 'Оранжевый чемодан', main: '#5F17C5', suit: true },
-    { id: 'sea',      name: 'Бассейн',       main: '#011F90', blob: 'blob-pool.jpg' },
-    { id: 'family',   name: 'Чемоданы на машине', main: '#011F90', blob: 'blob-car.jpg' },
-    { id: 'spb',      name: 'Аэропорт',      main: '#A181FF', blob: 'blob-airport.jpg' },
-    { id: 'classic',  name: 'Просто так',    main: '#A181FF', suit: true },
-    { id: 'newyear',  name: 'Новый год',     main: '#011F90', suit: true }
+    { id: 'meadow',   name: 'Чемодан в поле',      main: '#A181FF', blob: 'blob-meadow.jpg' },
+    { id: 'car',      name: 'Чемоданы на машине',  main: '#A181FF', blob: 'blob-car.jpg' },
+    { id: 'airport',  name: 'Аэропорт',            main: '#A181FF', blob: 'blob-airport.jpg' },
+    { id: 'pool',     name: 'Бассейн',             main: '#A181FF', blob: 'blob-pool.jpg' },
+    { id: 'pagoda',   name: 'Пагода',              main: '#A181FF', blob: 'blob-pagoda.jpg' },
+    { id: 'stack',    name: 'Башня из чемоданов',  main: '#A181FF', stepPhoto: 'ph-stack.jpg', ix: [72, 0, 132, 74] },
+    { id: 'suitcase', name: 'Оранжевый чемодан',   main: '#A181FF', suit: true },
+    { id: 'steps',    name: 'Светлая ступенька',   main: '#A181FF', suit: true, step: '#D6C8FF', low: '#D6C8FF' },
+    { id: 'night',    name: 'Синий',               main: '#011F90', suit: true, step: '#D6C8FF' }
   ],
   // Билеты для печати («Вручу лично») из макета «Сертификат Туту – варианты оформления»:
   // main — фон основной части, stub — цвет корешка, blob — фото в большой форме, stepPhoto — фото в ступеньке,
@@ -52,13 +52,14 @@ const CONFIG = {
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
+  // design — какая открытка выберется в форме, look — как карточка выглядит на розовой панели (синие и фиолетовые по очереди)
   amountCards: [
-    { amount: null,  design: 'pagoda' },
-    { amount: 1000,  design: 'plum' },
-    { amount: 3000,  design: 'sea' },
-    { amount: 5000,  design: 'meadow' },
-    { amount: 10000, design: 'family' },
-    { amount: 25000, design: 'spb' }
+    { amount: null,  design: 'pagoda',   look: { id: 'pagoda', main: '#011F90', blob: 'blob-pagoda.jpg' } },
+    { amount: 1000,  design: 'suitcase', look: { id: 'plum', main: '#5F17C5', suit: true } },
+    { amount: 3000,  design: 'pool',     look: { id: 'sea', main: '#011F90', blob: 'blob-pool.jpg' } },
+    { amount: 5000,  design: 'meadow',   look: { id: 'meadow', main: '#A181FF', blob: 'blob-meadow.jpg' } },
+    { amount: 10000, design: 'car',      look: { id: 'family', main: '#011F90', blob: 'blob-car.jpg' } },
+    { amount: 25000, design: 'airport',  look: { id: 'spb', main: '#A181FF', blob: 'blob-airport.jpg' } }
   ]
 };
 
@@ -103,7 +104,7 @@ function fillAmountCard(el, c) {
   el.className = 'sum';
   el.setAttribute('aria-label', c.amount ? 'Сертификат на ' + text : 'Сертификат на любую сумму ' + text);
   el.innerHTML = '<span class="tk-box"></span>';
-  const d = findDesign(c.design);
+  const d = c.look || findDesign(c.design);
   tkMount(el.firstChild, 'card', { ...d, id: 'sum-' + d.id, sticker: c.amount ? 'Сертификат' : 'Любая сумма' });
   el.firstChild.firstElementChild.classList.add('no-who');
   tkFill(el.firstChild, { amount: text });
