@@ -174,15 +174,19 @@ main > section:last-child{padding-bottom:56px}
 .pkm{display:none}
 
 /* «Как оформить»: карточки-параллелограммы, как шаги на обороте билета */
-.use-steps{list-style:none;margin:0;padding:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+/* Карточки шагов всегда одного размера (360px, на узком телефоне чуть уже). Если три не помещаются, ряд листается */
+.use-steps{list-style:none;margin:0;padding:0 0 18px;display:flex;gap:30px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none}
+.use-steps::-webkit-scrollbar{display:none}
 /* Синие плашки шагов, стрелки между ними фиолетовые */
-.use-step{position:relative;isolation:isolate;min-height:200px;padding:44px 11% 50px 25%;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
+.use-step{position:relative;isolation:isolate;flex:0 0 min(360px,calc(100vw - 52px));min-height:220px;padding:40px 30px 50px 82px;scroll-snap-align:start;justify-content:center;display:flex;flex-direction:column;gap:10px;color:var(--white)}
 .use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23011F90' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
 /* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
-.use-num{position:absolute;left:7%;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
-.use-step h3{font-size:clamp(22px,1.95vw,26px);font-weight:600;line-height:1.25;color:var(--white)}
+.use-num{position:absolute;left:26px;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
+.use-step h3{font-size:22px;font-weight:600;line-height:1.25;color:var(--white)}
+/* На планшете и компьютере текст шагов крупнее, как было на компьютере */
+@media (min-width:721px){.use-step h3{font-size:24px}}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
-.use-step + .use-step::after{content:"";position:absolute;left:-7px;top:50%;width:44px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
+.use-step + .use-step::after{content:"";position:absolute;left:-15px;top:50%;width:42px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
 .how-cta{margin-top:32px}
 
 /* Форма */
@@ -434,11 +438,12 @@ dialog .btn{width:100%}
   .sum-panel{padding:22px 0 24px}
   .sum-panel h2{padding-inline:20px}
   .sum-row{scroll-snap-type:x proximity;scroll-padding-inline:20px;padding:0 20px}
-  .sum{flex-basis:44%}
+  .sum{flex-basis:min(44%,320px)}
   .biz-art{width:min(190px,22vw);margin:-30px 0}
 }
-/* Плитки «О сертификате Туту» на телефоне и планшете */
-@media (max-width:1000px){
+/* Плитки «О сертификате Туту»: сцена с компьютера держится, пока текст в ней крупнее 18px (экран от 641px).
+   Уже — недолго по две плитки в ряд, на телефоне стопкой */
+@media (max-width:640px){
   /* Вместо сцены плитки стопкой (на планшете по две), как в мобильном макете «Тутуленда» */
   .pk{display:none}
   /* Плитки стопкой, все одной ширины и высоты, как в мобильном «Тутуленде»: текст слева, 3D справа по центру.
@@ -499,17 +504,15 @@ dialog .btn{width:100%}
   .facts svg{width:17px;height:17px}
   .hero-cta{order:5;width:100%;margin-top:22px}
   /* «Кому подарить»: видна одна карточка и половина следующей, первыми самые частые поводы */
-  .gift{flex-basis:66%}
+  .gift{flex-basis:min(66%,250px)}
 
   .sum-row{gap:12px}
   /* Панель до краёв экрана, как подборки на индийском лендинге */
   .sum-panel{margin-inline:-16px;border-radius:24px}
-  .sum{flex-basis:72%}
+  .sum{flex-basis:min(72%,300px)}
   /* Шаги листаются вбок, как карточки «Кому подарить» */
-  .use-steps{display:flex;gap:30px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;margin-inline:-16px;padding:0 16px 18px}
-  .use-steps::-webkit-scrollbar{display:none}
-  .use-step + .use-step::after{left:-15px;width:42px;height:26px}
-  .use-step{flex:0 0 86%;scroll-snap-align:start;min-height:200px;padding:40px 9% 46px 21%}
+  /* Ряд шагов листается от края до края экрана */
+  .use-steps{scroll-padding-inline:16px;margin-inline:-16px;padding-inline:16px}
   .how-cta{width:100%}
   .form{padding:22px 16px}
   #amountChips{grid-template-columns:repeat(3,1fr)}
@@ -565,7 +568,31 @@ dialog .btn{width:100%}
   .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px}
   .hero-title{font-size:clamp(46px,6.6vw,64px)}
   .hero-art{margin:0;padding:6% 8% 10% 0}
-  .pkm{grid-template-columns:1fr 1fr;column-gap:16px;row-gap:34px}
-  .use-step{min-height:180px;padding:36px 8% 44px 20%}
-  .use-step h3{font-size:18px}
+}
+
+/* Узкий планшет и большой телефон: плитки по две в ряд, текст помельче */
+@media (min-width:561px) and (max-width:640px){
+  .pkm{grid-template-columns:1fr 1fr;column-gap:14px;row-gap:34px}
+  .pkm-i{min-height:150px;padding-left:18px}
+  .pkm-i p{font-size:19px;max-width:76%}
+  .pkm-i img{width:30%;right:-10px}
+  .pkm-i .stk-group{font-size:26px}
+  .pkm-i .pkm-year{font-size:34px}
+  .pkm-i:has(.pkm-year) p{max-width:62%}
+  .pkm-i:has(.pkm-year) img{width:40%}
+}
+
+/* Планшет и небольшой ноутбук: поля по краям шире, как на индийском лендинге,
+   билеты в первом экране не выходят за край экрана */
+@media (min-width:721px) and (max-width:1260px){
+  .container{padding-inline:32px}
+  .hero-back{right:3%}
+  .hero-front{margin:-4% -2% 0 8%}
+}
+/* Ряды, которые листаются пальцем, уходят до края экрана при тех же полях */
+@media (min-width:721px) and (max-width:1000px){
+  .gift-row{margin-inline:-32px;padding:0 32px;scroll-padding-inline:32px}
+}
+@media (min-width:721px) and (max-width:1260px){
+  .use-steps{scroll-padding-inline:32px;margin-inline:-32px;padding-inline:32px}
 }
