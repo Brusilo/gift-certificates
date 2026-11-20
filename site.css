@@ -114,7 +114,8 @@ main > section:last-child{padding-bottom:56px}
 @media (hover:hover) and (pointer:fine){.hero-cta:hover{background:#00125C}}
 /* Билет в первом экране: лицевая сторона лежит на обороте */
 .hero-art{position:relative;padding:0 4% 3% 0}
-.hero-back,.hero-front{filter:drop-shadow(0 24px 34px rgba(1,31,144,.35))}
+/* Билеты первого экрана без тени */
+.hero-back,.hero-front{filter:none}
 .hero-back{position:absolute;left:12%;right:-6%;top:34%;transform:rotate(5deg)}
 /* Нижний билет поднят и сдвинут вправо, чтобы закрывать «Действует до» на заднем */
 .hero-front{transform:rotate(-5deg);margin:-4% -10% 0 10%}
@@ -565,20 +566,21 @@ dialog .btn{width:100%}
   .socials{gap:10px}
 }
 
-/* Планшет 721–1000px: первый экран в две колонки, плитки по две в ряд, шаги с текстом помельче */
-@media (min-width:721px) and (max-width:1000px){
-  /* Портретный iPad: заголовок крупно на всю ширину, под ним слева текст, пузыри и кнопка, справа билеты.
-     Заголовок главный, текст и пузыри спокойнее, чем на компьютере */
+/* Планшет до 1100px, и портретный, и альбомный iPad: первый экран как на телефоне */
+@media (min-width:721px) and (max-width:1100px){
+  /* iPad: как на телефоне, билеты лежат фоном справа за заголовком, полупрозрачные и растворяются книзу.
+     Сверху вниз заголовок, текст, пузыри и кнопка по ширине текста */
   .hero{padding-bottom:72px}
-  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"title title" "sub art" "facts art" "cta art";column-gap:28px;align-items:start}
+  .hero-grid{display:flex;flex-direction:column;align-items:flex-start;gap:0}
   .hero-grid > div:first-child{display:contents}
-  .hero-title{grid-area:title;margin:.62em 0 22px;font-size:clamp(70px,11vw,100px)}
-  .hero-sub{grid-area:sub;max-width:none;font-size:17px;margin-bottom:18px}
-  .facts{grid-area:facts}
+  .hero-title{order:1;position:relative;z-index:1;margin:.62em 0 22px;font-size:clamp(70px,11vw,100px)}
+  .hero-sub{order:3;position:relative;z-index:1;max-width:560px;font-size:17px;margin-bottom:18px}
+  .facts{order:4;position:relative;z-index:1}
   .facts li{font-size:15px;line-height:19px;padding:8px 13px 8px 11px}
   .facts svg{width:17px;height:17px}
-  .hero-cta{grid-area:cta;justify-self:start;margin-top:22px}
-  .hero-art{grid-area:art;align-self:center;margin:-8% 0 0;padding:4% 7% 8% 0}
+  .hero-cta{order:5;position:relative;z-index:1;margin-top:22px}
+  .hero-art{position:absolute;z-index:0;top:-6px;right:-40px;width:min(470px,46vw);max-width:none;margin:0;padding:44px 0 0;opacity:.42;filter:blur(.8px);pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 45%,transparent 92%);mask-image:linear-gradient(to bottom,#000 45%,transparent 92%)}
 }
 
 /* Узкий планшет и большой телефон: плитки по две в ряд, текст помельче */
@@ -602,8 +604,8 @@ dialog .btn{width:100%}
   .hero-back{right:3%}
   .hero-front{margin:-4% -2% 0 8%}
 }
-/* Альбомный iPad и небольшой ноутбук: билеты не обрезаются краем экрана, текст под заголовком чуть спокойнее */
-@media (min-width:1001px) and (max-width:1260px){
+/* Небольшой ноутбук: билеты не обрезаются краем экрана, текст под заголовком чуть спокойнее */
+@media (min-width:1101px) and (max-width:1260px){
   .hero-art{padding-right:9%}
   /* Заголовок крупнее: на альбомном iPad он был мельче текста рядом с билетами */
   .hero-title{font-size:clamp(78px,8vw,96px)}
