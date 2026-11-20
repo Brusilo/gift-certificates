@@ -21,6 +21,9 @@ body{background:var(--surface-neutral);padding:40px 0 64px}
 .mk-item .tk-box{filter:drop-shadow(0 10px 22px rgba(1,31,144,.16))}
 @media (max-width:1000px){.mk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.mk-grid{grid-template-columns:1fr}}
+/* Печать в PDF: А4, цвета как на экране, открытка не разрезается между страницами */
+@page{size:A4;margin:12mm 10mm}
+@media print{html,body{background:#fff}body{padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.mk-item{break-inside:avoid}.mk-grid{grid-template-columns:1fr 1fr;gap:20px 14px}.mk-item .tk-box{filter:none}}
 </style>
 </head>
 <body>

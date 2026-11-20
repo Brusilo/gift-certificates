@@ -22,6 +22,9 @@ body{background:#E9E8EF;padding:32px 16px 64px}
 .letter-pdf{pointer-events:auto;cursor:pointer}
 .mail-foot{margin-top:20px;text-align:center;font-size:12px;line-height:1.6;color:var(--muted)}
 .mail-foot a{color:var(--muted)}
+/* Печать в PDF: письмо на А4 по центру, цвета как на экране */
+@page{size:A4;margin:10mm}
+@media print{html,body{background:#E9E8EF}body{padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.mail{break-inside:avoid;zoom:.82}}
 </style>
 </head>
 <body>

@@ -22,6 +22,9 @@ body{background:var(--surface-neutral);padding:40px 0 64px}
 .mk-pair .tk-box{filter:drop-shadow(0 10px 24px rgba(1,31,144,.16))}
 .mk-side{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 @media (max-width:900px){.mk-pair{grid-template-columns:1fr}}
+/* Печать в PDF: А4, цвета как на экране, карточка не разрезается между страницами */
+@page{size:A4;margin:12mm 10mm}
+@media print{html,body{background:#fff}body{padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.mk-item{break-inside:avoid}.mk-list{gap:24px}.mk-pair{grid-template-columns:1fr;gap:10px}.mk-sub{margin-bottom:16px}}
 </style>
 </head>
 <body>
