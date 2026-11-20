@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119154333">
-<link rel="stylesheet" href="ticket.css?v=20261119154333">
+<link rel="stylesheet" href="site.css?v=20261120165603">
+<link rel="stylesheet" href="ticket.css?v=20261120165603">
 </head>
 <body>
 
@@ -60,17 +60,6 @@
   </div>
 </section>
 
-<!-- Сколько подарить: только суммы, каждая на своей открытке для письма -->
-<section class="section" id="amounts">
-  <div class="container">
-    <!-- Панель с розовым градиентом, как подборки на tutu.ru -->
-    <div class="sum-panel">
-      <h2>Сколько подарить</h2>
-      <div class="sum-row" id="sumRow"></div>
-    </div>
-  </div>
-</section>
-
 <!-- О сертификате Туту: плитки разной высоты со стикерами и 3D, текст продолжает стикер, без точек -->
 <section class="section" id="perks">
   <div class="container">
@@ -108,20 +97,6 @@
       <li class="use-step"><span class="use-num">3</span><h3>Оплатите, и&nbsp;мы отправим письмо в&nbsp;нужный день или пришлём PDF для&nbsp;печати</h3></li>
     </ol>
     <a class="btn btn-primary how-cta" href="buy.html">Подарить сертификат</a>
-  </div>
-</section>
-
-<!-- Компаниям -->
-<section class="biz" id="business">
-  <div class="container">
-    <div class="biz-inner">
-      <div>
-        <h2>Компаниям</h2>
-        <p>Подарки сотрудникам и&nbsp;партнёрам с&nbsp;оплатой по&nbsp;счёту. Отправим сертификаты в&nbsp;PDF на&nbsp;почту или доставим готовые физические сертификаты.</p>
-        <button type="button" class="btn btn-lime" data-proto="business">Оставить заявку</button>
-      </div>
-      <img class="biz-art" src="assets/art/tickets-two.webp" alt="">
-    </div>
   </div>
 </section>
 
@@ -241,18 +216,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119154333"></script>
-<script src="shared.js?v=20261119154333"></script>
-<script src="landing.js?v=20261119154333"></script>
-<script>
-// «Сколько подарить»: открытка с суммой открывает форму с этой суммой и открыткой
-CONFIG.amountCards.forEach((c) => {
-  const b = document.createElement('a');
-  fillAmountCard(b, c);
-  b.href = 'buy.html?' + new URLSearchParams({ amount: c.amount || 'other', design: c.design }).toString();
-  $('sumRow').append(b);
-});
-makeRail($('sumRow'));
-</script>
+<script src="ticket.js?v=20261120165603"></script>
+<script src="shared.js?v=20261120165603"></script>
+<script src="landing.js?v=20261120165603"></script>
 </body>
 </html>

@@ -109,7 +109,9 @@ main > section:last-child{padding-bottom:56px}
 @media (min-width:1001px){.facts{flex-wrap:nowrap}}
 .facts li{display:inline-flex;align-items:center;gap:7px;padding:9px 15px 9px 12px;border-radius:12px;background:rgba(255,255,255,.15);color:var(--white);font-size:17px;font-weight:500;line-height:21px;white-space:nowrap}
 .facts svg{width:19px;height:19px;flex:none;fill:currentColor;opacity:.9}
-.hero-cta{margin-top:30px}
+/* Кнопка первого экрана синяя и крупнее остальных: на фиолетовом фоне фиолетовая кнопка терялась. При наведении темнее */
+.hero-cta{margin-top:30px;background:var(--blueberry);color:var(--white);min-height:60px;padding:0 36px;font-size:19px;border-radius:14px}
+@media (hover:hover) and (pointer:fine){.hero-cta:hover{background:#00125C}}
 /* Билет в первом экране: лицевая сторона лежит на обороте */
 .hero-art{position:relative;padding:0 4% 3% 0}
 .hero-back,.hero-front{filter:drop-shadow(0 24px 34px rgba(1,31,144,.35))}

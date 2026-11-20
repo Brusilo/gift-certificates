@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261119154333">
-<link rel="stylesheet" href="ticket.css?v=20261119154333">
+<link rel="stylesheet" href="site.css?v=20261120165603">
+<link rel="stylesheet" href="ticket.css?v=20261120165603">
 </head>
 <body>
 
@@ -57,17 +57,6 @@
   <div class="container">
     <h2>Кому подарить</h2>
     <div class="gift-row" id="giftRow"></div>
-  </div>
-</section>
-
-<!-- Сколько подарить: только суммы, каждая на своей открытке для письма -->
-<section class="section" id="amounts">
-  <div class="container">
-    <!-- Панель с розовым градиентом, как подборки на tutu.ru -->
-    <div class="sum-panel">
-      <h2>Сколько подарить</h2>
-      <div class="sum-row" id="sumRow"></div>
-    </div>
   </div>
 </section>
 
@@ -267,20 +256,6 @@
   </div>
 </section>
 
-<!-- Компаниям -->
-<section class="biz" id="business">
-  <div class="container">
-    <div class="biz-inner">
-      <div>
-        <h2>Компаниям</h2>
-        <p>Подарки сотрудникам и&nbsp;партнёрам с&nbsp;оплатой по&nbsp;счёту. Отправим сертификаты в&nbsp;PDF на&nbsp;почту или доставим готовые физические сертификаты.</p>
-        <button type="button" class="btn btn-lime" data-proto="business">Оставить заявку</button>
-      </div>
-      <img class="biz-art" src="assets/art/tickets-two.webp" alt="">
-    </div>
-  </div>
-</section>
-
 <section class="section" id="faq">
   <div class="container">
     <h2>Частые вопросы</h2>
@@ -396,9 +371,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261119154333"></script>
-<script src="shared.js?v=20261119154333"></script>
-<script src="landing.js?v=20261119154333"></script>
+<script src="ticket.js?v=20261120165603"></script>
+<script src="shared.js?v=20261120165603"></script>
+<script src="landing.js?v=20261120165603"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
@@ -447,22 +422,6 @@ $('amount').addEventListener('input', (e) => {
   e.target.value = n ? n.toLocaleString('ru-RU') : '';
   setAmount(n, true);
 });
-
-// «Сколько подарить»: клик выбирает сумму и открытку и ведёт к форме
-CONFIG.amountCards.forEach((c) => {
-  const b = document.createElement('button');
-  b.type = 'button';
-  fillAmountCard(b, c);
-  b.addEventListener('click', () => {
-    state.design = c.design;
-    // «Любая сумма»: поле суммы пустое, курсор сразу в нём
-    setAmount(c.amount || 0);
-    goToForm();
-    if (!c.amount) $('amount').focus({ preventScroll: true });
-  });
-  $('sumRow').append(b);
-});
-makeRail($('sumRow'));
 
 // Отправка
 document.querySelectorAll('input[name="delivery"]').forEach((r) =>
