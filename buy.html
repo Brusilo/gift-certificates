@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#986FF7">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261124211720">
-<link rel="stylesheet" href="ticket.css?v=20261124211720">
+<link rel="stylesheet" href="site.css?v=20261124212529">
+<link rel="stylesheet" href="ticket.css?v=20261124212529">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -20,7 +20,7 @@
 /* Форма уже, предпросмотр шире: билет и открытка крупнее */
 /* Планшет: мастер одной колонкой посередине, не во всю ширину */
 @media (min-width:721px) and (max-width:1100px){.builder{max-width:640px;margin-inline:auto}}
-@media (min-width:1101px){.builder{grid-template-columns:540px minmax(0,1fr);gap:48px}}
+@media (min-width:1101px){.builder{grid-template-columns:540px minmax(0,560px);gap:48px;justify-content:center}}
 .wiz{position:relative;padding:32px 0 40px;margin-top:-28px;border-radius:28px 28px 0 0;background:var(--white)}
 .top .top-inner{padding-bottom:44px}
 @media (min-width:768px){.wiz{margin-top:-40px;border-radius:40px 40px 0 0}.top .top-inner{padding-bottom:56px}}
@@ -187,7 +187,7 @@
               <div>
                 <label class="label" for="fromEmail">Ваша почта</label>
                 <input class="input" id="fromEmail" type="email" autocomplete="email" placeholder="name@mail.ru">
-                <p class="field-hint">Пришлём на&nbsp;неё чек</p><p class="err" id="fromEmailErr" hidden></p>
+                <p class="err" id="fromEmailErr" hidden></p>
               </div>
             </div>
           </div>
@@ -322,7 +322,7 @@
     <div class="faq-list">
       <details name="faq">
         <summary>Что такое сертификат?</summary>
-        <p>Это электронный код на&nbsp;сумму от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽. Им&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Направление и&nbsp;даты выберет получатель.</p>
+        <p>Это подарочная сумма от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽, которую можно потратить на&nbsp;Туту: на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели. Куда и&nbsp;когда поехать, выберет получатель.</p>
       </details>
       <details name="faq">
         <summary>Как получатель узнает о&nbsp;подарке?</summary>
@@ -330,15 +330,15 @@
       </details>
       <details name="faq">
         <summary>Как воспользоваться сертификатом?</summary>
-        <p>Выберите билеты или отель на&nbsp;сайте или в&nbsp;приложении Туту. При оплате введите код сертификата, и&nbsp;сумма заказа уменьшится. Если заказ дороже, разницу доплатите картой.</p>
+        <p>Выберите билеты или отель на&nbsp;сайте или в&nbsp;приложении Туту. При оплате введите код сертификата в&nbsp;специальное поле и&nbsp;проверьте, что сумма заказа уменьшилась. Если заказ дороже, разницу доплатите картой.</p>
       </details>
       <details name="faq">
         <summary>Сколько действует сертификат?</summary>
-        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок считается с&nbsp;него. Дата окончания указана в&nbsp;письме и&nbsp;на&nbsp;сертификате.</p>
+        <p>12&nbsp;месяцев. Дата окончания указана в&nbsp;письме и&nbsp;на&nbsp;сертификате.</p>
       </details>
       <details name="faq">
         <summary>Можно ли потратить сертификат частично?</summary>
-        <p>Да. Если поездка стоит меньше сертификата, остаток придёт новым сертификатом на&nbsp;почту, указанную в&nbsp;заказе. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
+        <p>Да. Если заказ стоит меньше сертификата, разница придёт новым сертификатом на&nbsp;почту, которую вы указали при оплате заказа. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
       </details>
       <details name="faq">
         <summary>Можно ли оплатить заказ несколькими сертификатами?</summary>
@@ -346,15 +346,15 @@
       </details>
       <details name="faq">
         <summary>Что нельзя оплатить сертификатом?</summary>
-        <p>Дополнительные услуги к&nbsp;билетам, например страховку или «100%-ный возврат». Исключение&nbsp;— багаж, оформленный вместе с&nbsp;билетом на&nbsp;автобус. Ещё сертификатом нельзя оплатить предзаказ ж/д билетов, авиабилет на&nbsp;ребёнка в&nbsp;уже оформленном заказе и&nbsp;отели с&nbsp;оплатой на&nbsp;месте, с&nbsp;вариантом «Оплатить позже» или с&nbsp;пометкой «От&nbsp;партнёра».</p>
+        <p>Дополнительные услуги к&nbsp;билетам, например страховку. Исключение&nbsp;— багаж, оформленный вместе с&nbsp;билетом на&nbsp;автобус. Ещё нельзя одним сертификатом оплатить билеты туда и&nbsp;обратно на&nbsp;поезд или автобус: каждое направление оформляется отдельным заказом со&nbsp;своим сертификатом. Не&nbsp;получится оплатить и&nbsp;предзаказ ж/д билетов, авиабилет на&nbsp;ребёнка в&nbsp;уже оформленном заказе, отели с&nbsp;оплатой на&nbsp;месте, с&nbsp;вариантом «Оплатить позже» или с&nbsp;пометкой «От&nbsp;партнёра».</p>
       </details>
       <details name="faq">
         <summary>Что будет, если вернуть билеты, оплаченные сертификатом?</summary>
-        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов. Он&nbsp;придёт на&nbsp;почту, указанную в&nbsp;заказе.</p>
+        <p>Придёт новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов. Он&nbsp;будет привязан к&nbsp;почте, указанной в&nbsp;заказе, и&nbsp;тоже действует 12&nbsp;месяцев.</p>
       </details>
       <details name="faq">
         <summary>Что делать, если сертификат потерялся?</summary>
-        <p>Напишите в&nbsp;чат поддержки на&nbsp;tutu.ru или в&nbsp;приложении Туту либо позвоните по&nbsp;номеру <a href="tel:+78005115563">8&nbsp;800&nbsp;511-55-63</a>. Поддержка работает круглосуточно. Сертификатом может воспользоваться любой, у&nbsp;кого есть код, поэтому не&nbsp;пересылайте письмо посторонним.</p>
+        <p>Сертификат не&nbsp;именной, поэтому его нельзя заблокировать или выпустить заново. Сохраните письмо и&nbsp;не&nbsp;пересылайте код посторонним. Если письмо не&nbsp;пришло, напишите в&nbsp;чат поддержки на&nbsp;tutu.ru или в&nbsp;приложении Туту либо позвоните по&nbsp;номеру <a href="tel:+78005115563">8&nbsp;800&nbsp;511-55-63</a>. Поддержка работает круглосуточно.</p>
       </details>
       <details name="faq">
         <summary>Где прочитать полные правила?</summary>
@@ -370,8 +370,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261124211720"></script>
-<script src="shared.js?v=20261124211720"></script>
+<script src="ticket.js?v=20261124212529"></script>
+<script src="shared.js?v=20261124212529"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=meadow&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
