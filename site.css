@@ -625,7 +625,9 @@ dialog .btn{width:100%}
 /* Номинал: заголовки «Номинал» и «Количество» в одну строку, под ними поле и счётчик, под полем суммы.
    Поле с подписью внутри: пустое — подпись по центру, при вводе уезжает наверх */
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.nom-row{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tl tr" "f q" "c ." "e e";column-gap:12px}
+.nom-row{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tl tr" "f q" "c ." "e e";column-gap:12px;container-type:inline-size}
+/* Широкая форма (планшет): все шесть сумм в одну строку, а не крупными плашками в две */
+@container (min-width:640px){.form .nom-row #amountChips{grid-template-columns:repeat(6,1fr)}}
 .nom-t{grid-area:tl}
 .qty-t{grid-area:tr}
 .nom-row .float-field{grid-area:f}
@@ -652,8 +654,9 @@ dialog .btn{width:100%}
 .enough{display:flex;align-items:flex-start;gap:8px;min-height:20px;margin-top:12px;padding-left:4px;font-size:14px;line-height:20px;color:var(--text)}
 .enough:not(:empty)::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:var(--action);-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 @media (max-width:560px){
-  .nom-row{grid-template-columns:minmax(0,1fr);grid-template-areas:"tl" "f" "c" "e" "tr" "q"}
-  .qty-t{margin-top:20px}
-  .qty-seg{justify-self:start}
+  /* Телефон: количество одной строкой под суммами — заголовок слева, счётчик справа */
+  .nom-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tl tl" "f f" "c c" "e e" "tr q"}
+  .qty-t{align-self:center;margin:12px 0 0}
+  .qty-seg{margin-top:12px;grid-template-columns:repeat(3,48px);height:48px}
   .enough{min-height:40px}
 }
