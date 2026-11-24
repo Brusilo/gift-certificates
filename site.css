@@ -85,6 +85,8 @@ main > section:last-child{padding-bottom:56px}
 .stk-lime::before{background:var(--lime)}
 /* Второй стикер сдвинут вправо и прижат к первому */
 .stk + .stk{margin:-.02em 0 0 .4em}
+/* В заголовке первого экрана второй стикер почти под первым */
+.hero-title .stk + .stk{margin-left:.14em}
 
 /* Шапка */
 .top{background:var(--berry)}
@@ -620,30 +622,38 @@ dialog .btn{width:100%}
   .use-steps{scroll-padding-inline:32px;margin-inline:-32px;padding-inline:32px}
 }
 
-/* Номинал: поле с подписью внутри. Пустое поле — подпись по центру, при вводе уезжает наверх */
-.nom-row{display:flex;gap:12px;align-items:stretch}
-.float-field{position:relative;flex:1;min-width:0}
-.float-input{display:block;width:100%;height:60px;border:1.5px solid var(--line);border-radius:12px;background:var(--white);padding:24px 14px 6px;font:inherit;font-size:18px;font-weight:700;line-height:24px;color:var(--ink);outline:none;transition:border-color .15s}
+/* Номинал: заголовки «Номинал» и «Количество» в одну строку, под ними поле и счётчик, под полем суммы.
+   Поле с подписью внутри: пустое — подпись по центру, при вводе уезжает наверх */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nom-row{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tl tr" "f q" "c ." "e e";column-gap:12px}
+.nom-t{grid-area:tl}
+.qty-t{grid-area:tr}
+.nom-row .float-field{grid-area:f}
+.qty-seg{grid-area:q}
+.nom-row #amountChips{grid-area:c;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.nom-row #amountChips .chip{font-size:14px;padding:7px 6px}
+.nom-row .enough{grid-area:e}
+.float-field{position:relative;min-width:0}
+.float-input{display:block;width:100%;height:56px;border:1.5px solid var(--line);border-radius:12px;background:var(--white);padding:22px 14px 5px;font:inherit;font-size:18px;font-weight:700;line-height:24px;color:var(--ink);outline:none;transition:border-color .15s}
 .float-input:focus{border-color:var(--action)}
 .float-field label{position:absolute;left:16px;right:12px;top:50%;transform:translateY(-50%);font-size:16px;line-height:20px;color:var(--muted);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:top .15s,transform .15s,font-size .15s}
-.float-input:focus + label,.float-input:not(:placeholder-shown) + label{top:9px;transform:none;font-size:12px;line-height:16px}
+.float-input:focus + label,.float-input:not(:placeholder-shown) + label{top:8px;transform:none;font-size:12px;line-height:16px}
 /* Сумма вне диапазона: рамка и подпись красные */
 .float-input.is-invalid{border-color:#E5484D}
 .float-input.is-invalid + label{color:#D92D33}
-/* Количество справа от номинала, в такой же рамке, подпись сверху */
-.qty-box{flex:none;display:flex;flex-direction:column;justify-content:center;gap:1px;height:60px;padding:0 8px 0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--white)}
-.qty-lab{font-size:12px;line-height:16px;color:var(--muted)}
-.qty-box .stepper{height:auto;margin:0 0 0 -4px;gap:2px}
-.qty-box .stepper button{width:28px;height:28px;font-size:18px}
-.qty-box .stepper input{width:40px;font-size:17px}
-.nom-row + .chips{margin-top:12px}
-/* На что хватит: строка постоянной высоты под суммами */
+/* Количество: три одинаковые секции — минус, число, плюс */
+.qty-seg{display:grid;grid-template-columns:repeat(3,52px);height:56px;border:1.5px solid var(--line);border-radius:12px;background:var(--white);overflow:hidden}
+.qty-seg button{all:unset;box-sizing:border-box;display:grid;place-items:center;cursor:pointer;color:var(--action);transition:background .15s}
+.qty-seg button svg{width:20px;height:20px}
+.qty-seg button:disabled{color:#C9C9D6;cursor:default}
+@media (hover:hover) and (pointer:fine){.qty-seg button:hover:not(:disabled){background:var(--bg-brand)}}
+.qty-seg input{all:unset;box-sizing:border-box;width:100%;text-align:center;font-weight:700;font-size:18px;color:var(--ink);border-inline:1.5px solid var(--line)}
+/* На что хватит: иконка уровня и строка постоянной высоты */
 .enough{display:flex;align-items:flex-start;gap:8px;min-height:20px;margin-top:12px;padding-left:4px;font-size:14px;line-height:20px;color:var(--text)}
-.enough:not(:empty)::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:var(--action);-webkit-mask:url('assets/ticket/ic-plane-w.svg') center/contain no-repeat;mask:url('assets/ticket/ic-plane-w.svg') center/contain no-repeat}
+.enough:not(:empty)::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:var(--action);-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 @media (max-width:560px){
-  .nom-row{flex-wrap:wrap}
-  .float-field{flex-basis:100%}
-  .qty-box{flex:1 1 100%;flex-direction:row;align-items:center;justify-content:space-between;height:52px}
-  .qty-lab{font-size:15px;color:var(--ink)}
+  .nom-row{grid-template-columns:minmax(0,1fr);grid-template-areas:"tl" "f" "c" "e" "tr" "q"}
+  .qty-t{margin-top:20px}
+  .qty-seg{justify-self:start}
   .enough{min-height:40px}
 }

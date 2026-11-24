@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261124202244">
-<link rel="stylesheet" href="ticket.css?v=20261124202244">
+<link rel="stylesheet" href="site.css?v=20261124205048">
+<link rel="stylesheet" href="ticket.css?v=20261124205048">
 </head>
 <body>
 
@@ -112,19 +112,22 @@
       <form class="form form-a" id="form" novalidate>
 
         <fieldset class="field">
-          <legend class="field-title">Номинал</legend>
+          <legend class="sr-only">Номинал</legend>
           <div class="nom-row">
+            <span class="field-title nom-t" aria-hidden="true">Номинал</span>
+            <span class="field-title qty-t" id="qtyLabel">Количество</span>
             <div class="float-field"><input class="float-input" id="amount" inputmode="numeric" autocomplete="off" placeholder=" " value="1 000"><label for="amount">Любая сумма от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</label></div>
-            <div class="qty-box" role="group" aria-labelledby="qtyLabel"><span class="qty-lab" id="qtyLabel">Количество</span><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div></div>
+            <div class="qty-seg" role="group" aria-labelledby="qtyLabel"><button type="button" id="qtyMinus" aria-label="Меньше"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></div>
+            <div class="chips" id="amountChips">
+              <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
+              <button type="button" class="chip" data-amount="50000">50&nbsp;000&nbsp;₽</button>
+            </div>
+            <p class="enough" id="amountEnough" aria-live="polite"></p>
           </div>
-          <div class="chips" id="amountChips">
-            <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
-            <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
-            <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
-            <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
-            <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
-          </div>
-          <p class="enough" id="amountEnough" aria-live="polite"></p>
         </fieldset>
 
         <fieldset class="field">
@@ -371,9 +374,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261124202244"></script>
-<script src="shared.js?v=20261124202244"></script>
-<script src="landing.js?v=20261124202244"></script>
+<script src="ticket.js?v=20261124205048"></script>
+<script src="shared.js?v=20261124205048"></script>
+<script src="landing.js?v=20261124205048"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4

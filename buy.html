@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261124202244">
-<link rel="stylesheet" href="ticket.css?v=20261124202244">
+<link rel="stylesheet" href="site.css?v=20261124205048">
+<link rel="stylesheet" href="ticket.css?v=20261124205048">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -44,7 +44,8 @@
 #faqDialog .faq-list details p{padding-bottom:14px;font-size:15px}
 .step-title{font-size:clamp(28px,3.2vw,36px);font-weight:600;letter-spacing:-.01em;margin-bottom:24px}
 .step .field:last-child{margin-bottom:0}
-.step[data-step="1"] .field-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.step[data-step="1"] .nom-t{display:none}
+.step[data-step="1"] legend.field-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .design-note{font-size:14px;color:var(--muted);background:var(--white);border-radius:12px;padding:12px 14px}
 .summary{margin:0;display:grid;gap:2px;background:var(--white);border-radius:16px;overflow:hidden}
 .summary > div{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:14px 18px;background:var(--white)}
@@ -103,19 +104,22 @@
         <div class="step" data-step="1">
           <h1 class="step-title">Номинал</h1>
           <fieldset class="field">
-            <legend class="field-title">Номинал</legend>
+            <legend class="sr-only">Номинал</legend>
             <div class="nom-row">
+              <span class="field-title nom-t" aria-hidden="true">Номинал</span>
+              <span class="field-title qty-t" id="qtyLabel">Количество</span>
               <div class="float-field"><input class="float-input" id="amount" inputmode="numeric" autocomplete="off" placeholder=" "><label for="amount">Любая сумма от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</label></div>
-              <div class="qty-box" role="group" aria-labelledby="qtyLabel"><span class="qty-lab" id="qtyLabel">Количество</span><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div></div>
+              <div class="qty-seg" role="group" aria-labelledby="qtyLabel"><button type="button" id="qtyMinus" aria-label="Меньше"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></div>
+              <div class="chips" id="amountChips">
+                <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
+                <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
+                <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
+                <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
+                <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
+                <button type="button" class="chip" data-amount="50000">50&nbsp;000&nbsp;₽</button>
+              </div>
+              <p class="enough" id="amountEnough" aria-live="polite"></p>
             </div>
-            <div class="chips" id="amountChips">
-              <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
-              <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
-              <button type="button" class="chip" data-amount="5000">5&nbsp;000&nbsp;₽</button>
-              <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
-              <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
-            </div>
-            <p class="enough" id="amountEnough" aria-live="polite"></p>
           </fieldset>
         </div>
 
@@ -366,8 +370,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261124202244"></script>
-<script src="shared.js?v=20261124202244"></script>
+<script src="ticket.js?v=20261124205048"></script>
+<script src="shared.js?v=20261124205048"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=meadow&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
