@@ -619,3 +619,31 @@ dialog .btn{width:100%}
 @media (min-width:721px) and (max-width:1260px){
   .use-steps{scroll-padding-inline:32px;margin-inline:-32px;padding-inline:32px}
 }
+
+/* Номинал: поле с подписью внутри. Пустое поле — подпись по центру, при вводе уезжает наверх */
+.nom-row{display:flex;gap:12px;align-items:stretch}
+.float-field{position:relative;flex:1;min-width:0}
+.float-input{display:block;width:100%;height:60px;border:1.5px solid var(--line);border-radius:12px;background:var(--white);padding:24px 14px 6px;font:inherit;font-size:18px;font-weight:700;line-height:24px;color:var(--ink);outline:none;transition:border-color .15s}
+.float-input:focus{border-color:var(--action)}
+.float-field label{position:absolute;left:16px;right:12px;top:50%;transform:translateY(-50%);font-size:16px;line-height:20px;color:var(--muted);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:top .15s,transform .15s,font-size .15s}
+.float-input:focus + label,.float-input:not(:placeholder-shown) + label{top:9px;transform:none;font-size:12px;line-height:16px}
+/* Сумма вне диапазона: рамка и подпись красные */
+.float-input.is-invalid{border-color:#E5484D}
+.float-input.is-invalid + label{color:#D92D33}
+/* Количество справа от номинала, в такой же рамке, подпись сверху */
+.qty-box{flex:none;display:flex;flex-direction:column;justify-content:center;gap:1px;height:60px;padding:0 8px 0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--white)}
+.qty-lab{font-size:12px;line-height:16px;color:var(--muted)}
+.qty-box .stepper{height:auto;margin:0 0 0 -4px;gap:2px}
+.qty-box .stepper button{width:28px;height:28px;font-size:18px}
+.qty-box .stepper input{width:40px;font-size:17px}
+.nom-row + .chips{margin-top:12px}
+/* На что хватит: строка постоянной высоты под суммами */
+.enough{display:flex;align-items:flex-start;gap:8px;min-height:20px;margin-top:12px;padding-left:4px;font-size:14px;line-height:20px;color:var(--text)}
+.enough:not(:empty)::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:var(--action);-webkit-mask:url('assets/ticket/ic-plane-w.svg') center/contain no-repeat;mask:url('assets/ticket/ic-plane-w.svg') center/contain no-repeat}
+@media (max-width:560px){
+  .nom-row{flex-wrap:wrap}
+  .float-field{flex-basis:100%}
+  .qty-box{flex:1 1 100%;flex-direction:row;align-items:center;justify-content:space-between;height:52px}
+  .qty-lab{font-size:15px;color:var(--ink)}
+  .enough{min-height:40px}
+}

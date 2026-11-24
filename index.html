@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#A181FF">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261120170308">
-<link rel="stylesheet" href="ticket.css?v=20261120170308">
+<link rel="stylesheet" href="site.css?v=20261124202244">
+<link rel="stylesheet" href="ticket.css?v=20261124202244">
 </head>
 <body>
 
@@ -36,8 +36,8 @@
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <h1 class="hero-title stk-group"><span class="stk stk-red">Подарите</span><span class="stk stk-lime">путешествие</span></h1>
-      <p class="hero-sub">Подарочный сертификат на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Даты и&nbsp;направление выберет получатель.</p>
+      <h1 class="hero-title stk-group"><span class="stk stk-red">Подарочные</span><span class="stk stk-lime">сертификаты</span></h1>
+      <p class="hero-sub">Можно потратить на&nbsp;ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Даты и&nbsp;направление выберет получатель.</p>
       <ul class="facts">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2a7 7 0 0 1 7 7c0 5.2-7 13-7 13S5 14.2 5 9a7 7 0 0 1 7-7Zm0 4.4a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Z"/></svg>Куда и&nbsp;когда угодно</li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11A2.5 2.5 0 0 1 5.5 4ZM3 8.4v2.4h18V8.4H3Zm3 6.2v1.6h5v-1.6H6Z"/></svg>От&nbsp;100&nbsp;₽</li>
@@ -112,7 +112,11 @@
       <form class="form form-a" id="form" novalidate>
 
         <fieldset class="field">
-          <legend class="field-title">Сумма</legend>
+          <legend class="field-title">Номинал</legend>
+          <div class="nom-row">
+            <div class="float-field"><input class="float-input" id="amount" inputmode="numeric" autocomplete="off" placeholder=" " value="1 000"><label for="amount">Любая сумма от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</label></div>
+            <div class="qty-box" role="group" aria-labelledby="qtyLabel"><span class="qty-lab" id="qtyLabel">Количество</span><div class="stepper"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div></div>
+          </div>
           <div class="chips" id="amountChips">
             <button type="button" class="chip" data-amount="1000">1&nbsp;000&nbsp;₽</button>
             <button type="button" class="chip" data-amount="3000">3&nbsp;000&nbsp;₽</button>
@@ -120,11 +124,7 @@
             <button type="button" class="chip" data-amount="10000">10&nbsp;000&nbsp;₽</button>
             <button type="button" class="chip" data-amount="25000">25&nbsp;000&nbsp;₽</button>
           </div>
-          <div class="amount-row">
-            <label class="label" for="amount">Другая сумма</label>
-              <div class="amount-box"><input class="input amount-input" id="amount" inputmode="numeric" autocomplete="off" value="1 000"><p class="field-hint" id="amountHint">От&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽</p><p class="err" id="amountErr" hidden></p></div>
-              <div class="stepper" role="group" aria-label="Количество сертификатов"><button type="button" id="qtyMinus" aria-label="Меньше">−</button><input id="qty" inputmode="numeric" autocomplete="off" value="1" aria-label="Количество сертификатов"><button type="button" id="qtyPlus" aria-label="Больше">+</button></div>
-            </div>
+          <p class="enough" id="amountEnough" aria-live="polite"></p>
         </fieldset>
 
         <fieldset class="field">
@@ -262,39 +262,39 @@
     <div class="faq-list">
       <details>
         <summary>Что такое сертификат?</summary>
-        <p>Это не&nbsp;тур и&nbsp;не&nbsp;билет на&nbsp;конкретные даты, а&nbsp;сумма. Ею&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы, отели и&nbsp;аренду машины на&nbsp;Туту.</p>
+        <p>Это электронный код на&nbsp;сумму от&nbsp;100 до&nbsp;200&nbsp;000&nbsp;₽. Им&nbsp;можно оплатить ж/д и&nbsp;авиабилеты, автобусы и&nbsp;отели на&nbsp;Туту. Направление и&nbsp;даты выберет получатель.</p>
       </details>
       <details>
         <summary>Как получатель узнает о&nbsp;подарке?</summary>
-        <p>Если вы выбрали письмо, мы&nbsp;отправим его получателю в&nbsp;день, который вы&nbsp;укажете. В&nbsp;письме будут открытка, поздравление, код сертификата и&nbsp;срок действия. Если вы&nbsp;хотите вручить подарок лично, мы&nbsp;пришлём вам PDF для печати.</p>
+        <p>Если вы выбрали отправку на&nbsp;почту, получатель получит письмо сразу после оплаты или в&nbsp;выбранный день. В&nbsp;письме будут открытка, поздравление, код сертификата и&nbsp;срок действия. Если вы&nbsp;решили вручить подарок лично, PDF для печати придёт вам на&nbsp;почту.</p>
       </details>
       <details>
         <summary>Как воспользоваться сертификатом?</summary>
-        <p>Выберите билеты или отель на&nbsp;сайте или в&nbsp;приложении Туту. При оформлении заказа введите код сертификата в&nbsp;специальное поле и&nbsp;проверьте, что сумма уменьшилась. Если заказ дороже, доплатите картой.</p>
+        <p>Выберите билеты или отель на&nbsp;сайте или в&nbsp;приложении Туту. При оплате введите код сертификата, и&nbsp;сумма заказа уменьшится. Если заказ дороже, разницу доплатите картой.</p>
       </details>
       <details>
         <summary>Сколько действует сертификат?</summary>
-        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок начнётся с&nbsp;него. Дату окончания мы&nbsp;укажем в&nbsp;письме.</p>
+        <p>12&nbsp;месяцев с&nbsp;момента отправки. Если вы&nbsp;выбрали день отправки, срок считается с&nbsp;него. Дата окончания указана в&nbsp;письме и&nbsp;на&nbsp;сертификате.</p>
       </details>
       <details>
         <summary>Можно ли потратить сертификат частично?</summary>
-        <p>Да. Если поездка стоит меньше сертификата, мы&nbsp;пришлём остаток новым сертификатом на&nbsp;почту, указанную при оплате заказа. В&nbsp;следующий раз вводите код нового сертификата. Он&nbsp;тоже действует 12&nbsp;месяцев.</p>
+        <p>Да. Если поездка стоит меньше сертификата, остаток придёт новым сертификатом на&nbsp;почту, указанную в&nbsp;заказе. Новый сертификат тоже действует 12&nbsp;месяцев.</p>
       </details>
       <details>
         <summary>Можно ли оплатить заказ несколькими сертификатами?</summary>
-        <p>Нет, один заказ оплачивается одним сертификатом. Разницу можно доплатить картой.</p>
+        <p>Нет. Один заказ оплачивается одним сертификатом, разницу можно доплатить картой.</p>
       </details>
       <details>
         <summary>Что нельзя оплатить сертификатом?</summary>
-        <p>Дополнительные услуги к&nbsp;билетам, например страховку или «100%-ный возврат». Из&nbsp;них можно оплатить только багаж, оформленный вместе с&nbsp;билетом на&nbsp;автобус. Ещё нельзя оплатить предзаказ ж/д билетов, авиабилет на&nbsp;ребёнка в&nbsp;уже оформленном заказе и&nbsp;отели с&nbsp;оплатой на&nbsp;месте, с&nbsp;вариантом «Оплатить позже» или с&nbsp;пометкой «От&nbsp;партнёра».</p>
+        <p>Дополнительные услуги к&nbsp;билетам, например страховку или «100%-ный возврат». Исключение&nbsp;— багаж, оформленный вместе с&nbsp;билетом на&nbsp;автобус. Ещё сертификатом нельзя оплатить предзаказ ж/д билетов, авиабилет на&nbsp;ребёнка в&nbsp;уже оформленном заказе и&nbsp;отели с&nbsp;оплатой на&nbsp;месте, с&nbsp;вариантом «Оплатить позже» или с&nbsp;пометкой «От&nbsp;партнёра».</p>
       </details>
       <details>
         <summary>Что будет, если вернуть билеты, оплаченные сертификатом?</summary>
-        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов на&nbsp;почту, указанную при оплате заказа.</p>
+        <p>Мы&nbsp;пришлём новый сертификат на&nbsp;ту&nbsp;же сумму за&nbsp;вычетом сборов. Он&nbsp;придёт на&nbsp;почту, указанную в&nbsp;заказе.</p>
       </details>
       <details>
         <summary>Что делать, если сертификат потерялся?</summary>
-        <p>Сертификат не&nbsp;именной: им&nbsp;может воспользоваться любой, у&nbsp;кого есть код, поэтому сохраните письмо и&nbsp;не&nbsp;пересылайте код посторонним. Если письмо не&nbsp;пришло или код потерялся, напишите в&nbsp;чат поддержки на&nbsp;tutu.ru или в&nbsp;приложении Туту либо позвоните по&nbsp;номеру <a href="tel:+78005115563">8&nbsp;800&nbsp;511-55-63</a>. Поддержка работает круглосуточно.</p>
+        <p>Напишите в&nbsp;чат поддержки на&nbsp;tutu.ru или в&nbsp;приложении Туту либо позвоните по&nbsp;номеру <a href="tel:+78005115563">8&nbsp;800&nbsp;511-55-63</a>. Поддержка работает круглосуточно. Сертификатом может воспользоваться любой, у&nbsp;кого есть код, поэтому не&nbsp;пересылайте письмо посторонним.</p>
       </details>
       <details>
         <summary>Где прочитать полные правила?</summary>
@@ -371,9 +371,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261120170308"></script>
-<script src="shared.js?v=20261120170308"></script>
-<script src="landing.js?v=20261120170308"></script>
+<script src="ticket.js?v=20261124202244"></script>
+<script src="shared.js?v=20261124202244"></script>
+<script src="landing.js?v=20261124202244"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: билет с двух сторон или лист А4
@@ -452,9 +452,8 @@ function render() {
   // Сумма
   $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
   // Ошибка встает на место подсказки, чтобы форма не меняла высоту
-  $('amountErr').hidden = amountOk || !state.amount;
-  $('amountHint').hidden = !$('amountErr').hidden;
-  $('amountErr').textContent = state.amount < CONFIG.minAmount ? `Минимальная сумма ${fmt(CONFIG.minAmount)}` : `Максимальная сумма ${fmt(CONFIG.maxAmount)}`;
+  // Сумма вне диапазона: подпись в поле красная. Под суммами пример, на что хватит
+  fillEnough(amountOk ? state.amount : 0);
   // На кнопке сумма за все сертификаты
   $('payBtn').textContent = payText(state.qty, state.amount, amountOk);
   fitButton($('payBtn'));
@@ -554,7 +553,7 @@ $('form').addEventListener('submit', (e) => {
   const toRecipient = state.delivery === 'recipient';
   const a4 = !toRecipient && state.format === 'a4';
   showProto('Здесь будет оплата', [
-    state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Сумма: ' + fmt(state.amount),
+    state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Номинал: ' + fmt(state.amount),
     toRecipient ? 'Открытка: ' + findDesign(state.design).name
       : a4 ? 'Лист, открытка: ' + findDesign(state.design).name
       : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
