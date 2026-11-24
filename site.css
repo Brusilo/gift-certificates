@@ -86,7 +86,9 @@ main > section:last-child{padding-bottom:56px}
 /* Второй стикер сдвинут вправо и прижат к первому */
 .stk + .stk{margin:-.02em 0 0 .4em}
 /* В заголовке первого экрана второй стикер почти под первым */
-.hero-title .stk + .stk{margin-left:.14em}
+.hero-title .stk + .stk{margin-left:.3em}
+/* На компьютере заголовок чуть левее: наклонённая плашка визуально отступает от края текста */
+@media (min-width:1101px){.hero-title{margin-left:-.1em}}
 
 /* Шапка */
 .top{background:var(--berry)}
