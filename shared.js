@@ -94,7 +94,7 @@ function mountHero() {
   const f = { amount: fmt(10000), to: 'Маша', from: 'Петя', msg: 'Пусть впереди будет много отличных путешествий!', till: untilText(until) };
   tkMount($('heroBack'), 'back', d); tkFill($('heroBack'), f);
   // Лицевая сторона синяя: фиолетовая сливалась с фоном первого экрана. Логотип на синем белый, корешок тоже синий, как у оборота
-  tkMount($('heroFront'), 'front', { ...d, id: 'hero-' + d.id, sticker: 'Дарите', stkW: 19, stkWMax: 110, stkS: 17.5, stkSMax: 140, main: '#011F90', stub: '#011F90' }); tkFill($('heroFront'), { ...f, amount: 'Впечатления' });
+  tkMount($('heroFront'), 'front', { ...d, id: 'hero-' + d.id, sticker: 'Дарите', stkW: 16, stkWMax: 100, stkS: 15, stkSMax: 120, main: '#011F90', stub: '#011F90' }); tkFill($('heroFront'), { ...f, amount: 'Впечатления' });
 }
 
 // Карточка «Кому подарить»: фото, фиолетовая волна, заголовок и подпись
