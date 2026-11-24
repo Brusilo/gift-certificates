@@ -43,7 +43,7 @@ const tkLogo = (d) => `<img class="tk-logo" src="${TK}${[TK_BLUEBERRY, '#5F17C5'
 function tkCardHtml(d) {
   return `<div class="tk tk-card" style="--main:${d.main}">
 <div class="tk-main">${tkArt(d)}${tkLogo(d)}
-<div class="tk-stks"><span class="tk-stk tk-stk-w" data-fit="13.8" data-max="92">${d.sticker || 'Сертификат'}</span><span class="tk-stk tk-stk-s" data-f="amount" data-fit="20.9" data-max="100"></span></div>
+<div class="tk-stks"><span class="tk-stk tk-stk-w" data-fit="13.8" data-max="92">${d.sticker || 'Сертификат'}</span><span class="tk-stk tk-stk-s" data-f="amount" data-fit="20.9" data-max="104"></span></div>
 ${tkWho(d)}
 </div></div>`;
 }
@@ -52,7 +52,7 @@ function tkFrontHtml(d) {
   const icon = (f, cap, cls = '') => `<div class="tk-icon"><i><img class="${cls}" src="${TK}ic-${f}-w.svg" alt=""></i><span>${cap}</span></div>`;
   return `<div class="tk tk-front" style="--main:${d.main};--stub:${d.stub}">
 <div class="tk-main">${tkArt(d)}${tkLogo(d)}
-<div class="tk-stks"><span class="tk-stk tk-stk-w" data-fit="13.8" data-max="92">${d.sticker || 'Сертификат'}</span><span class="tk-stk tk-stk-s" data-f="amount" data-fit="20.9" data-max="100"></span></div>
+<div class="tk-stks"><span class="tk-stk tk-stk-w" data-fit="13.8" data-max="92">${d.sticker || 'Сертификат'}</span><span class="tk-stk tk-stk-s" data-f="amount" data-fit="20.9" data-max="104"></span></div>
 ${tkWho(d)}
 </div>
 <div class="tk-perf"></div>
