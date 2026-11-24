@@ -498,7 +498,8 @@ dialog .btn{width:100%}
   .hero-grid{gap:0}
   .hero-grid > div:first-child{display:contents}
   /* Билеты лежат фоном за заголовком, полупрозрачные и чуть размытые, как чемодан на индийском лендинге */
-  .hero-title{order:1;position:relative;z-index:1;margin:34px 0 18px;font-size:clamp(46px,15.4vw,68px)}
+  /* Ниже и чуть мельче: правый край наклонного стикера заходил на кнопку меню */
+  .hero-title{order:1;position:relative;z-index:1;margin:52px 0 18px;font-size:clamp(40px,13.4vw,60px)}
   /* Маска режет всё, что за рамкой блока, поэтому сверху у блока запас под наклонённый билет: иначе ровный срез */
   .hero-art{position:absolute;z-index:0;top:-46px;right:-100px;width:320px;max-width:none;margin:0;padding:44px 0 0;opacity:.5;filter:blur(.8px);pointer-events:none;
     -webkit-mask-image:linear-gradient(to bottom,#000 38%,transparent 76%);mask-image:linear-gradient(to bottom,#000 38%,transparent 76%)}
@@ -656,9 +657,9 @@ dialog .btn{width:100%}
 .enough{display:flex;align-items:flex-start;gap:8px;min-height:20px;margin-top:12px;padding-left:4px;font-size:14px;line-height:20px;color:var(--text)}
 .enough:not(:empty)::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:var(--action);-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 @media (max-width:560px){
-  /* Телефон: количество одной строкой под суммами — заголовок слева, счётчик справа */
-  .nom-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tl tl" "f f" "c c" "e e" "tr q"}
-  .qty-t{align-self:center;margin:12px 0 0}
-  .qty-seg{margin-top:12px;grid-template-columns:repeat(3,48px);height:48px}
-  .enough{min-height:40px}
+  /* Телефон: количество под суммами, подпись как у «Кому» и «От кого», счётчик слева */
+  .nom-row{grid-template-columns:minmax(0,1fr);grid-template-areas:"tl" "f" "c" "e" "tr" "q"}
+  .qty-t{margin:16px 0 8px;padding-left:4px;font-size:16px;font-weight:600}
+  .form-a .qty-t{font-size:15px;font-weight:500}
+  .qty-seg{justify-self:start;grid-template-columns:repeat(3,48px);height:48px}
 }
