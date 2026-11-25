@@ -57,10 +57,10 @@ const CONFIG = {
   ],
   // Карточки «Кому подарить»: кому подойдёт подарок. Не кликаются. pos — какая часть фото видна над волной
   giftCards: [
-    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '55% 45%' },
-    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%' },
+    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '50% 0%', size: 'auto 62%', bg: '#F1ECE6' },
+    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 100%', size: 'auto 125%' },
     { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '70% 22%' },
-    { title: 'Виновникам торжества', text: 'Подарок к празднику, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 35%' }
+    { title: 'Виновникам торжества', text: 'Подарок к празднику, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 80%' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
@@ -104,7 +104,11 @@ function fillGiftCard(el, c) {
     + '<svg class="gift-wave" viewBox="0 0 720 513" preserveAspectRatio="none" aria-hidden="true"><path d="M0 513V310C0 150 40 75 205 52L530 6C650-10 720 60 720 215V513Z"/></svg>'
     + '<span class="gift-body"><span class="gift-title"></span><span class="gift-example"></span></span>';
   el.querySelector('.gift-photo').style.backgroundImage = `url('${c.photo}')`;
-  el.querySelector('.gift-photo').style.backgroundPosition = c.pos || 'center';
+  const ph = el.querySelector('.gift-photo');
+  ph.style.backgroundPosition = c.pos || 'center';
+  // size — масштаб фото (крупнее, чтобы сдвинуть кадр; мельче, чтобы отдалить), bg — цвет под фото, если оно не на всю карточку
+  if (c.size) ph.style.backgroundSize = c.size;
+  if (c.bg) ph.style.backgroundColor = c.bg;
   el.querySelector('.gift-title').textContent = c.title;
   el.querySelector('.gift-example').textContent = c.text;
 }
