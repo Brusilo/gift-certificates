@@ -169,8 +169,9 @@ main > section:last-child{padding-bottom:56px}
 .pk-t{position:absolute;z-index:2;margin:0;color:var(--white);font-size:2.95cqw;font-weight:700;line-height:1.08}
 /* Размеры и места сняты с плиток tutu.ru: текст около 3% ширины, крупный стикер на стыке левых плиток,
    в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
-.pk-a{left:3.2%;top:7%;width:34%}
-.pk-b{left:3.2%;top:78%;width:33%}
+/* Текст по высоте в середине своей плитки */
+.pk-a{left:3.2%;top:15%;width:30%}
+.pk-b{left:3.2%;top:72%;width:39%}
 .pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
@@ -190,8 +191,8 @@ main > section:last-child{padding-bottom:56px}
 .use-step::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 51.2 36' preserveAspectRatio='none'%3E%3Cpath fill='%23011F90' d='M7.70,9.13 Q10.32,0.00 19.82,0.00 L45.80,0.00 Q51.20,0.00 49.71,5.19 L43.50,26.87 Q40.88,36.00 31.38,36.00 L5.40,36.00 Q0.00,36.00 1.49,30.81 Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
 /* Номер внизу карточки, кружок выходит за край, как «в углу» на обороте билета */
 .use-num{position:absolute;left:26px;bottom:-14px;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--strawberry);color:var(--white);font-size:24px;font-weight:900;line-height:1;padding-bottom:2px}
-/* Блок текста по центру фигуры, строки выровнены по левому краю и сбалансированы по длине */
-.use-step h3{font-size:22px;font-weight:600;line-height:1.25;color:var(--white);text-wrap:balance}
+/* Блок текста по центру фигуры, строки выровнены по левому краю */
+.use-step h3{position:relative;left:4px;font-size:22px;font-weight:600;line-height:1.25;color:var(--white)}
 /* На планшете и компьютере текст шагов крупнее, как было на компьютере */
 @media (min-width:721px){.use-step h3{font-size:24px}.use-steps{gap:24px}.use-step{flex-basis:350px}.use-step + .use-step::after{left:-12px}}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
@@ -324,7 +325,7 @@ html.pv-lock{overflow:hidden}
 .pv-side{display:block;margin:18px 0 8px;font-size:17px;font-weight:600;color:var(--ink)}
 .pv-side:first-child{margin-top:0}
 /* Лист А4 в предпросмотре: пропорции листа, тень как у бумаги */
-.pv-a4{display:block;width:100%;aspect-ratio:210/297;border:0;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.pv-a4{display:block;width:100%;aspect-ratio:210/297;border:1.5px solid var(--line);border-radius:6px;background:#fff}
 .letter{margin-top:20px;background:var(--bg-brand);border-radius:18px;padding:18px 20px}
 .letter-title{font-size:26px;font-weight:700;line-height:1.25;color:var(--ink);word-break:break-word;margin-bottom:10px}
 .letter-h{margin:18px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
@@ -671,15 +672,14 @@ dialog .btn{width:100%}
 @media (min-width:1101px){
   .hero-sub{font-size:21px;max-width:620px}
   .hero-cta{min-height:72px;padding:0 52px;font-size:23px;border-radius:16px}
-  /* Билеты крупнее на 20%, но это декор: увеличены трансформацией, поэтому экран от них не растёт.
-     Белая панель поднята выше, низ билетов уходит под неё */
-  .hero{padding-bottom:48px}
+  /* Билеты — декор: на 20% меньше, главное в первом экране — заголовок и кнопка */
+  .hero{padding-bottom:80px}
   .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px}
-  .hero-art{padding:0 4% 0 0;transform:scale(1.2);transform-origin:90% 22%}
+  .hero-art{padding:0 4% 0 0;transform:scale(.8);transform-origin:70% 50%}
   /* «Как подарить» на всю ширину страницы, края совпадают с плитками выше. Всё внутри шагов —
      текст, кружки, стрелки — растёт вместе с шириной (в долях ширины ряда, cqw) */
   .use-steps{container-type:inline-size;gap:6cqw;overflow:visible;padding-bottom:2cqw}
-  .use-step{flex:1 1 0;min-width:0;min-height:18cqw;padding:3.2cqw 5.4cqw}
+  .use-step{flex:1 1 0;min-width:0;min-height:18cqw;padding:3.2cqw 4.2cqw}
   .use-step h3{font-size:clamp(22px,1.95cqw,30px)}
   .use-num{left:2.1cqw;bottom:-1.15cqw;width:3.8cqw;height:3.8cqw;font-size:1.95cqw}
   .use-step + .use-step::after{left:-3cqw;width:4.6cqw;height:2.8cqw}
