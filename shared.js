@@ -60,7 +60,7 @@ const CONFIG = {
     { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '55% 45%' },
     { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 30%' },
     { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '70% 22%' },
-    { title: 'К празднику', text: 'Подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 35%' }
+    { title: 'Друзьям и коллегам', text: 'Универсальный подарок, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 35%' }
   ],
   // Блок «Сколько подарить»: только суммы, каждая на своей открытке для письма. Клик выбирает сумму и открытку
   // Синие и фиолетовые открытки по очереди: на розовой панели синие заметнее
@@ -231,6 +231,39 @@ function fillEnough(amount) {
   const el = $('amountEnough');
   el.textContent = row ? row[1] : '';
   el.style.setProperty('--ic', row ? `url('assets/ticket/ic-${row[2]}-w.svg')` : 'none');
+}
+
+// Готовые поздравления. Свой текст не пропадает: перед заменой шаблоном он запоминается,
+// и появляется кнопка «Мой текст», которая его возвращает. Возвращает функцию, отмечающую выбранный шаблон
+function initTemplates(onChange) {
+  const box = $('templates'), msg = $('message');
+  const isTpl = (v) => CONFIG.templates.some((t) => t.text === v);
+  let own = '';
+  const back = document.createElement('button');
+  back.type = 'button';
+  back.className = 'chip chip-own';
+  back.textContent = '↩ Мой текст';
+  back.hidden = true;
+  back.addEventListener('click', () => { msg.value = own; onChange(); });
+  box.append(back);
+  CONFIG.templates.forEach((t) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.textContent = t.label;
+    b.dataset.tpl = t.text;
+    b.addEventListener('click', () => {
+      if (msg.value.trim() && !isTpl(msg.value)) own = msg.value;
+      msg.value = t.text;
+      onChange();
+    });
+    box.append(b);
+  });
+  msg.addEventListener('input', () => { if (!isTpl(msg.value)) own = msg.value; });
+  return () => {
+    back.hidden = !own.trim() || msg.value === own;
+    box.querySelectorAll('[data-tpl]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.tpl === msg.value));
+  };
 }
 
 const payText = (qty, amount, amountOk) => amountOk ? 'Оплатить · ' + fmt(qty * amount) : 'Оплатить';

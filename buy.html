@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#986FF7">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261125214749">
-<link rel="stylesheet" href="ticket.css?v=20261125214749">
+<link rel="stylesheet" href="site.css?v=20261125220105">
+<link rel="stylesheet" href="ticket.css?v=20261125220105">
 <style>
 /* Форма-мастер: один шаг на экран */
 /* Запас высоты блока уходит вниз, а не между предпросмотром и формой */
@@ -155,8 +155,8 @@
           <div id="formatBlock" hidden>
             <span class="label pick-label">Формат</span>
             <div class="seg" role="group" aria-label="Формат">
-              <button type="button" data-format="ticket">Билет</button>
-              <button type="button" data-format="a4">Лист</button>
+              <button type="button" data-format="a4">Односторонний</button>
+              <button type="button" data-format="ticket">Двусторонний</button>
             </div>
             <p class="seg-hint" id="formatHint"></p>
           </div>
@@ -370,8 +370,8 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261125214749"></script>
-<script src="shared.js?v=20261125214749"></script>
+<script src="ticket.js?v=20261125220105"></script>
+<script src="shared.js?v=20261125220105"></script>
 <script>
 // Начальные значения приходят с лендинга: buy.html?amount=5000&design=meadow&template=birthday или ?amount=other
 const params = new URLSearchParams(location.search);
@@ -385,7 +385,7 @@ const state = {
   delivery: 'recipient',
   // Сколько одинаковых сертификатов и как распечатать при «Вручу лично»: билет с двух сторон или лист А4
   qty: 1,
-  format: 'ticket',
+  format: 'a4',
   when: 'now'
 };
 
@@ -404,14 +404,8 @@ const STEPS = 4;
 // Открытка для письма, оформление билета для печати и шаблоны
 buildPicker('designs', CONFIG.designs, 'card', (id) => { state.design = id; render(); });
 buildPicker('tickets', CONFIG.tickets, 'front', (id) => { state.ticket = id; render(); });
-CONFIG.templates.forEach((t) => {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'chip';
-  b.textContent = t.label;
-  b.addEventListener('click', () => { $('message').value = t.text; render(); });
-  $('templates').append(b);
-});
+// Готовые поздравления: свой текст не теряется, кнопка «Мой текст» его возвращает
+const syncTemplates = initTemplates(render);
 
 // Сумма
 const parseAmount = (v) => parseInt(String(v).replace(/\D/g, ''), 10) || 0;
@@ -449,6 +443,7 @@ function whenText() {
 }
 
 function render() {
+  syncTemplates();
   const d = findDesign(state.design);
   const t = findTicket(state.ticket);
   const amountOk = amountValid();
@@ -528,7 +523,7 @@ function render() {
     ['От кого', fromName, 2],
     ['Поздравление', msg || 'Пусть впереди будет много отличных путешествий!', 2],
     ['Как подарить', toRecipient ? 'На почту, ' + whenText() : many ? 'Лично, все одним PDF вам на почту' : 'Лично, PDF вам на почту', 3],
-    ...(toRecipient ? [] : [['Формат', a4 ? 'Лист, ' + d.name : 'Билет с двух сторон, ' + t.name, 3]]),
+    ...(toRecipient ? [] : [['Формат', a4 ? 'Односторонний, ' + d.name : 'Двусторонний билет, ' + t.name, 3]]),
     [toRecipient ? 'Почта получателя' : 'Ваша почта', toRecipient ? $('toEmail').value.trim() : $('selfEmail').value.trim(), 3]
   ];
   $('summary').replaceChildren(...rows.map(([label, value, step]) => {
@@ -585,7 +580,7 @@ $('form').addEventListener('submit', (e) => {
   const a4 = !toRecipient && state.format === 'a4';
   showProto('Здесь будет оплата', [
     state.qty > 1 ? `${certs(state.qty)} по ${fmt(state.amount)}, итого ${fmt(state.qty * state.amount)}` : 'Номинал: ' + fmt(state.amount),
-    toRecipient ? 'Открытка: ' + d.name : a4 ? 'Лист, открытка: ' + d.name : 'Билет с двух сторон: ' + findTicket(state.ticket).name,
+    toRecipient ? 'Открытка: ' + d.name : a4 ? 'Односторонний, открытка: ' + d.name : 'Двусторонний билет: ' + findTicket(state.ticket).name,
     toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);
 });
