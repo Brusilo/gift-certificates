@@ -170,7 +170,7 @@ main > section:last-child{padding-bottom:56px}
 /* Размеры и места сняты с плиток tutu.ru: текст около 3% ширины, крупный стикер на стыке левых плиток,
    в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
 /* Текст по высоте в середине своей плитки */
-.pk-a{left:4.6%;top:15%;width:30%}
+.pk-a{left:4.6%;top:12.8%;width:30%}
 .pk-b{left:3.2%;top:72%;width:39%}
 .pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
@@ -674,15 +674,16 @@ dialog .btn{width:100%}
   .hero-cta{min-height:72px;padding:0 52px;font-size:23px;border-radius:16px}
   /* Билеты — декор: на 20% меньше, главное в первом экране — заголовок и кнопка */
   .hero{padding-bottom:80px}
-  .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px}
-  .hero-art{padding:0 4% 0 0;transform:scale(.88);transform-origin:70% 50%}
+  /* Колонки поровну, билеты прижаты к центру: середина экрана не пустая */
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+  .hero-art{padding:0 4% 0 0;transform:scale(.92);transform-origin:20% 50%}
   /* «Как подарить» на всю ширину страницы, края совпадают с плитками выше. Всё внутри шагов —
      текст, кружки, стрелки — растёт вместе с шириной (в долях ширины ряда, cqw) */
   .use-steps{container-type:inline-size;gap:6cqw;overflow:visible;padding-bottom:2cqw}
   .use-step{flex:1 1 0;min-width:0;min-height:18cqw;padding:3.2cqw 4.2cqw}
   /* Второй шаг в четыре строки, третий чуть правее */
-  .use-step:nth-child(2) h3{max-width:8.6em}
-  .use-step:nth-child(3) h3{left:8px}
+  .use-step:nth-child(2) h3{max-width:8.6em;left:8px}
+  .use-step:nth-child(3) h3{left:12px}
   .use-step h3{font-size:clamp(22px,1.95cqw,30px)}
   .use-num{left:2.1cqw;bottom:-1.15cqw;width:3.8cqw;height:3.8cqw;font-size:1.95cqw}
   .use-step + .use-step::after{left:-3cqw;width:4.6cqw;height:2.8cqw}

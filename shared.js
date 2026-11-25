@@ -57,8 +57,8 @@ const CONFIG = {
   ],
   // Карточки «Кому подарить»: кому подойдёт подарок. Не кликаются. pos — какая часть фото видна над волной
   giftCards: [
-    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '50% 0%', size: 'auto 62%', bg: '#F1ECE6' },
-    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 100%', size: 'auto 125%' },
+    { title: 'Родителям', text: 'Отдых там, где они давно мечтали побывать', photo: 'assets/who/parents-tea.webp', pos: '50% 0%', size: 'auto 70%', bg: '#F1ECE6' },
+    { title: 'Любителям путешествий', text: 'Они знают, куда отправиться в следующий раз', photo: 'assets/who/airport.webp', pos: '58% 100%', size: 'auto 114%' },
     { title: 'Тем, кто живет далеко', text: 'Чтобы встретиться как можно скорее', photo: 'assets/who/far-couple-train.jpg', pos: '70% 22%' },
     { title: 'Виновникам торжества', text: 'Подарок к празднику, который запомнится надолго', photo: 'assets/who/holiday-pizza.webp', pos: '50% 80%' }
   ],
