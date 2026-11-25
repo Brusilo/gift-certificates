@@ -134,8 +134,7 @@ main > section:last-child{padding-bottom:56px}
 .gift-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gift-row::-webkit-scrollbar{display:none}
 .gift{container-type:inline-size;position:relative;isolation:isolate;flex:0 0 calc((100% - 48px) / 4);aspect-ratio:360/415;border-radius:24px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;background:var(--berry);color:var(--white)}
-/* Фото уходит под волну, иначе в нижней трети между ними виден фиолетовый фон */
-.gift-photo{position:absolute;inset:0 0 14% 0;z-index:-2;background:center/cover no-repeat}
+.gift-photo{position:absolute;inset:0 0 34% 0;z-index:-2;background:center/cover no-repeat}
 .gift-wave{position:absolute;left:0;right:0;bottom:0;z-index:-1;width:100%;height:63%;fill:var(--berry)}
 /* Текст на волне без стикеров, одного размера и с одной высоты во всех карточках */
 .gift-body{position:absolute;left:0;right:0;top:52%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px}
@@ -666,21 +665,28 @@ dialog .btn{width:100%}
   .qty-seg{justify-self:start;grid-template-columns:repeat(3,48px);height:48px}
 }
 
-/* Компьютер: ширина и цвет как на tutu.ru, первый экран уравновешен — текст и кнопка крупнее, высота та же */
+/* Компьютер: ширина и цвет как на tutu.ru, текст и кнопка первого экрана крупнее */
 @media (min-width:1101px){
   .hero-sub{font-size:21px;max-width:620px}
   .hero-cta{min-height:64px;padding:0 44px;font-size:21px}
-  /* Шаги «Как подарить» своего размера, между ними крупные стрелки, ряд по центру */
-  .use-steps{gap:96px;justify-content:center}
-  .use-step{flex:0 1 360px;padding-right:42px}
-  .use-step + .use-step::after{left:-48px;width:64px;height:38px}
+  /* Билеты в первом экране крупнее: колонка под них шире */
+  .hero-grid{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:24px}
+  .hero-art{padding:0 1% 2% 0}
+  /* «Как подарить» на всю ширину страницы, края совпадают с плитками выше. Всё внутри шагов —
+     текст, кружки, стрелки — растёт вместе с шириной (в долях ширины ряда, cqw) */
+  .use-steps{container-type:inline-size;gap:6cqw;overflow:visible;padding-bottom:2cqw}
+  .use-step{flex:1 1 0;min-width:0;min-height:18cqw;padding:3.3cqw 2.6cqw 4.1cqw 6.8cqw}
+  .use-step h3{font-size:clamp(22px,1.95cqw,30px)}
+  .use-num{left:2.1cqw;bottom:-1.15cqw;width:3.8cqw;height:3.8cqw;font-size:1.95cqw}
+  .use-step + .use-step::after{left:-3cqw;width:4.6cqw;height:2.8cqw}
   /* Форма и предпросмотр примерно поровну */
   .builder{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px}
-  /* Первый экран: заголовок крупнее, билеты чуть меньше, сам экран ниже — снизу видно «Кому подарить» */
-  .hero{padding-bottom:64px}
-  .hero-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
-  .hero-title{font-size:clamp(60px,7.7vw,114px)}
-  .hero-art{padding:4% 8% 4% 4%}
   /* От «Хватит на…» до «Поздравления» чуть меньше */
   .field:has(.nom-row){margin-bottom:18px}
+}
+/* «Кому подарить» в широких карточках: волна ниже, фото видно больше */
+@container (min-width:300px){
+  .gift-photo{inset:0 0 16% 0}
+  .gift-wave{height:50%}
+  .gift-body{top:60%}
 }
