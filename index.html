@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#986FF7">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261126164738">
-<link rel="stylesheet" href="ticket.css?v=20261126164738">
+<link rel="stylesheet" href="site.css?v=20261126171525">
+<link rel="stylesheet" href="ticket.css?v=20261126171525">
 </head>
 <body>
 
@@ -384,9 +384,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261126164738"></script>
-<script src="shared.js?v=20261126164738"></script>
-<script src="landing.js?v=20261126164738"></script>
+<script src="ticket.js?v=20261126171525"></script>
+<script src="shared.js?v=20261126171525"></script>
+<script src="landing.js?v=20261126171525"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: односторонний лист А4 (по умолчанию) или двусторонний билет
@@ -425,6 +425,7 @@ document.querySelectorAll('#amountChips .chip').forEach((c) =>
   c.addEventListener('click', () => setAmount(+c.dataset.amount))
 );
 $('amount').addEventListener('input', (e) => {
+  state.amountErr = false;
   const n = parseAmount(e.target.value);
   e.target.value = n ? n.toLocaleString('ru-RU') : '';
   setAmount(n, true);
@@ -461,8 +462,8 @@ function render() {
   document.querySelectorAll('#whenChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.when === state.when));
 
   // Сумма
-  $('amount').classList.toggle('is-invalid', !amountOk && state.amount > 0);
-  // Ошибка встает на место подсказки, чтобы форма не меняла высоту
+  // Пустая сумма подсвечивается красным только после попытки идти дальше
+  $('amount').classList.toggle('is-invalid', !amountOk && (state.amount > 0 || state.amountErr));
   // Сумма вне диапазона: подпись в поле красная. Под суммами пример, на что хватит
   fillEnough(amountOk ? state.amount : 0);
   // На кнопке сумма за все сертификаты
@@ -538,24 +539,24 @@ function whenText() {
 const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 function checkEmail(id) {
   const ok = emailOk($(id).value);
+  // Без подписи под полем: неверное поле просто подсвечивается красным
   $(id).classList.toggle('is-invalid', !ok);
-  $(id + 'Err').hidden = ok;
-  $(id + 'Err').textContent = 'Проверьте почту';
   return ok;
 }
 // «Кому» и «От кого» обязательны: без них открытка и билет выходят безымянными
 function checkName(id) {
   const ok = $(id).value.trim().length > 0;
   $(id).classList.toggle('is-invalid', !ok);
-  $(id + 'Err').hidden = ok;
-  $(id + 'Err').textContent = 'Укажите имя';
   return ok;
 }
 
 // Первый шаг заполнен: номинал в диапазоне и оба имени
 function stepOneOk() {
-  if (!amountValid()) { goStep(1); $('amount').focus(); render(); return false; }
-  if (![checkName('toName'), checkName('fromName')].every(Boolean)) { goStep(1); document.querySelector('.is-invalid')?.focus(); return false; }
+  // Ошибки только подсвечиваются красным, курсор никуда не переставляем
+  const amountOk = amountValid();
+  if (!amountOk) state.amountErr = true;
+  const namesOk = [checkName('toName'), checkName('fromName')].every(Boolean);
+  if (!amountOk || !namesOk) { goStep(1); render(); return false; }
   return true;
 }
 // Переход между шагами. Если верх формы ушёл за экран, возвращаем его, чтобы шаг начинался с начала
@@ -576,7 +577,8 @@ $('form').addEventListener('submit', (e) => {
   const emails = state.delivery === 'recipient'
     ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)
     : checkEmail('selfEmail');
-  if (!emails) { document.querySelector('.is-invalid')?.focus(); return; }
+  if (!emails) return;
+
 
   const toRecipient = state.delivery === 'recipient';
   const a4 = !toRecipient && state.format === 'a4';
@@ -588,6 +590,9 @@ $('form').addEventListener('submit', (e) => {
     toRecipient ? 'Отправка получателю: ' + whenText() : state.qty > 1 ? 'Все сертификаты одним PDF на почту покупателю' : 'PDF на почту покупателю',
   ]);
 });
+
+// Как только поле поправили, красная подсветка уходит
+['toName', 'fromName', 'toEmail', 'fromEmail', 'selfEmail'].forEach((id) => $(id).addEventListener('input', () => $(id).classList.remove('is-invalid')));
 
 render();
 addEventListener('resize', () => fitButton($('payBtn')));
