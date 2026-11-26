@@ -173,7 +173,8 @@ main > section:last-child{padding-bottom:56px}
 .pk-a{left:3.2%;top:8.6%;width:28.5%}
 .pk-b{left:3.2%;top:76%;width:39%}
 .pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
-.pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
+.pk-d{right:2.4%;top:66.5%;width:28.5%;text-align:right;text-wrap:balance}
+@media (max-width:560px){.pkm-i img.pkm-hearts{width:30%;right:-6px}}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
 .pk-s-c{left:39.5%;top:-4%;font-size:4.9cqw}
@@ -182,7 +183,7 @@ main > section:last-child{padding-bottom:56px}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
 .pk-3d-msg{left:43%;top:57%;width:22%}
 .pk-3d-design{left:42.8%;top:58%;width:23.5%}
-.pk-3d-d{left:74%;top:-7%;width:22%}
+.pk-3d-d{right:2.5%;top:-6%;width:21%}
 .pkm{display:none}
 
 /* «Как оформить»: карточки-параллелограммы, как шаги на обороте билета */
