@@ -85,11 +85,10 @@ main > section:last-child{padding-bottom:56px}
 .stk-red::before{background:var(--strawberry)}
 .stk-lime{color:#000}
 .stk-lime::before{background:var(--lime)}
-/* Нижний стикер выступает левее верхнего, как в брендбуке: верхний сдвинут вправо, нижний прижат к нему */
-.stk + .stk{margin:-.02em 0 0}
-.stk:has(+ .stk){margin-left:.4em}
+/* Верхний стикер левее, нижний сдвинут вправо и прижат к нему */
+.stk + .stk{margin:-.02em 0 0 .4em}
 /* В заголовке первого экрана сдвиг поменьше */
-.hero-title .stk:has(+ .stk){margin-left:.3em}
+.hero-title .stk + .stk{margin-left:.3em}
 
 /* Шапка */
 .top{background:var(--berry)}
