@@ -170,7 +170,7 @@ main > section:last-child{padding-bottom:56px}
 /* Размеры и места сняты с плиток tutu.ru: текст около 3% ширины, крупный стикер на стыке левых плиток,
    в середине стикер над краем и 3D на треть ширины снизу, справа 3D сверху внутри плитки и текст под ним */
 /* Текст по высоте в середине своей плитки */
-.pk-a{left:4.6%;top:8.6%;width:29.5%}
+.pk-a{left:6.2%;top:8.6%;width:28.5%}
 .pk-b{left:3.2%;top:76%;width:39%}
 .pk-c{left:37.5%;top:30%;width:34.5%;text-align:center}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
