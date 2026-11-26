@@ -181,7 +181,7 @@ main > section:last-child{padding-bottom:56px}
 .pk-3d-c{left:39.5%;top:61%;width:30%}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
 .pk-3d-msg{left:43%;top:57%;width:22%}
-.pk-3d-design{left:44%;top:60%;width:21%}
+.pk-3d-design{left:42.8%;top:58%;width:23.5%}
 .pk-3d-d{left:74%;top:-7%;width:22%}
 .pkm{display:none}
 
@@ -199,7 +199,7 @@ main > section:last-child{padding-bottom:56px}
 /* На планшете и компьютере текст шагов крупнее, как было на компьютере */
 @media (min-width:721px){.use-step h3{font-size:24px}.use-steps{gap:24px}.use-step{flex-basis:350px}.use-step + .use-step::after{left:-12px}}
 .use-step p{margin:0;font-size:clamp(16px,1.35vw,18px);font-weight:500;line-height:1.3;color:var(--white)}
-.use-step + .use-step::after{content:"";position:absolute;left:-15px;top:50%;width:42px;height:26px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
+.use-step + .use-step::after{content:"";position:absolute;left:-15px;top:50%;width:47px;height:29px;z-index:1;transform:translate(-50%,-50%);background:var(--berry);-webkit-mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat;mask:url('assets/ticket/arrow-navy.svg') center/contain no-repeat}
 .how-cta{margin-top:32px}
 
 /* Форма */
@@ -699,7 +699,7 @@ dialog .btn{width:100%}
   .use-step:nth-child(3) h3{left:12px}
   .use-step h3{font-size:clamp(22px,1.95cqw,30px)}
   .use-num{left:2.1cqw;bottom:-1.15cqw;width:3.8cqw;height:3.8cqw;font-size:1.95cqw}
-  .use-step + .use-step::after{left:-3cqw;width:4.6cqw;height:2.8cqw}
+  .use-step + .use-step::after{left:-3cqw;width:5.2cqw;height:3.15cqw}
   /* Форма и предпросмотр примерно поровну */
   .builder{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px}
   /* От «Хватит на…» до «Поздравления» чуть меньше */
