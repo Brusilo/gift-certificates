@@ -650,7 +650,7 @@ dialog .btn{width:100%}
 .float-input:focus + label,.float-input:not(:placeholder-shown) + label{top:8px;transform:none;font-size:12px;line-height:16px}
 /* Сумма вне диапазона: рамка и подпись красные */
 .float-input.is-invalid{border-color:#E5484D}
-.float-input.is-invalid + label{color:#D92D33}
+/* Подпись в поле остаётся серой, красная только рамка */
 /* Количество: три одинаковые секции — минус, число, плюс */
 .qty-seg{display:grid;grid-template-columns:repeat(3,52px);height:56px;border:1.5px solid var(--line);border-radius:12px;background:var(--white);overflow:hidden}
 .qty-seg button{all:unset;box-sizing:border-box;display:grid;place-items:center;cursor:pointer;color:var(--action);transition:background .15s}

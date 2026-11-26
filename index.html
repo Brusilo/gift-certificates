@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#986FF7">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261126171525">
-<link rel="stylesheet" href="ticket.css?v=20261126171525">
+<link rel="stylesheet" href="site.css?v=20261126172414">
+<link rel="stylesheet" href="ticket.css?v=20261126172414">
 </head>
 <body>
 
@@ -384,9 +384,9 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261126171525"></script>
-<script src="shared.js?v=20261126171525"></script>
-<script src="landing.js?v=20261126171525"></script>
+<script src="ticket.js?v=20261126172414"></script>
+<script src="shared.js?v=20261126172414"></script>
+<script src="landing.js?v=20261126172414"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: односторонний лист А4 (по умолчанию) или двусторонний билет
@@ -560,9 +560,9 @@ function stepOneOk() {
   return true;
 }
 // Переход между шагами. Если верх формы ушёл за экран, возвращаем его, чтобы шаг начинался с начала
+// Между шагами можно ходить свободно, проверка только при оплате
 function goStep(n) {
   if (n === state.step) return;
-  if (n === 2 && !stepOneOk()) return;
   state.step = n;
   render();
   fitButton($('payBtn'));
@@ -577,7 +577,8 @@ $('form').addEventListener('submit', (e) => {
   const emails = state.delivery === 'recipient'
     ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)
     : checkEmail('selfEmail');
-  if (!emails) return;
+  // Сначала проверяется первый шаг (выше), потом второй: при ошибке на втором открываем его
+  if (!emails) { goStep(2); return; }
 
 
   const toRecipient = state.delivery === 'recipient';
