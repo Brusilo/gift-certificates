@@ -176,7 +176,7 @@ main > section:last-child{padding-bottom:56px}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
-.pk-s-c{left:41.5%;top:-4%;font-size:4.9cqw}
+.pk-s-c{left:39.5%;top:-4%;font-size:4.9cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
 .pk-3d-c{left:39.5%;top:61%;width:30%}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
