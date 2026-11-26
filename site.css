@@ -85,10 +85,11 @@ main > section:last-child{padding-bottom:56px}
 .stk-red::before{background:var(--strawberry)}
 .stk-lime{color:#000}
 .stk-lime::before{background:var(--lime)}
-/* Второй стикер сдвинут вправо и прижат к первому */
-.stk + .stk{margin:-.02em 0 0 .4em}
-/* В заголовке первого экрана второй стикер почти под первым */
-.hero-title .stk + .stk{margin-left:.3em}
+/* Нижний стикер выступает левее верхнего, как в брендбуке: верхний сдвинут вправо, нижний прижат к нему */
+.stk + .stk{margin:-.02em 0 0}
+.stk:has(+ .stk){margin-left:.4em}
+/* В заголовке первого экрана сдвиг поменьше */
+.hero-title .stk:has(+ .stk){margin-left:.3em}
 
 /* Шапка */
 .top{background:var(--berry)}
@@ -176,7 +177,7 @@ main > section:last-child{padding-bottom:56px}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
-.pk-s-c{left:39.5%;top:-1.5%;font-size:3.7cqw}
+.pk-s-c{left:38%;top:-1.5%;font-size:3.7cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
 .pk-3d-c{left:39.5%;top:61%;width:30%}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
