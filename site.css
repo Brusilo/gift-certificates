@@ -176,7 +176,7 @@ main > section:last-child{padding-bottom:56px}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
-.pk-s-c{left:42.5%;top:-3.5%;font-size:4.4cqw}
+.pk-s-c{left:41.5%;top:-4%;font-size:4.9cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
 .pk-3d-c{left:39.5%;top:61%;width:30%}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
@@ -479,7 +479,7 @@ dialog .btn{width:100%}
   .pkm-i.is-lime .stk-lime::before{background:var(--blueberry)}
   .pkm-i img{position:absolute;right:-14px;top:50%;width:40%;max-width:180px;max-height:96%;object-fit:contain;transform:translateY(-50%)}
   /* Стикер крупный и заходит за верхний край плитки, как в «Тутуленде» */
-  .pkm-i .stk-group{position:relative;z-index:2;margin:0 0 0 -6px;font-size:24px}
+  .pkm-i .stk-group{position:relative;z-index:2;margin:0 0 0 -6px;font-size:27px}
   /* «1 год» крупнее и правее, текст под ним в три строки, календарь крупнее */
   .pkm-i .pkm-year{margin-left:2px;font-size:34px}
   .pkm-i:has(.pkm-year) p{max-width:56%}
@@ -603,7 +603,7 @@ dialog .btn{width:100%}
   .pkm-i p{font-size:19px;max-width:62%}
   /* 3D внутри плитки, по центру своей правой части */
   .pkm-i img{width:42%;right:2px;max-height:92%}
-  .pkm-i .stk-group{font-size:24px}
+  .pkm-i .stk-group{font-size:27px}
   .pkm-i .pkm-year{font-size:30px}
   .pkm-i:has(.pkm-year) p{max-width:60%}
   /* Календарь чуть ниже середины: сверху над ним стикер */
