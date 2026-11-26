@@ -222,7 +222,8 @@ main > section:last-child{padding-bottom:56px}
 .amount-box{position:relative;max-width:200px}
 .field:has(.amount-row){margin-bottom:34px}
 /* Высота строки задана явно: поле суммы с крупными цифрами той же высоты, что «Кому» и «От кого» */
-.input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--white);font-size:16px;line-height:24px;outline:none;transition:border-color .15s}
+/* Введённый текст чёрный, как номинал; подсказки в пустых полях остаются серыми */
+.input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--white);font-size:16px;font-weight:500;line-height:24px;color:var(--ink);outline:none;transition:border-color .15s}
 .input:focus{border-color:var(--action)}
 .input.is-invalid{border-color:#E5484D}
 .amount-input{max-width:200px;font-weight:700;font-size:18px;line-height:24px;color:var(--ink)}
