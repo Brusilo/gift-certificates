@@ -678,10 +678,11 @@ dialog .btn{width:100%}
   .hero-sub{font-size:21px;max-width:620px}
   .hero-cta{min-height:72px;padding:0 52px;font-size:23px;border-radius:16px}
   /* Билеты — декор: на 20% меньше, главное в первом экране — заголовок и кнопка */
-  .hero{padding-bottom:60px}
+  .hero{padding-bottom:84px}
   /* Колонки поровну, билеты прижаты к центру: середина экрана не пустая */
   .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
-  .hero-art{padding:0 4% 0 0;transform:scale(.83);transform-origin:20% 50%}
+  /* Билеты не задают высоту экрана (отрицательные поля): от кнопки до белой панели всегда одинаково */
+  .hero-art{margin-block:-200px;padding:0 4% 0 0;transform:scale(.8);transform-origin:20% 60%}
   /* «Как подарить» на всю ширину страницы, края совпадают с плитками выше. Всё внутри шагов —
      текст, кружки, стрелки — растёт вместе с шириной (в долях ширины ряда, cqw) */
   .use-steps{container-type:inline-size;gap:6cqw;overflow:visible;padding-bottom:2cqw}
