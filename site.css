@@ -89,6 +89,8 @@ main > section:last-child{padding-bottom:56px}
 .stk + .stk{margin:-.02em 0 0 .4em}
 /* В заголовке первого экрана сдвиг поменьше */
 .hero-title .stk + .stk{margin-left:.3em}
+/* «Оформление на выбор»: нижний стикер короче верхнего, поэтому прижат к его правому краю и торчит вправо, как в шапке */
+.pk-s-c .stk + .stk,.pkm-i .stk + .stk{align-self:flex-end;margin-left:0;margin-right:-.9em}
 
 /* Шапка */
 .top{background:var(--berry)}
@@ -176,7 +178,7 @@ main > section:last-child{padding-bottom:56px}
 .pk-d{left:71%;top:60%;width:28%;text-align:center;text-wrap:balance}
 .pk-s{position:absolute;z-index:3}
 .pk-s-b{left:1.8%;top:53%;font-size:6cqw}
-.pk-s-c{left:38%;top:-1.5%;font-size:3.7cqw}
+.pk-s-c{left:37%;top:-1.5%;font-size:3.7cqw}
 .pk-3d{position:absolute;z-index:1;pointer-events:none}
 .pk-3d-c{left:39.5%;top:61%;width:30%}
 /* Облачка сообщений к «Своими словами»: они выше кошелька, поэтому уже */
