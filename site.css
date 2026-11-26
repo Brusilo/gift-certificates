@@ -673,8 +673,12 @@ dialog .btn{width:100%}
 /* Компьютер: ширина и цвет как на tutu.ru, текст и кнопка первого экрана крупнее */
 @media (min-width:1101px){
   /* Всё содержимое первого экрана выше: сверху меньше пустого места, экран ниже */
-  .hero{padding-top:4px}
+  .hero{padding-top:34px}
   .hero-title{margin-top:.38em}
+  /* Блоки ближе друг к другу, как на tutu.ru: 40px от блока до заголовка, 20px от заголовка до содержимого */
+  .section,.biz{padding-top:40px}
+  main > section:last-child{padding-bottom:40px}
+  h2{margin-bottom:20px}
   .hero-sub{font-size:21px;max-width:620px}
   .hero-cta{min-height:72px;padding:0 52px;font-size:23px;border-radius:16px}
   /* Билеты — декор: на 20% меньше, главное в первом экране — заголовок и кнопка */
