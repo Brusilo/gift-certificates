@@ -701,3 +701,21 @@ dialog .btn{width:100%}
 }
 /* Кнопка «Мой текст» среди готовых поздравлений */
 .chip-own{color:var(--action);border-color:var(--action)}
+
+/* Версия A: форма в два шага. Сверху переключатель шагов, внизу «Далее» и «Назад» */
+.fsteps{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:22px;padding:4px;border-radius:14px;background:var(--white)}
+.fstep{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:600;font-size:15px;line-height:1.2;color:var(--muted);text-align:center;transition:background .15s,color .15s}
+.fstep span{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--line);color:var(--ink);font-size:13px;font-weight:700}
+.fstep[aria-selected="true"]{background:var(--bg-brand);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--action)}
+.fstep[aria-selected="true"] span{background:var(--action);color:var(--white)}
+.fnext{width:100%;min-height:56px;font-size:18px}
+.fnext svg,.fback svg{width:22px;height:22px;flex:none}
+.pay-row{display:flex;gap:12px}
+.pay-row #payBtn{flex:1;min-width:0}
+.fback{flex:0 0 56px;padding:0;background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+@media (hover:hover) and (pointer:fine){.fback:hover{box-shadow:inset 0 0 0 1.5px var(--action)}}
+/* Компьютер: предпросмотр уже и всегда на экране — выбранную открытку видно без прокрутки */
+@media (min-width:1101px){
+  .form-a ~ .preview,.builder:has(.form-a) .preview{position:sticky;top:16px}
+  .builder:has(.form-a){grid-template-columns:minmax(0,1fr) minmax(0,480px)}
+}

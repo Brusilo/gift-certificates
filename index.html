@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#986FF7">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=20261125223324">
-<link rel="stylesheet" href="ticket.css?v=20261125223324">
+<link rel="stylesheet" href="site.css?v=20261126164131">
+<link rel="stylesheet" href="ticket.css?v=20261126164131">
 </head>
 <body>
 
@@ -110,7 +110,13 @@
         <button type="button" class="pv-open" id="pvOpen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Как увидит получатель</button>
       </div>
       <form class="form form-a" id="form" novalidate>
+        <!-- Два шага на этой же странице: переключаются кнопками сверху и «Далее» / «Назад» -->
+        <div class="fsteps" role="tablist" aria-label="Шаги оформления">
+          <button type="button" class="fstep" data-go="1" role="tab"><span>1</span>Номинал и&nbsp;поздравление</button>
+          <button type="button" class="fstep" data-go="2" role="tab"><span>2</span>Как подарить</button>
+        </div>
 
+        <div class="fpart" data-part="1">
         <fieldset class="field">
           <legend class="sr-only">Номинал</legend>
           <div class="nom-row">
@@ -147,7 +153,10 @@
           <div class="msg-box"><textarea class="input" id="message" maxlength="200" aria-label="Текст поздравления" placeholder="Напишите пару слов или выберите готовый текст"></textarea><div class="counter"><span id="msgCount">0</span> / 200</div></div>
           <div class="chips templates" id="templates"></div>
         </fieldset>
+        <button type="button" class="btn btn-primary fnext" data-go="2">Далее: как подарить<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
 
+        <div class="fpart" data-part="2" hidden>
         <fieldset class="field">
           <legend class="field-title">Как подарить</legend>
           <div class="radio-cards">
@@ -212,8 +221,9 @@
         </fieldset>
 
         <div class="pay">
-          <button type="submit" class="btn btn-primary" id="payBtn">Оплатить</button>
+          <div class="pay-row"><button type="button" class="btn fback" data-go="1" aria-label="Назад к поздравлению"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="submit" class="btn btn-primary" id="payBtn">Оплатить</button></div>
           <p class="pay-note">Сертификат действует 12&nbsp;месяцев с&nbsp;момента отправки. Остаток не&nbsp;сгорает. <a href="https://www.tutu.ru/2read/legal_information/sertificat/">Правила</a></p>
+        </div>
         </div>
       </form>
 
@@ -374,13 +384,13 @@
   <form method="dialog"><button class="btn btn-primary">Понятно</button></form>
 </dialog>
 
-<script src="ticket.js?v=20261125223324"></script>
-<script src="shared.js?v=20261125223324"></script>
-<script src="landing.js?v=20261125223324"></script>
+<script src="ticket.js?v=20261126164131"></script>
+<script src="shared.js?v=20261126164131"></script>
+<script src="landing.js?v=20261126164131"></script>
 <script>
 // Версия A: форма на этой же странице
 // qty — сколько одинаковых сертификатов; format — как распечатать при «Вручу лично»: односторонний лист А4 (по умолчанию) или двусторонний билет
-const state = { amount: CONFIG.defaultAmount, qty: 1, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', format: 'a4', when: 'now' };
+const state = { step: 1, amount: CONFIG.defaultAmount, qty: 1, design: CONFIG.defaultDesign, ticket: CONFIG.defaultTicket, delivery: 'recipient', format: 'a4', when: 'now' };
 
 // Несколько сертификатов приходят покупателю одним PDF, поэтому письмо получателю тогда недоступно.
 // Когда количество вернулось к одному, возвращаем способ, который был выбран до этого
@@ -439,6 +449,9 @@ const amountValid = () => state.amount >= CONFIG.minAmount && state.amount <= CO
 
 function render() {
   syncTemplates();
+  // Шаги формы
+  document.querySelectorAll('.fpart').forEach((p) => { p.hidden = +p.dataset.part !== state.step; });
+  document.querySelectorAll('.fstep').forEach((b) => { b.setAttribute('aria-selected', +b.dataset.go === state.step); });
   const d = findDesign(state.design);
   const t = findTicket(state.ticket);
   const amountOk = amountValid();
@@ -539,10 +552,27 @@ function checkName(id) {
   return ok;
 }
 
+// Первый шаг заполнен: номинал в диапазоне и оба имени
+function stepOneOk() {
+  if (!amountValid()) { goStep(1); $('amount').focus(); render(); return false; }
+  if (![checkName('toName'), checkName('fromName')].every(Boolean)) { goStep(1); document.querySelector('.is-invalid')?.focus(); return false; }
+  return true;
+}
+// Переход между шагами. Если верх формы ушёл за экран, возвращаем его, чтобы шаг начинался с начала
+function goStep(n) {
+  if (n === state.step) return;
+  if (n === 2 && !stepOneOk()) return;
+  state.step = n;
+  render();
+  fitButton($('payBtn'));
+  const top = $('form').getBoundingClientRect().top;
+  if (top < 0) $('form').scrollIntoView({ block: 'start' });
+}
+document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => goStep(+b.dataset.go)));
+
 $('form').addEventListener('submit', (e) => {
   e.preventDefault();
-  if (!amountValid()) { $('amount').focus(); render(); return; }
-  if (![checkName('toName'), checkName('fromName')].every(Boolean)) { document.querySelector('.is-invalid')?.focus(); return; }
+  if (!stepOneOk()) return;
   const emails = state.delivery === 'recipient'
     ? [checkEmail('toEmail'), checkEmail('fromEmail')].every(Boolean)
     : checkEmail('selfEmail');
